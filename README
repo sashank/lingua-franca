@@ -1,0 +1,37 @@
+Lingua-Franca
+========================
+See AUTHORS and COPYRIGHT for the list of contributors.
+
+Lingua-Franca is a generic architecture of a plug-in which enables translation 
+for user chat messages
+
+These programs are not endorsed by, nor affiliated with 
+any company in any way.
+
+BUILD
+=====
+
+Read the 'INSTALL' file for more detailed directions.
+
+These programs use the standard ./configure ; make. You need to use
+gmake, BSD make probably won't work. Remember, run ./configure --help
+to see what build options are available.
+
+In order to compile lingua-franca you need to have 
+ 1)GTK+ 2.0 installed (as well as the development files!).
+ 2)libcurl installed
+ 3)libxml2 installed
+   The configure script will fail if you don't.
+   If you don't have any of the above installed, you should install it
+using your distribution's package management tools.
+
+
+RUN
+===
+
+You should run 'make install' as root to make sure plugins and other files
+get installed into locations they want to be in. 
+
+To get started,
+
+If you come across a bug, please report it at: http://code.google.com/p/lingua-franca
