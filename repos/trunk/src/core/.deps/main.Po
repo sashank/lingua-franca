@@ -337,7 +337,21 @@ main.o main.o: main.c ../../config.h /usr/include/gtk-2.0/gtk/gtk.h \
   /usr/include/gtk-2.0/gtk/gtkvruler.h \
   /usr/include/gtk-2.0/gtk/gtkvscale.h \
   /usr/include/gtk-2.0/gtk/gtkvseparator.h interface.h support.h \
-  /usr/include/libintl.h /usr/include/locale.h /usr/include/bits/locale.h
+  /usr/include/libintl.h /usr/include/locale.h /usr/include/bits/locale.h \
+  translate.h /usr/include/stdlib.h /usr/include/sys/types.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/sys/sysmacros.h \
+  /usr/include/bits/pthreadtypes.h /usr/include/alloca.h \
+  /usr/include/string.h /usr/include/bits/string.h \
+  /usr/include/bits/string2.h /usr/local/include/curl/curl.h \
+  /usr/local/include/curl/curlver.h /usr/include/sys/socket.h \
+  /usr/include/sys/uio.h /usr/include/bits/uio.h \
+  /usr/include/bits/socket.h /usr/include/bits/sockaddr.h \
+  /usr/include/asm/socket.h /usr/include/asm/sockios.h \
+  /usr/include/sys/time.h /usr/local/include/curl/easy.h \
+  /usr/local/include/curl/multi.h /usr/local/include/curl/curl.h \
+  /usr/local/include/curl/types.h /usr/local/include/curl/easy.h
 
 ../../config.h:
 
@@ -1118,3 +1132,61 @@ support.h:
 /usr/include/locale.h:
 
 /usr/include/bits/locale.h:
+
+translate.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/endian.h:
+
+/usr/include/bits/endian.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/bits/select.h:
+
+/usr/include/bits/sigset.h:
+
+/usr/include/sys/sysmacros.h:
+
+/usr/include/bits/pthreadtypes.h:
+
+/usr/include/alloca.h:
+
+/usr/include/string.h:
+
+/usr/include/bits/string.h:
+
+/usr/include/bits/string2.h:
+
+/usr/local/include/curl/curl.h:
+
+/usr/local/include/curl/curlver.h:
+
+/usr/include/sys/socket.h:
+
+/usr/include/sys/uio.h:
+
+/usr/include/bits/uio.h:
+
+/usr/include/bits/socket.h:
+
+/usr/include/bits/sockaddr.h:
+
+/usr/include/asm/socket.h:
+
+/usr/include/asm/sockios.h:
+
+/usr/include/sys/time.h:
+
+/usr/local/include/curl/easy.h:
+
+/usr/local/include/curl/multi.h:
+
+/usr/local/include/curl/curl.h:
+
+/usr/local/include/curl/types.h:
+
+/usr/local/include/curl/easy.h:

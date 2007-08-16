@@ -34,7 +34,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = project1$(EXEEXT)
+bin_PROGRAMS = lingua-franca$(EXEEXT)
 subdir = src/core
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -47,11 +47,11 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_project1_OBJECTS = main.$(OBJEXT) support.$(OBJEXT) \
+am_lingua-franca_OBJECTS = main.$(OBJEXT) translate.$(OBJEXT) support.$(OBJEXT) \
 	interface.$(OBJEXT) callbacks.$(OBJEXT)
-project1_OBJECTS = $(am_project1_OBJECTS)
+lingua-franca_OBJECTS = $(am_lingua-franca_OBJECTS)
 am__DEPENDENCIES_1 =
-project1_DEPENDENCIES = $(am__DEPENDENCIES_1)
+lingua-franca_DEPENDENCIES = $(am__DEPENDENCIES_1)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -59,18 +59,18 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(project1_SOURCES)
-DIST_SOURCES = $(project1_SOURCES)
+SOURCES = $(lingua-franca_SOURCES)
+DIST_SOURCES = $(lingua-franca_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/sashank/Projects/lingua-franca/missing --run aclocal-1.9
+ACLOCAL = ${SHELL} /home/sashank/workplace/lingua-franca/missing --run aclocal-1.9
 AMDEP_FALSE = #
 AMDEP_TRUE = 
-AMTAR = ${SHELL} /home/sashank/Projects/lingua-franca/missing --run tar
-AUTOCONF = ${SHELL} /home/sashank/Projects/lingua-franca/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/sashank/Projects/lingua-franca/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/sashank/Projects/lingua-franca/missing --run automake-1.9
+AMTAR = ${SHELL} /home/sashank/workplace/lingua-franca/missing --run tar
+AUTOCONF = ${SHELL} /home/sashank/workplace/lingua-franca/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/sashank/workplace/lingua-franca/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/sashank/workplace/lingua-franca/missing --run automake-1.9
 AWK = gawk
 CATALOGS = 
 CATOBJEXT = .gmo
@@ -104,7 +104,7 @@ LTLIBOBJS =
 MAINT = #
 MAINTAINER_MODE_FALSE = 
 MAINTAINER_MODE_TRUE = #
-MAKEINFO = ${SHELL} /home/sashank/Projects/lingua-franca/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/sashank/workplace/lingua-franca/missing --run makeinfo
 MKINSTALLDIRS = ./mkinstalldirs
 MSGFMT = /usr/bin/msgfmt
 OBJEXT = o
@@ -145,7 +145,7 @@ exec_prefix = ${prefix}
 host_alias = 
 includedir = ${prefix}/include
 infodir = ${prefix}/info
-install_sh = /home/sashank/Projects/lingua-franca/install-sh
+install_sh = /home/sashank/workplace/lingua-franca/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localstatedir = ${prefix}/var
@@ -163,13 +163,14 @@ INCLUDES = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libpng12  
 
-project1_SOURCES = \
+lingua-franca_SOURCES = \
 	main.c \
+	interface.c interface.h \
 	support.c support.h \
 	interface.c interface.h \
 	callbacks.c callbacks.h
 
-project1_LDADD = -L/lib -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgdk_pixbuf-2.0 -lm -lpangocairo-1.0 -lpango-1.0 -lcairo -lgobject-2.0 -lgmodule-2.0 -ldl -lglib-2.0   $(INTLLIBS)
+lingua-franca_LDADD = -L/lib -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgdk_pixbuf-2.0 -lm -lpangocairo-1.0 -lpango-1.0 -lcairo -lgobject-2.0 -lgmodule-2.0 -ldl -lglib-2.0   $(INTLLIBS)
 all: all-am
 
 .SUFFIXES:
@@ -226,9 +227,9 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-project1$(EXEEXT): $(project1_OBJECTS) $(project1_DEPENDENCIES) 
-	@rm -f project1$(EXEEXT)
-	$(LINK) $(project1_LDFLAGS) $(project1_OBJECTS) $(project1_LDADD) $(LIBS)
+lingua-franca$(EXEEXT): $(lingua-franca_OBJECTS) $(lingua-franca_DEPENDENCIES) 
+	@rm -f lingua-franca$(EXEEXT)
+	$(LINK) $(lingua-franca_LDFLAGS) $(lingua-franca_OBJECTS) $(lingua-franca_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -240,6 +241,7 @@ include ./$(DEPDIR)/callbacks.Po
 include ./$(DEPDIR)/interface.Po
 include ./$(DEPDIR)/main.Po
 include ./$(DEPDIR)/support.Po
+include ./$(DEPDIR)/translate.Po
 
 .c.o:
 	if $(COMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ $<; \

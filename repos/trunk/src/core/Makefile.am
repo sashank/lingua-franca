@@ -5,13 +5,14 @@ INCLUDES = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	@PACKAGE_CFLAGS@
 
-bin_PROGRAMS = project1
+bin_PROGRAMS = lingua-franca
 
-project1_SOURCES = \
+lingua-franca_SOURCES = \
 	main.c \
+	translate.c translate.h \
 	support.c support.h \
 	interface.c interface.h \
-	callbacks.c callbacks.h
+	callbacks.c callbacks.h 
 
-project1_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
+lingua-franca_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 

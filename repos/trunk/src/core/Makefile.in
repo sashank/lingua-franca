@@ -34,7 +34,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = project1$(EXEEXT)
+bin_PROGRAMS = lingua-franca$(EXEEXT)
 subdir = src/core
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -47,11 +47,11 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_project1_OBJECTS = main.$(OBJEXT) support.$(OBJEXT) \
+am_lingua-franca_OBJECTS = main.$(OBJEXT) translate.$(OBJEXT) support.$(OBJEXT) \
 	interface.$(OBJEXT) callbacks.$(OBJEXT)
-project1_OBJECTS = $(am_project1_OBJECTS)
+lingua-franca_OBJECTS = $(am_lingua-franca_OBJECTS)
 am__DEPENDENCIES_1 =
-project1_DEPENDENCIES = $(am__DEPENDENCIES_1)
+lingua-franca_DEPENDENCIES = $(am__DEPENDENCIES_1)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -59,8 +59,8 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(project1_SOURCES)
-DIST_SOURCES = $(project1_SOURCES)
+SOURCES = $(lingua-franca_SOURCES)
+DIST_SOURCES = $(lingua-franca_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -163,13 +163,13 @@ INCLUDES = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	@PACKAGE_CFLAGS@
 
-project1_SOURCES = \
+lingua-franca_SOURCES = \
 	main.c \
 	support.c support.h \
 	interface.c interface.h \
 	callbacks.c callbacks.h
 
-project1_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
+lingua-franca_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 all: all-am
 
 .SUFFIXES:
@@ -226,9 +226,9 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-project1$(EXEEXT): $(project1_OBJECTS) $(project1_DEPENDENCIES) 
-	@rm -f project1$(EXEEXT)
-	$(LINK) $(project1_LDFLAGS) $(project1_OBJECTS) $(project1_LDADD) $(LIBS)
+lingua-franca$(EXEEXT): $(lingua-franca_OBJECTS) $(lingua-franca_DEPENDENCIES) 
+	@rm -f lingua-franca$(EXEEXT)
+	$(LINK) $(lingua-franca_LDFLAGS) $(lingua-franca_OBJECTS) $(lingua-franca_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -240,6 +240,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/interface.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/support.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/translate.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	if $(COMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ $<; \
