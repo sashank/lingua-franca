@@ -103,7 +103,7 @@ char* translate_message(char* message , char *from , char *to)
   char postthis[512];
   char *translated_mesg;
   char *lp = get_lang_pref(from ,to );
-  set_post_options(); 
+  set_post_options(message,lp); 
   if(curl) {
     
 	/* set the post options */
@@ -160,7 +160,7 @@ void curl_init()
   	curl_easy_setopt(curl, CURLOPT_USERAGENT, "lingua-franca");
 }
 
-int main(void)
+int translate_init(void)
 {
  
  //Initialise CURL
