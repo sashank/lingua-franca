@@ -23,9 +23,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+/* Curl Directives */
 #include <curl/curl.h>
 #include <curl/types.h>
 #include <curl/easy.h>
+
+/* XML Directives */
+#include <libxml/xmlreader.h>
+
+/* Glib Directives */
+#include <glib.h>
 
 #define USER_AGENT "lingua-franca" ;
 
@@ -35,8 +43,18 @@ struct ResponseStruct {
 };
 
 struct ResponseStruct chunk;
+
+
 CURL *curl;
 char *post; /*string to be sent for post options */
+
+struct LangPairStruct {
+  char *from;
+  char *to;
+  char *lp;
+};
+
+GList *langpairs_list;
 
 /* This method translates the message */
 char* translate_message(char *message , char *from,char *to);
