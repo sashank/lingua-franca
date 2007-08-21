@@ -29,32 +29,20 @@
 #include <curl/types.h>
 #include <curl/easy.h>
 
-/* XML Directives */
-#include <libxml/xmlreader.h>
+/* XML Processor */
+#include "xml-translate.h"
 
 /* Glib Directives */
 #include <glib.h>
 
 #define USER_AGENT "lingua-franca" ;
 
-struct ResponseStruct {
-  char *response;
-  size_t size;
-};
-
-struct ResponseStruct chunk;
-
-
-CURL *curl;
-char *post; /*string to be sent for post options */
-
-struct LangPairStruct {
-  char *from;
-  char *to;
-  char *lp;
-};
-
-GList *langpairs_list;
+/*translate engine*/
+void translate_init(char *filename);
 
 /* This method translates the message */
 char* translate_message(char *message , char *from,char *to);
+
+/* Is translation available from lang1 to lang2 */
+gboolean is_translation_avail(char *lang1 ,char *lang2);
+
