@@ -1,5 +1,29 @@
 #include "xml-translate.h"
 
+struct LangPairStruct {
+  char *from;
+  char *to;
+  char *lp;
+};
+
+GList *langpairs_list;
+
+struct PostOptionStruct {
+  char *name;
+  char *value;
+};
+
+GList *postoptions_list=NULL;
+
+char *get_host_url()
+{
+  return "BABEL";
+}
+
+char *get_post_string(char *mesg,char *from , char *to)
+{
+  return "POST";
+}
 void processNode(xmlTextReaderPtr reader)
 {
   xmlChar *name, *value;
@@ -33,8 +57,6 @@ void processNode(xmlTextReaderPtr reader)
         {
                 value = xmlTextReaderValue(reader);
                 printf("host Name is %s \n",value);
-  		/* specify URL to get */
-  		curl_easy_setopt(curl, CURLOPT_URL, value);
                 xmlTextReaderRead(reader);
         }
 
@@ -49,7 +71,6 @@ void processNode(xmlTextReaderPtr reader)
         printf("Post Value %s \n",xmlTextReaderGetAttribute(reader,(xmlChar *)"value"));
 	char *post_name = xmlTextReaderGetAttribute(reader,(xmlChar *)"name");
         char *post_value = xmlTextReaderGetAttribute(reader,(xmlChar *)"value");
-	add_post_options(post_name,post_value);
     }
 
     if (strcmp(name,"lang_pair")==0)
@@ -57,13 +78,12 @@ void processNode(xmlTextReaderPtr reader)
 	char *from = xmlTextReaderGetAttribute(reader,(xmlChar *)"from");
         char *to = xmlTextReaderGetAttribute(reader,(xmlChar *)"to");
         char *lp = xmlTextReaderGetAttribute(reader,(xmlChar *)"lp");
-	add_lang_pair(from,to,lp);
     }
 
      
 }
 
-void xml_init(char *server)
+void xml_translate_init(char *server)
 {
     xmlTextReaderPtr xml_reader;
     int ret;

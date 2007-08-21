@@ -29,9 +29,6 @@
 #include <curl/types.h>
 #include <curl/easy.h>
 
-/* XML Processor */
-#include "xml-translate.h"
-
 /* Glib Directives */
 #include <glib.h>
 

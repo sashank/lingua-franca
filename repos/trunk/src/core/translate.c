@@ -19,6 +19,9 @@
  */
 #include "translate.h"
 
+/* XML Processor */
+#include "xml-translate.h"
+
 struct ResponseStruct {
   char *response;
   size_t size;
@@ -71,7 +74,7 @@ char* translate_message(char* message , char *from , char *to)
 	chunk.response=NULL; /* we expect realloc(NULL, size) to work */
 	chunk.size = 0;    /* no data at this point */
 
-  	post = get_post_string();
+  	post = get_post_string(message,from,to);
     
 	/* set the post options */
   	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post);

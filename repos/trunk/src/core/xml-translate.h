@@ -5,20 +5,6 @@
 /* Glib Directives */
 #include <glib.h>
 
-struct LangPairStruct {
-  char *from;
-  char *to;
-  char *lp;
-};
-
-GList *langpairs_list;
-
-struct PostOptionStruct {
-  char *name;
-  char *value;
-};
-
-GList *postoptions_list=NULL;
 
 /*Init XML Processing of Translate XML File */
 void xml_translate_init(char *filename);
