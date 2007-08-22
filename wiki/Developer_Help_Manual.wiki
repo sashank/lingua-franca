@@ -1,0 +1,16 @@
+This is developers Help Document
+
+= Introduction =
+
+   This document contains 
+         *  Libraries required to develop the plug-in
+         *  Project membership and code checking
+         *  Files and Directory Structure
+         *  Development Cycle
+
+
+= Details =
+
+
+
+
