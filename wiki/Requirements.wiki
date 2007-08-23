@@ -1,0 +1,42 @@
+This document is basic requirements document for the plug-in
+
+= Introduction =
+     This is a detailed requirements document 
+
+= Functional Requirements = 
+    All the software requirements below are based on these basic functional requirements
+
+   #  User may wish to translate all the incoming chat text to language of his preference
+   #  User may like all outgoing chat to be translated to the language of his choice
+   #  User may like to set to translate outgoing chat text to a particular buddy from his list
+   #  Any combination of 1,2,3 is possible 
+    (for ex he may have set 1 on 2 off and 3 on , etc) 
+
+= Software Requirements =
+
+=== General Requirements ===
+     *  Plug-in installation should be easy like may be copying a .dll file or .so file into some directory 
+     
+ 
+=== User Interface Requirements ===
+
+       *  User should be able to configure his preference of 
+          *  Incoming language
+               A Combo Box containing list of available languages
+          *  Outgoing language
+               A Combo Box containing list of available languages
+          *  Outgoing language for each of his buddies in his list
+               A Table containing buddy name , language list and enable button
+          *  Time out in seconds up to which he can wait for translation
+               A spin widget where he can change the value 
+          *  Translation Service ( this may be deprecated later)
+               A Combo Box of list of available translation services 
+          *  Viewing the translated texts
+               A Enable button , enabling which user should be able to see both messages typed/ received and translated messages
+       *  All the above can be classified accordingly and can be grouped into tabbed window 
+       *  All the preference settings should be persistent across logins , can be stored as an XML file for example
+       *  If the user wants to view translated texts too then his regular chat experience should not be disrupted , clear visual cue's should be provided to distinguish message received/typed and translated message
+
+=== Core Translation ===
+           * As per the user preferences the core translation
+
