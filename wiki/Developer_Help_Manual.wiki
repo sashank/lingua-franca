@@ -46,7 +46,13 @@ This is lingua-franca plug-in developers Help Document
      If you wish to have a read only copy, you will still get it
       _svn checkout http://lingua-ranca.googlecode.com/svn/trunk/repos  lingua-franca_
 
+= Development Cycle =
 
+     If you are familiar with Subversion development cycle , you can ignore this section
+Newbies are strongly recommended to read on .
 
-
-
+     *  Below is quick tutorial on basic subversion commands , ( plenty of tutorials exists online , i found this more quick and useful)
+           http://www.owlnet.rice.edu/~comp314/svn.html
+   
+     *  A complete book on subversion exists here 
+           http://svnbook.red-bean.com/
