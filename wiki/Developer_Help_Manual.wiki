@@ -56,3 +56,7 @@ Newbies are strongly recommended to read on .
    
      *  A complete book on subversion exists here 
            http://svnbook.red-bean.com/
+
+= To Do List =
+
+     A detailed requirements and design document are available ( links will be provided shortly. 
