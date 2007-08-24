@@ -10,7 +10,7 @@ This is basic design document for the Plug-in
              *  Core Translation Module
              *  XML Helper Module
 
-= Chat Client Specific Module ==
+== Chat Client Specific Module ==
        This module basically takes care of 
         *  Loading the plug-in and unloading the plug-in within the chat client 
         *  Carrying out the actual translation
@@ -28,10 +28,10 @@ This is basic design document for the Plug-in
              *  On successful translation emit the signal "message_translated"
         #  Unload the plug-in gracefully when the chat client process is shutdown
 
-     *Note* The above design is highly specific to pidgin , more generic design will be made once we are ready to develop for other chat clients 
+     _*Note*_  The above design is highly specific to pidgin , more generic design will be made once we are ready to develop for other chat clients 
 
 
-= Plug-in Specific Modules =
+== Plug-in Specific Modules ==
          Plug-in has three modules 
               *  User Interface Module
                     *  Initialize the Preferences window.
@@ -39,27 +39,36 @@ This is basic design document for the Plug-in
               *  Core Translation Module
                     *  Translate Outgoing Messages
                     *  Translate Incoming Messages
-              *  XML Helper Module
-                    *  Provides 
-== User Interface ==
+              *  XML Helper Module Provides Helper Methods
+                    *  To save user preferences
+                    *  To read the translation service config files
 
-    For the Initialization of the User Interface the below are required
-           *  List of buddies available 
-               This can be got from the layer above , i.e from Chat Client API.
-           *  List of available Languages
-               This can be got from the XML Helper
-           *  List of available Translation Services
-               This can be got from the XML Helper
-           *  XML File Location.
-               The directory path t preferences XML 
-    The preferences window for configuring user preferences is basically a tabbed window classified as follows 
-     # General Tab
-         *  Incoming Language Preference
-             *  An Incoming Lang Preference Label 
-             *  A Combo Box containing list of available languages
-         *  Outgoing Language Preference
-             *  An Outgoing Lang Preference Label
-             *  A Combo Box containing list of available languages
-     # Buddy Config Tab
-         *  A table having three columns
-             *   Buddy Name ( list of the buddies should be passed either 
+=== User Interface ===
+
+        #  Initialization of the User Interface the below are required
+              *  List of buddies available 
+                  This can be got from the layer above , i.e from Chat Client API.
+              *  List of available Languages
+                  This can be got from the XML Helper
+              *  List of available Translation Services
+                  This can be got from the XML Helper
+              *  XML File Location.
+                  The directory path t preferences XML 
+        #   Preferences Window Layout
+            #  General Tab
+                 *  Incoming Language Preference
+                      *  An Incoming Lang Preference Label 
+                      *  A Combo Box containing list of available languages
+                 *  Outgoing Language Preference
+                      *  An Outgoing Lang Preference Label
+                      *  A Combo Box containing list of available languages
+            #  Buddy Config Tab
+                 *  A table having three columns
+                      *   Buddy Name 
+                      *   List of available languages
+                      *   Enable/ Disable button
+            #  Miscellaneous Tab
+
+
+
+
