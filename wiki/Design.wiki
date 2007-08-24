@@ -2,9 +2,7 @@ This is basic design document for the Plug-in
 
 = Introduction =
 
-      Any Chat Client which has support for plug-ins can be provided this language translation feature.
-      Lingua-Franca plug-in would be basically a shared Object file or a dll file 
-with core functions being
+      Any Chat Client which has support for plug-ins can be provided this language translation feature. Lingua-Franca plug-in would be basically a shared Object file or a dll file with core functions being
          *  User Interface for preference setting
                  `void lf_ui()`
          *  Translate Outgoing messages
@@ -126,13 +124,28 @@ with core functions being
                      translated_mesg = translate (mesg,from ,to);             
                }
              }}}  
-        #  Translate method needs the following inputs
-                   *  Message to be translated
-                   *  From language
-                   *  To language 
-                `char *translate(char *mesg,char *to, char *from)`
-
-
+       #  Other Methods
+             #  Translate method needs the following inputs
+                    `char *translate(char *mesg,char *to, char *from)` 
+             #  Determine Language Method
+                  {{{
+                       char *determine_lang(char *mesg)
+                       {
+                          List avail_translations;
+                          char *translated_mesg;
+                           while ( list->next != NULL)
+                            {
+                              avail = list->avail;
+                              translated_mesg = translate(mesg,avail->from,avail->to);
+                              if (strcmp(mesg,translated_mesg) !=0)
+                               {
+                                  printf("Translation Available);
+                                  return avail->from;
+                               }
+                             }
+                           return "NA"
+                         }
+                   }}}
 
 
 
