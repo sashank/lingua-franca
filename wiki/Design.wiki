@@ -139,7 +139,7 @@ This is basic design document for the Plug-in
                               translated_mesg = translate(mesg,avail->from,avail->to);
                               if (strcmp(mesg,translated_mesg) !=0)
                                {
-                                  printf("Translation Available);
+                                  printf("Translation Available");
                                   return avail->from;
                                }
                              }
@@ -147,6 +147,9 @@ This is basic design document for the Plug-in
                          }
                    }}}
 
-
+=== XML Helper Module ===
+                 This module basically does the required XML processing , it has two sub modules 
+                 *  XML - User Interface
+                 *  XML - Translate
 
 
