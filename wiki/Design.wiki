@@ -1,3 +1,4 @@
+#labels Phase-Design
 This is basic design document for the Plug-in
 
 = Introduction =
@@ -153,4 +154,3 @@ This is basic design document for the Plug-in
                        The User Preferences  will be saved in an XML file , the DTD of this file will be soon given
                  *  XML - Translate
                         The translation service specific details are provided in an XML File , the DTD will be soon posted .
-
