@@ -1,5 +1,7 @@
 This document is basic requirements document for the plug-in
 
+( This document is under constant revision )
+
 = Introduction =
      This is a detailed requirements document 
 
@@ -30,7 +32,7 @@ This document is basic requirements document for the plug-in
           *  Time out in seconds up to which he can wait for translation
                A spin widget where he can change the value 
           *  Translation Service ( this may be deprecated later)
-               A Combo Box of list of available translation services 
+               A Combo Box of list of available translation services like Google or Alta vista or any other
           *  Viewing the translated texts
                A Enable button , enabling which user should be able to see both messages typed/ received and translated messages
        *  All the above can be classified accordingly and can be grouped into tabbed window 
@@ -38,5 +40,10 @@ This document is basic requirements document for the plug-in
        *  If the user wants to view translated texts too then his regular chat experience should not be disrupted , clear visual cue's should be provided to distinguish message received/typed and translated message
 
 === Core Translation ===
-           * As per the user preferences the core translation
+           * As per the user preferences the core translation  should take place
+
+=== Miscellaneous ===
+           *  If none of the Translation services are available either due to Service unavailability or Time out user experience should not be disrupted , User should still be able send chat messages without translation
+           
+
 
