@@ -53,8 +53,8 @@ This is basic design document for the Plug-in
               *  List of available Translation Services
                   This can be got from the XML Helper
               *  XML File Location.
-                  The directory path t preferences XML 
-        #   Preferences Window Layout
+                  The directory path to preferences XML 
+        #   Preferences Window Layout and Components
             #  General Tab
                  *  Incoming Language Preference
                       *  An Incoming Lang Preference Label 
@@ -64,10 +64,27 @@ This is basic design document for the Plug-in
                       *  A Combo Box containing list of available languages
             #  Buddy Config Tab
                  *  A table having three columns
-                      *   Buddy Name 
-                      *   List of available languages
-                      *   Enable/ Disable button
+                      *  Buddy Name 
+                      *  List of available languages
+                      *  Enable/ Disable button
             #  Miscellaneous Tab
+                 *  Translation Service
+                      *  Translation service label
+                      *  Combo Box containing list of available Servers
+                 *  View Translation
+                      *  View Translation label
+                      *  Enable / Disable Button
+                 *  Time Out
+                      *  Time out label
+                      *  Spin button for counter
+            #  Ok , Apply , Cancel Buttons
+                 * A Panel containing Ok , Apply ,Cancel Buttons common to all the three tabs 
+     #  Call back Methods and Saving Preferences
+            *  Call back methods for all the above widgets should be provided 
+            *  Changes in the any of the preferences to be updated in the memory and written to an XML file only when "Apply" or "Ok" are clicked
+     
+
+
 
 
 
