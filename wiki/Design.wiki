@@ -2,31 +2,36 @@ This is basic design document for the Plug-in
 
 = Introduction =
 
- This document contains detailed design of the plug-in
- There are four basic modules in the plug-in
-        *  Chat client Specific Module
-        *  Plug-in Specific Modules
-             *  User Interface Module
-             *  Core Translation Module
-             *  XML Helper Module
+      Any Chat Client which has support for plug-ins can be provided this language translation feature.
+      Lingua-Franca plug-in would be basically a shared Object file or a dll file 
+with core functions being
+         *  User Interface for preference setting
+                 `void lf_ui()`
+         *  Translate Outgoing messages
+                 `char *lf_translate_outgoing_mesg(char *mesg,char *buddy)`
+         *  Translate Incoming messages
+                 `char *lf_translate_incoming_mesg(char *mesg,char *buddy)`
+
+
+      There are four basic modules in the plug-in
+          *  Chat client Specific Module
+          *  Plug-in Specific Modules
+               *  User Interface Module
+               *  Core Translation Module
+               *  XML Helper Module
 
 == Chat Client Specific Module ==
-       This module basically takes care of 
-        *  Loading the plug-in and unloading the plug-in within the chat client 
-        *  Carrying out the actual translation
-
-     Detailed Steps are as follows 
-
-        #  Initialize the plug-in 
-        #  Load the plug-in into chat client
-        #  User to configure the preferences
-        #  Wait for the signal "message-typed" 
-             *  Call translate_outgoing_message method  when event occurs
-             *  On successful translation emit the signal "message_translated"
-        #  Wait for the signal "message-received" 
-             *  Call translate_incoming_message method when event occurs
-             *  On successful translation emit the signal "message_translated"
-        #  Unload the plug-in gracefully when the chat client process is shutdown
+         Skeleton of the chat client specific code would be 
+               *  Initialize the plug-in 
+               *  Load the plug-in into chat client
+               *  User to configure the preferences
+               *  Wait for the signal "message-typed" 
+                     *  Call translate_outgoing_message method  when event occurs
+                     *  Send the translated message to the concerned buddy 
+               *  Wait for the signal "message-received" 
+                     *  Call translate_incoming_message method when event occurs
+                     *  Send the translated message back to chat client
+               *  Unload the plug-in gracefully when the chat client process is shutdown
 
      _*Note*_  The above design is highly specific to pidgin , more generic design will be made once we are ready to develop for other chat clients 
 
@@ -34,13 +39,10 @@ This is basic design document for the Plug-in
 == Plug-in Specific Modules ==
          Plug-in has three modules  
               *  User Interface Module
-                    *  Initialize the Preferences window.
-                      `lf_ui_init()`
+                    *  Initialize the Preferences window.                   
               *  Core Translation Module
-                    *  Translate Outgoing Messages
-                       `lf_translate_outgoing_mesg(char *mesg,char *buddy)`
+                    *  Translate Outgoing Messages                      
                     *  Translate Incoming Messages
-                       `lf_translate_incoming_mesg(char *mesg,chat *buddy)`
               *  XML Helper Module Provides Helper Methods
                     *  To save user preferences
                     *  To read the translation service config files
@@ -95,13 +97,25 @@ This is basic design document for the Plug-in
                    *  To language 
                 `char *translate(char *mesg,char *to, char *from)`
        #  Translate Outgoing Messages
-              *  This method from the core will be called with two inputs 
-                    *  Message to be translated
-                    *  Buddy Name to whom this message is intended
-                  `char *translate_outgoing_mesg(char *mesg , char *buddyname)`
-              *  The "To language" preference to be determined from preferences XML file 
-              *  
+            {{{
+              char *lf_translate_outgoing_mesg(char *mesg,char *buddy)
+              {
+                 char *to_lang ;
+                 char *from_lang;
+                 char *translated_mesg;
+                /* determine outgoing language preference for this buddy*/
+                     to = get_lang_pref(buddy) 
+
+                /* determine the language of the "mesg" */
+                     from = determine_lang(mesg)
+
+                /* call the core translate method */
+                     translated_mesg = translate (mesg,from ,to);             
+               }
+             }}}
              
+
+
 
 
 
