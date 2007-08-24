@@ -32,13 +32,15 @@ This is basic design document for the Plug-in
 
 
 == Plug-in Specific Modules ==
-         Plug-in has three modules 
+         Plug-in has three modules  
               *  User Interface Module
                     *  Initialize the Preferences window.
-                    *  Save the preferences into XML File.
+                      `lf_ui_init()`
               *  Core Translation Module
                     *  Translate Outgoing Messages
+                       `lf_translate_outgoing_mesg(char *mesg,char *buddy)`
                     *  Translate Incoming Messages
+                       `lf_translate_incoming_mesg(char *mesg,chat *buddy)`
               *  XML Helper Module Provides Helper Methods
                     *  To save user preferences
                     *  To read the translation service config files
@@ -79,10 +81,28 @@ This is basic design document for the Plug-in
                       *  Spin button for counter
             #  Ok , Apply , Cancel Buttons
                  * A Panel containing Ok , Apply ,Cancel Buttons common to all the three tabs 
-     #  Call back Methods and Saving Preferences
+        #  Call back Methods and Saving Preferences
             *  Call back methods for all the above widgets should be provided 
             *  Changes in the any of the preferences to be updated in the memory and written to an XML file only when "Apply" or "Ok" are clicked
-     
+        #  A DTD of the XML file is provided in the XML Helper Module Section
+
+
+===Core Translation Module ===
+
+       #  Translate method needs the following inputs
+                   *  Message to be translated
+                   *  From language
+                   *  To language 
+                `char *translate(char *mesg,char *to, char *from)`
+       #  Translate Outgoing Messages
+              *  This method from the core will be called with two inputs 
+                    *  Message to be translated
+                    *  Buddy Name to whom this message is intended
+                  `char *translate_outgoing_mesg(char *mesg , char *buddyname)`
+              *  The "To language" preference to be determined from preferences XML file 
+              *  
+             
+
 
 
 
