@@ -91,11 +91,7 @@ with core functions being
 
 ===Core Translation Module ===
 
-       #  Translate method needs the following inputs
-                   *  Message to be translated
-                   *  From language
-                   *  To language 
-                `char *translate(char *mesg,char *to, char *from)`
+
        #  Translate Outgoing Messages
             {{{
               char *lf_translate_outgoing_mesg(char *mesg,char *buddy)
@@ -113,10 +109,28 @@ with core functions being
                      translated_mesg = translate (mesg,from ,to);             
                }
              }}}
-             
+       #  Translate Incoming Messages
+            {{{
+              char *lf_translate_incoming_mesg(char *mesg,char *buddy)
+              {
+                 char *to_lang ;
+                 char *from_lang;
+                 char *translated_mesg;
+                /* determine incoming language preference */
+                     to = get_incoming_lang_pref() 
 
+                /* determine the language of the "mesg" */
+                     from = determine_lang(mesg)
 
-
+                /* call the core translate method */
+                     translated_mesg = translate (mesg,from ,to);             
+               }
+             }}}  
+        #  Translate method needs the following inputs
+                   *  Message to be translated
+                   *  From language
+                   *  To language 
+                `char *translate(char *mesg,char *to, char *from)`
 
 
 
