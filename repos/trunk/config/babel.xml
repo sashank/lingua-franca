@@ -1,12 +1,12 @@
 <server>
    <server_name>Altavista </server_name>
    <host_url>http://babelfish.altavista.com/tr</host_url>
-   <post_option name="doit">done</post_option>
-   <post_option name="intl">1</post_option>
-   <post_option name="tt">urltext</post_option>
-   <post_option name="txtext">STRING_TO_BE_TRANSLATED</post_option>
-   <post_option name="lp">LANG_PAIR</post_option>
-   <post_option name="btnTrTxt">Translate</post_option>
+   <post_option name="doit" value="done" />
+   <post_option name="intl" value="1" />
+   <post_option name="tt" value="urltext" />
+   <post_option name="txtext" value="STRING_TO_BE_TRANSLATED" />
+   <post_option name="lp" value="LANG_PAIR" />
+   <post_option name="btnTrTxt" value="Translate" />
    <response_parsing>
    	<response_tag_name>q</response_tag_name>        
    	<response_tag_attribute>input</response_tag_attribute>        

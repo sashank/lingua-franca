@@ -1,12 +1,11 @@
 <server>
-   <name>google</name>
-   <host>http:://translate.google.com</host>
-   <uri>/translate_t</uri>
-   <post option="langpair">LANG_PAIR</post>
-   <post option="hl">en</post>
-   <post option="ie">UTF-8</post>
-   <post option="oe">UTF-8</post>
-   <post option="text">STRING_TO_BE_TRANSLATED </post>
+   <name>Google</name>
+   <host_url>http://translate.google.com/translate_t</host_url>
+   <post_option name="langpair" value="LANG_PAIR" />
+   <post_option name="hl" value="en" />
+   <post_option name="ie" value="UTF-8" />
+   <post_option name="oe" value="UTF-8" />
+   <post_option name="text" value="STRING_TO_BE_TRANSLATED" />
    <Response_parsing>
         <response_tag_name>div<response_tag_name>
         <response_tag_attribute>result_box<response_tag_attribute>
@@ -14,8 +13,8 @@
    <Available_Translations>
         <lang_pair from="Arabic" to="English " lp="ar|en"/>
 	<lang_pair from="Chinese" to="English " lp="zh|en"/>
-	<lang_pair from="Chinese(Simplified)" to="Chinese (Traditional) " lp="zh-CN|zh-TW "/>
-	<lang_pair from="Chinese(Traditional)" to="Chinese (Simplified) " lp="zh-TW|zh-CN"/>
+	<lang_pair from="Chinese(Simplified)" to="Chinese (Traditional)" lp="zh-CN|zh-TW "/>
+	<lang_pair from="Chinese(Traditional)" to="Chinese (Simplified)" lp="zh-TW|zh-CN"/>
 	<lang_pair from="English" to="Arabic" lp="en|ar"/>
 	<lang_pair from="English" to="Chinese (Simplified)" lp="en|zh-CN"/>
 	<lang_pair from="English" to="Chinese (Traditional)" lp="en|zh-TW"/>
