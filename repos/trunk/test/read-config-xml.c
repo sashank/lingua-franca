@@ -1,28 +1,58 @@
 #include <libxml/xmlreader.h>
 #include <glib.h>
+#include <string.h>
 
-struct LangPairStruct {
-  GString *from ;
-  GString *to;
-  GString *lp;
-};
+
+typedef struct _LangPairStruct {
+  char *from;
+  char *to;
+  char *lp;
+}LangPair;
 
 GList *langpair_list =NULL;
 
-void *myrealloc(void *ptr, size_t size)
+typedef struct _PostOptionStruct {
+  char *name;
+  char *value;
+}PostOption;
+
+GList *postoptions_list;
+
+void add_lang_pair(char *from,char *to,char *lp)
 {
-  /* There might be a realloc() out there that doesn't like reallocing
-     NULL pointers, so we take care of it here */
-  if(ptr)
-    return realloc(ptr, size);
-  else
-    return malloc(size);
+  LangPair *langpair;
+  g_return_if_fail(from != NULL);
+  g_return_if_fail(to != NULL);
+  g_return_if_fail(lp != NULL);
+
+  langpair = g_new0(LangPair,1);
+  langpair->from = g_strdup(from);
+  langpair->to = g_strdup(to);
+  langpair->lp = g_strdup(lp);
+
+  langpair_list = g_list_append(langpair_list,langpair);
 }
 
 
+void add_post_option(char *name ,char *value)
+{
+ 
+  PostOption *po;
+  g_return_if_fail(name !=NULL);
+  g_return_if_fail(value !=NULL);
+
+  po = g_new0(PostOption , 1);
+  po->name = g_strdup(name);
+  po->value = g_strdup(value);
+ 
+ /*po = strdup(g_strjoin("=",name,value));*/
+ postoptions_list = g_list_append(postoptions_list,po);
+
+}
+
 char *get_lang_pref(char *from ,char *to)
 {
-  struct LangPairStruct *lpair;
+  LangPair *lpair;
   int i = 0;
   guint size = g_list_length(langpair_list);
 
@@ -30,14 +60,39 @@ char *get_lang_pref(char *from ,char *to)
   for ( i =0 ; i < size ; i++)
    {
         lpair = g_list_nth_data(langpair_list,i);
-        printf("Name = %s , Value = %s \n",lpair->from->str,lpair->to->str);
+      /*  printf("Name = %s , Value = %s \n",lpair->from,lpair->to); */
         if ((strcmp(lpair->from,from) == 0) && (strcmp(lpair->to,to) == 0))
-          return lpair->lp->str ;
+          return lpair->lp ;
    }
 
   return "NA";
 }
 
+GString *get_post_option(char *mesg,char *from,char *to)
+{
+    int i;
+    char *lp ;
+    lp = get_lang_pref(from,to);
+    PostOption *po;
+    guint size = g_list_length(postoptions_list);
+    printf("Inside get post options %d \n",size);
+    GString *post_this = g_string_new(NULL);
+    for ( i =0 ; i < size ; i++)
+   {
+       char *pair;
+        po = g_list_nth_data(postoptions_list,i);
+        if (strcmp(po->value,"STRING_TO_BE_TRANSLATED")==0)
+         po->value = strdup(mesg);
+        if (strcmp(po->value,"LANG_PAIR")==0)
+         po->value = strdup(lp); 
+         post_this = g_string_append(post_this,po->name);
+         post_this = g_string_append(post_this,"=");
+         post_this = g_string_append(post_this,po->value);
+         post_this = g_string_append(post_this,"&");
+   }
+    
+   return post_this;
+}
 
 void processNode(xmlTextReaderPtr reader) {
   xmlChar *name, *value;
@@ -47,40 +102,61 @@ void processNode(xmlTextReaderPtr reader) {
         name = xmlStrdup(BAD_CAST "--");
     value = xmlTextReaderValue(reader);
 
+     if (strcmp(name,"post_option")==0)
+    {
+        char *post_name = xmlTextReaderGetAttribute(reader,(xmlChar *)"name");
+        char *post_value = xmlTextReaderGetAttribute(reader,(xmlChar *)"value");
+        add_post_option(post_name,post_value);
+    }
+
+
+
   /*  printf("%d %d %s %d",
             xmlTextReaderDepth(reader),
             xmlTextReaderNodeType(reader),
             name,
-            xmlTextReaderIsEmptyElement(reader));  */
+            xmlTextReaderIsEmptyElement(reader));  
+ */
 
-  /* attributes */
     if (strcmp(name,"lang_pair")==0)
     {
-	struct LangPairStruct *langpair ;
-	langpair->from = NULL;
-	langpair->to = NULL;
-	langpair->lp = NULL;
-
 	char *from = xmlTextReaderGetAttribute(reader,(xmlChar *)"from");
 	char *to = xmlTextReaderGetAttribute(reader,(xmlChar *)"to");
 	char *lp = xmlTextReaderGetAttribute(reader,(xmlChar *)"lp");
-	
-	printf("Attribute Count %d \n", xmlTextReaderAttributeCount(reader));
-	printf("From Name %s ,length %d\n",from,strlen(from));
-	printf("To Value %s ,length %d\n",to,strlen(to));
-	printf("LP Value %s ,length %d\n",lp,strlen(lp)); 
-
-	langpair->from =(char *)myrealloc(from ,(size_t)strlen(xmlTextReaderGetAttribute(reader,(xmlChar *)"from")));
-        langpair->to =(char *)myrealloc(to, (size_t)strlen(xmlTextReaderGetAttribute(reader,(xmlChar *)"to")));
-        langpair->lp =(char *)myrealloc(lp,(size_t)strlen(xmlTextReaderGetAttribute(reader,(xmlChar *)"lp")));
-
-	strcpy(langpair->from,xmlTextReaderGetAttribute(reader,(xmlChar *)"from") );
-	strcpy(langpair->to,xmlTextReaderGetAttribute(reader,(xmlChar *)"to"));
-	strcpy(langpair->lp,xmlTextReaderGetAttribute(reader,(xmlChar *)"lp"));
-
-	langpair_list = g_list_append(langpair_list,langpair);
+        add_lang_pair(from,to,lp);
     }
-	
+/*
+    if (strcmp(name,"prefix")==0)
+    {   
+        if( xmlTextReaderNodeType(reader) == 1 ) 
+                xmlTextReaderRead(reader);
+
+        if(xmlTextReaderNodeType(reader) == 3)
+        {
+                value = xmlTextReaderValue(reader);
+                printf("Response Prefix is %s \n",value);
+                xmlTextReaderRead(reader);
+        }
+
+        if( xmlTextReaderNodeType(reader) == 2 ) 
+                xmlTextReaderRead(reader);
+    }   
+    if (strcmp(name,"suffix")==0)
+    {   
+        if( xmlTextReaderNodeType(reader) == 1 ) 
+                xmlTextReaderRead(reader);
+
+        if(xmlTextReaderNodeType(reader) == 3)
+        {
+                value = xmlTextReaderValue(reader);
+                printf("Response Suffix is %s \n",value);
+                xmlTextReaderRead(reader);
+        }
+
+        if( xmlTextReaderNodeType(reader) == 2 )
+                xmlTextReaderRead(reader);
+    }
+*/
     xmlFree(name);
     xmlFree(value);
 }
@@ -105,5 +181,6 @@ int main(int argc, char **argv) {
         printf("Unable to open %s\n", filename);
     }
 
-   /* printf("LP = %s",get_lang_pref(argv[2],argv[3]));*/
+/*    printf("LP = %s",get_lang_pref(argv[2],argv[3]));*/
+      printf("Post String  %s" , get_post_option(argv[2],argv[3],argv[4])->str);
 }

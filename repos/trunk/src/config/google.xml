@@ -7,8 +7,8 @@
    <post_option name="oe" value="UTF-8" />
    <post_option name="text" value="STRING_TO_BE_TRANSLATED" />
    <Response_parsing>
-        <response_tag_name>div<response_tag_name>
-        <response_tag_attribute>result_box<response_tag_attribute>
+        <prefix>div</prefix>
+        <suffix>result_box</suffix>
    </Response_parsing>
    <Available_Translations>
         <lang_pair from="Arabic" to="English " lp="ar|en"/>

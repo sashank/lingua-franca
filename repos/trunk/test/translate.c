@@ -26,6 +26,7 @@
 #include <curl/curl.h>
 #include <curl/types.h>
 #include <curl/easy.h>
+#include <glib.h>
 
 #define USER_AGENT "lingua-franca" ;
 
@@ -65,14 +66,19 @@ ResponseCallback(void *ptr, size_t size, size_t nmemb, void *data)
 
 char *parse_response(char *response)
 {
-	printf("%s",response);	
+   gchar **strings;
 
-  return "hello";
+   strings = g_strsplit(response ,"<td bgcolor=white class=s><div style=padding:10px;>",2);
+   strings = g_strsplit(strings[1],"</div></td>",2);
+
+   printf("%s \n",strings[0]); 
+	
+  return string[0];
 }
 
 char *get_lang_pref(char *from ,char *to)
 {
-  return " ";
+  return "en_fr";
 }
 char* translate_message(char* message , char *from , char *to)
 {

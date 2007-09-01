@@ -1,8 +1,35 @@
+/**
+ * @file translate.c
+ * @ingroup pidgin
+ *
+ * lingua-franca
+ *
+ * lingua-franca is the legal property of its developers, whose names are too numerous
+ * to list here.  Please refer to the COPYRIGHT file distributed with this
+ * source distribution.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
+
 #include "internal.h"
 #include "debug.h"
 #include "plugin.h"
 #include "signals.h"
 #include "version.h"
+#include "glib.h"
 #include "../core/lingua-franca.h"
 
 /** Plugin id : sashank (to guarantee uniqueness) */
@@ -35,6 +62,7 @@ plugin_load(PurplePlugin *plugin)
 {
 
 	void *conv_handle     = purple_conversations_get_handle();
+	Glist buddies;
 
 	purple_debug(PURPLE_DEBUG_INFO, "translate", "translate plugin loaded.\n");
 
@@ -46,7 +74,7 @@ plugin_load(PurplePlugin *plugin)
 	lf_init();
 
         /* Translate Message before it is sent */
-	purple_signal_connect(conv_handle, "wrote-im-msg",
+	purple_signal_connect(conv_handle, "sending-im-msg",
                                                 plugin, PURPLE_CALLBACK(sending_im_msg_cb), NULL);
 
 	/* Translate Message as it comes */
@@ -94,8 +122,8 @@ static PurplePluginInfo info =
 	N_("This plugin is to translate chat text into different languages set by the user "),
 	                                                  /**  description    */
 	N_("This plugin is to translate chat text into different languages set by the user "),
-	"sashank <krishna.sashank@gmail.org>",        /**< author         */
-	"http://code.google.com/p/lingua-franca",                                     /**< homepage       */
+	"sashank <krishna.sashank@gmail.org>",        	/**< author         */
+	"http://code.google.com/p/lingua-franca",          /**< homepage       */
 
 	plugin_load,                                      /**< load           */
 	plugin_unload,                                    /**< unload         */

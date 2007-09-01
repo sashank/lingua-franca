@@ -492,12 +492,12 @@ s,@INSTALL_DATA@,${INSTALL} -m 644,;t t
 s,@CYGPATH_W@,echo,;t t
 s,@PACKAGE@,lingua-franca,;t t
 s,@VERSION@,0.1,;t t
-s,@ACLOCAL@,${SHELL} /home/sashank/Projects/lingua-franca/missing --run aclocal-1.9,;t t
-s,@AUTOCONF@,${SHELL} /home/sashank/Projects/lingua-franca/missing --run autoconf,;t t
-s,@AUTOMAKE@,${SHELL} /home/sashank/Projects/lingua-franca/missing --run automake-1.9,;t t
-s,@AUTOHEADER@,${SHELL} /home/sashank/Projects/lingua-franca/missing --run autoheader,;t t
-s,@MAKEINFO@,${SHELL} /home/sashank/Projects/lingua-franca/missing --run makeinfo,;t t
-s,@install_sh@,/home/sashank/Projects/lingua-franca/install-sh,;t t
+s,@ACLOCAL@,${SHELL} /home/sashank/workplace/lingua-franca/missing --run aclocal-1.9,;t t
+s,@AUTOCONF@,${SHELL} /home/sashank/workplace/lingua-franca/missing --run autoconf,;t t
+s,@AUTOMAKE@,${SHELL} /home/sashank/workplace/lingua-franca/missing --run automake-1.9,;t t
+s,@AUTOHEADER@,${SHELL} /home/sashank/workplace/lingua-franca/missing --run autoheader,;t t
+s,@MAKEINFO@,${SHELL} /home/sashank/workplace/lingua-franca/missing --run makeinfo,;t t
+s,@install_sh@,/home/sashank/workplace/lingua-franca/install-sh,;t t
 s,@STRIP@,,;t t
 s,@ac_ct_STRIP@,,;t t
 s,@INSTALL_STRIP_PROGRAM@,${SHELL} $(install_sh) -c -s,;t t
@@ -505,7 +505,7 @@ s,@mkdir_p@,mkdir -p --,;t t
 s,@AWK@,gawk,;t t
 s,@SET_MAKE@,,;t t
 s,@am__leading_dot@,.,;t t
-s,@AMTAR@,${SHELL} /home/sashank/Projects/lingua-franca/missing --run tar,;t t
+s,@AMTAR@,${SHELL} /home/sashank/workplace/lingua-franca/missing --run tar,;t t
 s,@am__tar@,${AMTAR} chof - "$$tardir",;t t
 s,@am__untar@,${AMTAR} xf -,;t t
 s,@MAINTAINER_MODE_TRUE@,#,;t t

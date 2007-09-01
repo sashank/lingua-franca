@@ -8,8 +8,8 @@
    <post_option name="lp" value="LANG_PAIR" />
    <post_option name="btnTrTxt" value="Translate" />
    <response_parsing>
-   	<response_tag_name>q</response_tag_name>        
-   	<response_tag_attribute>input</response_tag_attribute>        
+   	<prefix>"&lt;td bgcolor=white class=s&gt;&lt;div style=padding:10px;&gt;"</prefix>        
+   	<suffix>"&lt;/div&gt;&lt;/td&gt;"</suffix>        
    </response_parsing>
    <available_translations>
 	<lang_pair from="Chinese-simp" to="English" lp="zh_en" />

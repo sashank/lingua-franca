@@ -58,29 +58,34 @@ ResponseCallback(void *ptr, size_t size, size_t nmemb, void *data)
 
 char *parse_response(char *response)
 {
-	printf("%s",response);	
+   gchar **strings;
 
-  return "hello";
+   strings = g_strsplit(response ,get_response_prefix(),2);
+   strings = g_strsplit(strings[1],get_response_suffix(),2);
+
+   printf("%s \n",strings[0]);
+
+  return strings[0];
 }
 
 
 char* translate_message(char* message , char *from , char *to)
 {
   char *translated_mesg;
-  char *post = NULL ;
+  GString *post = NULL ;
 
   if(curl) {
 
 	chunk.response=NULL; /* we expect realloc(NULL, size) to work */
 	chunk.size = 0;    /* no data at this point */
 
-  	post = get_post_string(message,from,to);
+  	post = get_post_option(message,from,to);
     
 	/* set the post options */
-  	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post);
+  	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post->str);
 
 	/* if we don't provide POSTFIELDSIZE, libcurl will strlen() by itself */
-	curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, strlen(post));
+	curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, post->len);
 
  	/* get it! */
   	curl_easy_perform(curl);
