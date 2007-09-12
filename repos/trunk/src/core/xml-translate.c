@@ -23,7 +23,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-
+#include <string.h>
 #include "xml-translate.h"
 
 typedef struct _LangPairStruct {
@@ -45,6 +45,7 @@ char *resp_prefix ;
 char *resp_suffix ;
 char *host_url;
 char *post_string;
+char *server_name;
 
 GList *postoptions_list=NULL;
 
@@ -88,11 +89,11 @@ char *get_lang_pref(char *from ,char *to)
   int i = 0;
   guint size = g_list_length(langpairs_list);
 
-  printf("Inside get lang pref %d \n",size);
+ /* printf("Inside get lang pref %d \n",size);*/
   for ( i =0 ; i < size ; i++)
    {
         lpair = g_list_nth_data(langpairs_list,i);
-        printf("Name = %s , Value = %s \n",lpair->from,lpair->to);
+/*        printf("Name = %s , Value = %s \n",lpair->from,lpair->to); */
         if ((strcmp(lpair->from,from) == 0) && (strcmp(lpair->to,to) == 0))
           return lpair->lp ;
    }
@@ -100,15 +101,16 @@ char *get_lang_pref(char *from ,char *to)
   return "NA";
 }
 
-GString *get_post_option(char *mesg,char *from,char *to)
+GString *get_post_string(char *mesg,char *from,char *to)
 {
     int i;
     char *lp ;
     lp = get_lang_pref(from,to);
     PostOption *po;
     guint size = g_list_length(postoptions_list);
-    printf("Inside get post options %d \n",size);
-    GString *post_this = g_string_new(NULL);
+/*    printf("Inside get post string %d \n",size);
+    printf("get post string called with  %s,%s,%s \n",mesg,from,to);  */
+    GString *post_this = g_string_new(NULL) ;
     for ( i =0 ; i < size ; i++)
    {
        char *pair;
@@ -117,13 +119,21 @@ GString *get_post_option(char *mesg,char *from,char *to)
          po->value = strdup(mesg);
         if (strcmp(po->value,"LANG_PAIR")==0)
          po->value = strdup(lp);
+
          post_this = g_string_append(post_this,po->name);
          post_this = g_string_append(post_this,"=");
          post_this = g_string_append(post_this,po->value);
+         if (i < (size-1))
          post_this = g_string_append(post_this,"&");
    }
 
+/*    printf("Exiting get post options %d \n",size); 
+    printf("Exiting get post options %s \n",post_this->str);  */
    return post_this;
+}
+char *get_server_name()
+{
+ return server_name;
 }
 void processNode(xmlTextReaderPtr reader)
 {
@@ -141,7 +151,8 @@ void processNode(xmlTextReaderPtr reader)
         if(xmlTextReaderNodeType(reader) == 3)
         {
                 value = xmlTextReaderValue(reader);
-                printf("Server Name is %s \n",value);
+              /*  printf("Server Name is %s \n",value); */
+		server_name = g_strdup(value);
                 xmlTextReaderRead(reader);
         }
 
@@ -157,7 +168,7 @@ void processNode(xmlTextReaderPtr reader)
         if(xmlTextReaderNodeType(reader) == 3)
         {
                 value = xmlTextReaderValue(reader);
-                printf("host Name is %s \n",value);
+             /*   printf("host Name is %s \n",value); */
 		host_url = g_strdup(value);
                 xmlTextReaderRead(reader);
         }
@@ -188,7 +199,7 @@ void processNode(xmlTextReaderPtr reader)
         if(xmlTextReaderNodeType(reader) == 3)
         {
                 value = xmlTextReaderValue(reader);
-                printf("Response Prefix is %s \n",value);
+              /*  printf("Response Prefix is %s \n",value); */
 		resp_prefix = g_strdup(value);
                 xmlTextReaderRead(reader);
         }
@@ -204,7 +215,7 @@ void processNode(xmlTextReaderPtr reader)
         if(xmlTextReaderNodeType(reader) == 3)
         {
                 value = xmlTextReaderValue(reader);
-                printf("Response Suffix is %s \n",value);
+              /*  printf("Response Suffix is %s \n",value); */
 		resp_suffix = g_strdup(value);
                 xmlTextReaderRead(reader);
         }
@@ -223,12 +234,12 @@ char *get_response_suffix()
 {
   return resp_suffix;
 }
-void xml_translate_init(char *server)
+void xml_translate_init(char *serverfilename)
 {
     xmlTextReaderPtr xml_reader;
     int ret;
 
-    xml_reader = xmlNewTextReaderFilename(server);
+    xml_reader = xmlNewTextReaderFilename(serverfilename);
     if (xml_reader != NULL) {
         ret = xmlTextReaderRead(xml_reader);
         while (ret == 1) {
@@ -237,10 +248,10 @@ void xml_translate_init(char *server)
         }
         xmlFreeTextReader(xml_reader);
         if (ret != 0) {
-            printf("%s : failed to parse\n", server);
+            printf("%s : failed to parse\n", serverfilename);
         }
     } else {
-        printf("Unable to open %s\n", server);
+        printf("Unable to open %s\n", serverfilename);
     }
 
 }

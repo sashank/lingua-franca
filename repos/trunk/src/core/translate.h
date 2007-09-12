@@ -38,7 +38,7 @@
 void translate_init(char *filename);
 
 /* This method translates the message */
-char* translate_message(char *message , char *from,char *to);
+char *translate_message(char *message , char *from,char *to);
 
 /* Is translation available from lang1 to lang2 */
 gboolean is_translation_avail(char *lang1 ,char *lang2);
