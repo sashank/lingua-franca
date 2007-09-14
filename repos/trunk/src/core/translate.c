@@ -21,7 +21,6 @@
 
 /* XML Processor */
 #include "xml-translate.h"
-
 struct ResponseStruct {
   char *response;
   size_t size;
@@ -89,6 +88,11 @@ char *parse_response(char *response)
   return response;
 }
 
+char *determine_lang(char *mesg)
+{
+
+ return "English";
+}
 
 char *translate_message(char *message , char *from , char *to)
 {
@@ -155,12 +159,46 @@ char *translate_message(char *message , char *from , char *to)
  return translated_mesg;
 }
 
+GList *get_trans_servers()
+{
+ GList *server_list;
+  /* For now hardcoded , to be modified later */
+  server_list = g_list_append(server_list , "Google"); 
+  server_list = g_list_append(server_list , "Altavista"); 
+ return server_list;
+}
 gboolean is_translation_avail(char *lang1,char *lang2)
 {
  return TRUE ;
 }
-void translate_init(char *serverfilename)
+void set_translate_server(char *serverfilename)
 {
+    /* For now do nothing */
+
+      /*  //Free the existing XML
+        xml_translate_unload();
+
+ 	//Initialise XML
+  	xml_translate_init(serverfilename); */
+
+}
+void translate_init(char *dir)
+{
+     /* By default load altavista xml */
+     char *serverfilename =  g_build_filename(dir,"altavista.xml",NULL);
+      if (!g_file_test(serverfilename, G_FILE_TEST_EXISTS))
+        {
+                printf( "File %s does not exist (this is not "
+                                                "necessarily an error)\n", serverfilename);
+                g_free(serverfilename);
+        }
+
  	//Initialise XML
   	xml_translate_init(serverfilename);
+}
+
+char *translate(char *mesg,char *to)
+{
+   char *from = determine_lang(mesg);  
+   return translate_message(mesg,from,to);
 }

@@ -51,3 +51,9 @@ char *get_response_prefix();
 
 /*get the response suffix */
 char *get_response_suffix();
+
+/*get List of available Languages */
+GList *get_avail_languages();
+
+/* free up xml */
+void xml_translate_unload();

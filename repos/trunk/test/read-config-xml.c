@@ -1,5 +1,9 @@
 #include "../src/core/xml-translate.h"
 
+void print_lang(gchar *buddy)
+{
+   printf("Lang is %s \n", buddy);
+}
 int main(int argc, char **argv) {
     const char *filename = argv[1];
 	xml_translate_init(argv[1]);
@@ -11,4 +15,6 @@ int main(int argc, char **argv) {
     printf("Get Response Prefix %s\n",get_response_prefix());
     printf("Get Response Suffix %s\n",get_response_suffix());
     printf("Host url %s\n",get_host_url());
+   GList *langs = get_avail_languages();
+    g_list_foreach(langs,(GFunc)print_lang,NULL);
 }

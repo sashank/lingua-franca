@@ -1,16 +1,16 @@
 <server>
-   <name>Google</name>
+   <server_name>Google</server_name>
    <host_url>http://translate.google.com/translate_t</host_url>
    <post_option name="langpair" value="LANG_PAIR" />
    <post_option name="hl" value="en" />
    <post_option name="ie" value="UTF-8" />
    <post_option name="oe" value="UTF-8" />
    <post_option name="text" value="STRING_TO_BE_TRANSLATED" />
-   <Response_parsing>
-        <prefix>div</prefix>
-        <suffix>result_box</suffix>
-   </Response_parsing>
-   <Available_Translations>
+   <response_parsing>
+        <prefix>"&lt;textarea name=utrans wrap=PHYSICAL dir=ltr rows=5 id=suggestion&gt;"</prefix>
+        <suffix>"&lt;/textarea&gt;"</suffix>
+   </response_parsing>
+   <available_translations>
         <lang_pair from="Arabic" to="English " lp="ar|en"/>
 	<lang_pair from="Chinese" to="English " lp="zh|en"/>
 	<lang_pair from="Chinese(Simplified)" to="Chinese (Traditional)" lp="zh-CN|zh-TW "/>
@@ -36,5 +36,5 @@
 	<lang_pair from="Portuguese" to="English" lp="pt|en"/>
 	<lang_pair from="Russian" to="English" lp="ru|en"/>
 	<lang_pair from="Spanish" to="English" lp="es|en"/>
-   </Available_Translations>
+   </available_translations>
  </server>

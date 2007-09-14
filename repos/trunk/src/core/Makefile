@@ -47,7 +47,7 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_lingua-franca_OBJECTS = main.$(OBJEXT) xml-translate.$(OBJEXT) translate.$(OBJEXT) support.$(OBJEXT) \
+am_lingua-franca_OBJECTS = main.$(OBJEXT) xml-ui.$(OBJEXT) xml-translate.$(OBJEXT) translate.$(OBJEXT) support.$(OBJEXT) \
 	interface.$(OBJEXT) callbacks.$(OBJEXT)
 lingua-franca_OBJECTS = $(am_lingua-franca_OBJECTS)
 am__DEPENDENCIES_1 =
@@ -168,6 +168,7 @@ INCLUDES = \
 
 lingua-franca_SOURCES = \
 	main.c \
+	xml-ui.c xml-ui.h \
 	translate.c translate.h \
 	xml-translate.c xml-translate.h \
 	support.c support.h \
@@ -247,6 +248,7 @@ include ./$(DEPDIR)/main.Po
 include ./$(DEPDIR)/support.Po
 include ./$(DEPDIR)/translate.Po
 include ./$(DEPDIR)/xml-translate.Po
+include ./$(DEPDIR)/xml-ui.Po
 
 .c.o:
 	if $(COMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ $<; \

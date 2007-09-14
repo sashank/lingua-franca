@@ -33,13 +33,12 @@ typedef struct _LangPairStruct {
 }LangPair;
 
 GList *langpairs_list;
+GList *langs;
 
 typedef struct _PostOptionStruct {
   char *name;
   char *value;
 }PostOption;
-
-GList *postoptions_list;
 
 char *resp_prefix ;
 char *resp_suffix ;
@@ -49,11 +48,27 @@ char *server_name;
 
 GList *postoptions_list=NULL;
 
+
 char *get_host_url()
 {
   return host_url;
 }
 
+void add_avail_langs( char *lang)
+{
+  char *l ;
+  int i ;
+  gboolean exists = FALSE;
+  int count  = g_list_length(langs);
+  for(i = 0 ;i < count ; i++)
+  {
+    l = g_list_nth_data(langs,i); 
+     if(strcmp(lang,l)== 0)
+         exists = TRUE;
+  }
+  if( exists == FALSE || count == 0)
+    langs = g_list_append(langs,lang);
+}
   
 void add_lang_pair(char *from,char *to,char *lp)
 {
@@ -68,6 +83,10 @@ void add_lang_pair(char *from,char *to,char *lp)
   langpair->lp = g_strdup(lp);
 
   langpairs_list = g_list_append(langpairs_list,langpair);
+
+  /* Add into Avail Langs list also*/
+   add_avail_langs(from);
+   add_avail_langs(to);
 }
 
 void add_post_option(char *name ,char *value)
@@ -234,6 +253,10 @@ char *get_response_suffix()
 {
   return resp_suffix;
 }
+GList *get_avail_languages()
+{
+ return langs;
+}
 void xml_translate_init(char *serverfilename)
 {
     xmlTextReaderPtr xml_reader;
@@ -254,4 +277,16 @@ void xml_translate_init(char *serverfilename)
         printf("Unable to open %s\n", serverfilename);
     }
 
+}
+
+void xml_translate_unload()
+{
+  g_list_free(langs); 
+  g_list_free(postoptions_list); 
+  g_list_free(langpairs_list); 
+  g_free(host_url);
+  g_free(server_name);
+  g_free(post_string);
+  g_free(resp_suffix);
+  g_free(resp_prefix);
 }

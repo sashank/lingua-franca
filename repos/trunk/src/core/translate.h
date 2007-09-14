@@ -37,9 +37,14 @@
 /*translate engine*/
 void translate_init(char *filename);
 
-/* This method translates the message */
-char *translate_message(char *message , char *from,char *to);
+/* This method translates the message to "to_lang" language */
+char *translate(char *message , char *to_lang);
 
 /* Is translation available from lang1 to lang2 */
 gboolean is_translation_avail(char *lang1 ,char *lang2);
 
+/* Set the translation server */
+void set_translate_server(char *serverfilename);
+
+/* get the available servers */
+GList *get_trans_servers();

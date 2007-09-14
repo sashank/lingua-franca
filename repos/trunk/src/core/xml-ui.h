@@ -1,5 +1,5 @@
 /**
- * @file interface.h
+ * @file xml-ui.h
  * @ingroup core
  *
  * lingua-franca
@@ -23,22 +23,9 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-#include "xml-ui.h"
-#include "xml-translate.h"
 
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif
+void xml_ui_init();
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdio.h>
+char *get_incoming_lang_pref();
 
-#include <gdk/gdkkeysyms.h>
-#include <gtk/gtk.h>
-
-GtkWidget* create_linguafranca (void);
-
-void interface_init();
+char *get_outgoing_lang_pref(char *buddy);

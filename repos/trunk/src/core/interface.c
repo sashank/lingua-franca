@@ -24,21 +24,9 @@
  *
  */
 
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdio.h>
-
-#include <gdk/gdkkeysyms.h>
-#include <gtk/gtk.h>
-
 #include "interface.h"
 #include "callbacks.h"
+#include "translate.h"
 
 #define GLADE_HOOKUP_OBJECT(component,widget,name) \
   g_object_set_data_full (G_OBJECT (component), name, \
@@ -57,7 +45,6 @@ void *add_element(gpointer data,gpointer userdata)
 {
    gtk_combo_box_append_text((GtkComboBox *)userdata, (gchar *)data);
 }
-/*void add_buddies_table(GtkTable *buddy_table ,gchar *buddy) */
 void add_buddies_table(gchar *buddy,GtkTable *buddy_table)
 {
    GtkWidget *buddy_label;
@@ -125,6 +112,13 @@ void add_buddies_table(gchar *buddy,GtkTable *buddy_table)
   */
 }
 
+void interface_init(Glist buddies_list,char *dir)
+{
+   buddies = buddies_list ;
+   trans_servers = get_trans_servers();
+   languages = get_avail_languages();
+   xml_ui_init(dir);
+}
 
 GtkWidget*
 create_linguafranca (void)
@@ -174,22 +168,6 @@ create_linguafranca (void)
   GtkWidget *label21;
   GtkWidget *misc_label2;
   GtkWidget *misc_label;
-
-  /* Comment this code From here */ 
-   buddies = g_list_append (buddies,"Akilan");
-   buddies = g_list_append (buddies,"Paddy");
-   buddies = g_list_append (buddies,"Raghu");
-   buddies = g_list_append (buddies,"Sridhar");
-
-   trans_servers = g_list_append (trans_servers,"Google");
-   trans_servers = g_list_append (trans_servers,"Altavista");
-   trans_servers = g_list_append (trans_servers,"Wordplay");
-
-   languages = g_list_append (languages,"English");
-   languages = g_list_append (languages,"Telugu");
-   languages = g_list_append (languages,"Tamil");
-   
-  /* Comment this code upto here  */
 
   tooltips = gtk_tooltips_new ();
 
@@ -454,11 +432,6 @@ create_linguafranca (void)
   g_signal_connect ((gpointer)view_trans_toggle, "toggled",
                     G_CALLBACK (on_view_trans_toggle_toggled),
                     (guint *)10000);
-  /*free the Glists 
-   g_list_free(languages);
-   g_list_free(buddies);
-   g_list_free(trans_servers);
-  */
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
   GLADE_HOOKUP_OBJECT_NO_REF (lingua_franca, lingua_franca, "lingua_franca");

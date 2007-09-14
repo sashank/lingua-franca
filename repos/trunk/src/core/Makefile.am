@@ -9,6 +9,7 @@ bin_PROGRAMS = lingua-franca
 
 lingua-franca_SOURCES = \
 	main.c \
+	xml-ui.c xml-ui.h \
 	xml-translate.c xml-translate.h \
 	translate.c translate.h \
 	support.c support.h \
