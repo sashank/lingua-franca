@@ -1,4 +1,4 @@
-callbacks.o callbacks.o: callbacks.c ../../config.h \
+callbacks.o callbacks.o: callbacks.c callbacks.h ../../config.h \
   /usr/include/sys/types.h /usr/include/features.h \
   /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
   /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h \
@@ -347,7 +347,31 @@ callbacks.o callbacks.o: callbacks.c ../../config.h \
   /usr/include/gtk-2.0/gtk/gtkvpaned.h \
   /usr/include/gtk-2.0/gtk/gtkvruler.h \
   /usr/include/gtk-2.0/gtk/gtkvscale.h \
-  /usr/include/gtk-2.0/gtk/gtkvseparator.h callbacks.h
+  /usr/include/gtk-2.0/gtk/gtkvseparator.h xml-ui.h \
+  /usr/include/libxml2/libxml/xmlwriter.h \
+  /usr/include/libxml2/libxml/xmlversion.h \
+  /usr/include/libxml2/libxml/xmlexports.h \
+  /usr/include/libxml2/libxml/xmlIO.h \
+  /usr/include/libxml2/libxml/globals.h \
+  /usr/include/libxml2/libxml/parser.h /usr/include/libxml2/libxml/tree.h \
+  /usr/include/libxml2/libxml/xmlstring.h \
+  /usr/include/libxml2/libxml/xmlregexp.h \
+  /usr/include/libxml2/libxml/dict.h /usr/include/libxml2/libxml/hash.h \
+  /usr/include/libxml2/libxml/valid.h \
+  /usr/include/libxml2/libxml/xmlerror.h \
+  /usr/include/libxml2/libxml/list.h \
+  /usr/include/libxml2/libxml/xmlautomata.h \
+  /usr/include/libxml2/libxml/entities.h \
+  /usr/include/libxml2/libxml/encoding.h /usr/include/iconv.h \
+  /usr/include/libxml2/libxml/SAX.h /usr/include/alloca.h \
+  /usr/include/libxml2/libxml/xlink.h /usr/include/libxml2/libxml/SAX2.h \
+  /usr/include/libxml2/libxml/xmlmemory.h \
+  /usr/include/libxml2/libxml/threads.h \
+  /usr/include/libxml2/libxml/xmlreader.h \
+  /usr/include/libxml2/libxml/relaxng.h \
+  /usr/include/libxml2/libxml/xmlschemas.h
+
+callbacks.h:
 
 ../../config.h:
 
@@ -1157,4 +1181,58 @@ callbacks.o callbacks.o: callbacks.c ../../config.h \
 
 /usr/include/gtk-2.0/gtk/gtkvseparator.h:
 
-callbacks.h:
+xml-ui.h:
+
+/usr/include/libxml2/libxml/xmlwriter.h:
+
+/usr/include/libxml2/libxml/xmlversion.h:
+
+/usr/include/libxml2/libxml/xmlexports.h:
+
+/usr/include/libxml2/libxml/xmlIO.h:
+
+/usr/include/libxml2/libxml/globals.h:
+
+/usr/include/libxml2/libxml/parser.h:
+
+/usr/include/libxml2/libxml/tree.h:
+
+/usr/include/libxml2/libxml/xmlstring.h:
+
+/usr/include/libxml2/libxml/xmlregexp.h:
+
+/usr/include/libxml2/libxml/dict.h:
+
+/usr/include/libxml2/libxml/hash.h:
+
+/usr/include/libxml2/libxml/valid.h:
+
+/usr/include/libxml2/libxml/xmlerror.h:
+
+/usr/include/libxml2/libxml/list.h:
+
+/usr/include/libxml2/libxml/xmlautomata.h:
+
+/usr/include/libxml2/libxml/entities.h:
+
+/usr/include/libxml2/libxml/encoding.h:
+
+/usr/include/iconv.h:
+
+/usr/include/libxml2/libxml/SAX.h:
+
+/usr/include/alloca.h:
+
+/usr/include/libxml2/libxml/xlink.h:
+
+/usr/include/libxml2/libxml/SAX2.h:
+
+/usr/include/libxml2/libxml/xmlmemory.h:
+
+/usr/include/libxml2/libxml/threads.h:
+
+/usr/include/libxml2/libxml/xmlreader.h:
+
+/usr/include/libxml2/libxml/relaxng.h:
+
+/usr/include/libxml2/libxml/xmlschemas.h:

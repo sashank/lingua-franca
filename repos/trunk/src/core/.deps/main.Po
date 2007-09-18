@@ -336,15 +336,40 @@ main.o main.o: main.c ../../config.h /usr/include/gtk-2.0/gtk/gtk.h \
   /usr/include/gtk-2.0/gtk/gtkvpaned.h \
   /usr/include/gtk-2.0/gtk/gtkvruler.h \
   /usr/include/gtk-2.0/gtk/gtkvscale.h \
-  /usr/include/gtk-2.0/gtk/gtkvseparator.h interface.h support.h \
+  /usr/include/gtk-2.0/gtk/gtkvseparator.h interface.h xml-ui.h \
+  /usr/include/libxml2/libxml/xmlwriter.h \
+  /usr/include/libxml2/libxml/xmlversion.h \
+  /usr/include/libxml2/libxml/xmlexports.h \
+  /usr/include/libxml2/libxml/xmlIO.h \
+  /usr/include/libxml2/libxml/globals.h \
+  /usr/include/libxml2/libxml/parser.h /usr/include/libxml2/libxml/tree.h \
+  /usr/include/libxml2/libxml/xmlstring.h \
+  /usr/include/libxml2/libxml/xmlregexp.h \
+  /usr/include/libxml2/libxml/dict.h /usr/include/libxml2/libxml/hash.h \
+  /usr/include/libxml2/libxml/valid.h \
+  /usr/include/libxml2/libxml/xmlerror.h \
+  /usr/include/libxml2/libxml/list.h \
+  /usr/include/libxml2/libxml/xmlautomata.h \
+  /usr/include/libxml2/libxml/entities.h \
+  /usr/include/libxml2/libxml/encoding.h /usr/include/iconv.h \
+  /usr/include/libxml2/libxml/SAX.h /usr/include/stdlib.h \
+  /usr/include/sys/types.h /usr/include/endian.h \
+  /usr/include/bits/endian.h /usr/include/sys/select.h \
+  /usr/include/bits/select.h /usr/include/bits/sigset.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/libxml2/libxml/xlink.h \
+  /usr/include/libxml2/libxml/SAX2.h \
+  /usr/include/libxml2/libxml/xmlmemory.h \
+  /usr/include/libxml2/libxml/threads.h /usr/include/string.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h \
+  /usr/include/libxml2/libxml/xmlreader.h \
+  /usr/include/libxml2/libxml/relaxng.h \
+  /usr/include/libxml2/libxml/xmlschemas.h xml-translate.h \
+  /usr/include/sys/stat.h /usr/include/bits/stat.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h /usr/include/gtk-2.0/gdk/gdkkeysyms.h support.h \
   /usr/include/libintl.h /usr/include/locale.h /usr/include/bits/locale.h \
-  translate.h /usr/include/stdlib.h /usr/include/sys/types.h \
-  /usr/include/endian.h /usr/include/bits/endian.h \
-  /usr/include/sys/select.h /usr/include/bits/select.h \
-  /usr/include/bits/sigset.h /usr/include/sys/sysmacros.h \
-  /usr/include/bits/pthreadtypes.h /usr/include/alloca.h \
-  /usr/include/string.h /usr/include/bits/string.h \
-  /usr/include/bits/string2.h /usr/local/include/curl/curl.h \
+  translate.h /usr/local/include/curl/curl.h \
   /usr/local/include/curl/curlver.h /usr/include/sys/socket.h \
   /usr/include/sys/uio.h /usr/include/bits/uio.h \
   /usr/include/bits/socket.h /usr/include/bits/sockaddr.h \
@@ -1125,15 +1150,45 @@ main.o main.o: main.c ../../config.h /usr/include/gtk-2.0/gtk/gtk.h \
 
 interface.h:
 
-support.h:
+xml-ui.h:
 
-/usr/include/libintl.h:
+/usr/include/libxml2/libxml/xmlwriter.h:
 
-/usr/include/locale.h:
+/usr/include/libxml2/libxml/xmlversion.h:
 
-/usr/include/bits/locale.h:
+/usr/include/libxml2/libxml/xmlexports.h:
 
-translate.h:
+/usr/include/libxml2/libxml/xmlIO.h:
+
+/usr/include/libxml2/libxml/globals.h:
+
+/usr/include/libxml2/libxml/parser.h:
+
+/usr/include/libxml2/libxml/tree.h:
+
+/usr/include/libxml2/libxml/xmlstring.h:
+
+/usr/include/libxml2/libxml/xmlregexp.h:
+
+/usr/include/libxml2/libxml/dict.h:
+
+/usr/include/libxml2/libxml/hash.h:
+
+/usr/include/libxml2/libxml/valid.h:
+
+/usr/include/libxml2/libxml/xmlerror.h:
+
+/usr/include/libxml2/libxml/list.h:
+
+/usr/include/libxml2/libxml/xmlautomata.h:
+
+/usr/include/libxml2/libxml/entities.h:
+
+/usr/include/libxml2/libxml/encoding.h:
+
+/usr/include/iconv.h:
+
+/usr/include/libxml2/libxml/SAX.h:
 
 /usr/include/stdlib.h:
 
@@ -1155,11 +1210,51 @@ translate.h:
 
 /usr/include/alloca.h:
 
+/usr/include/libxml2/libxml/xlink.h:
+
+/usr/include/libxml2/libxml/SAX2.h:
+
+/usr/include/libxml2/libxml/xmlmemory.h:
+
+/usr/include/libxml2/libxml/threads.h:
+
 /usr/include/string.h:
 
 /usr/include/bits/string.h:
 
 /usr/include/bits/string2.h:
+
+/usr/include/libxml2/libxml/xmlreader.h:
+
+/usr/include/libxml2/libxml/relaxng.h:
+
+/usr/include/libxml2/libxml/xmlschemas.h:
+
+xml-translate.h:
+
+/usr/include/sys/stat.h:
+
+/usr/include/bits/stat.h:
+
+/usr/include/unistd.h:
+
+/usr/include/bits/posix_opt.h:
+
+/usr/include/bits/confname.h:
+
+/usr/include/getopt.h:
+
+/usr/include/gtk-2.0/gdk/gdkkeysyms.h:
+
+support.h:
+
+/usr/include/libintl.h:
+
+/usr/include/locale.h:
+
+/usr/include/bits/locale.h:
+
+translate.h:
 
 /usr/local/include/curl/curl.h:
 

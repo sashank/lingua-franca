@@ -1,5 +1,5 @@
 /**
- * @file interface.h
+ * @file lingua-franca.c
  * @ingroup core
  *
  * lingua-franca
@@ -23,23 +23,52 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-#include "xml-ui.h"
-#include "xml-translate.h"
 
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
+#include "lingua-franca.h"
+
+GtkWidget *lf_ui()
+{
+  return get_interface();
+}
+
+char *lf_translate_incoming(char *mesg)
+{
+  char *incoming_lang_pref = get_incoming_lang_pref();
+  char *translated_mesg ;
+
+  translated_mesg = translate(mesg,incoming_lang_pref);
+
+  return translated_mesg;
+}
+
+char *lf_translate_outgoing(char *mesg, char *buddy);
+{
+  char *outgoing_lang = get_outgoing_lang_pref(buddy);
+  char *translated_mesg ;
+
+  translated_mesg = translate(mesg,outgoing_lang_pref);
+
+  return translated_mesg;
+}
+
+void lf_init(Glist *buddies,char *dir)
+{
+ #ifdef ENABLE_NLS
+  bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
+  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+  textdomain (GETTEXT_PACKAGE);
 #endif
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdio.h>
+  gtk_set_locale ();
+  add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
 
-#include <gdk/gdkkeysyms.h>
-#include <gtk/gtk.h>
+  interface_init(buddies,dir);
+  translate_init(dir);
+ 
+}
 
-
-void interface_init();
-
-GtkWidget* get_interface(void);
+void lf_unload()
+{
+  interface_unload();
+  translate_unload();
+}

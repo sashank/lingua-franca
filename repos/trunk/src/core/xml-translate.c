@@ -276,7 +276,9 @@ void xml_translate_init(char *serverfilename)
     } else {
         printf("Unable to open %s\n", serverfilename);
     }
-
+     
+  /* add default */
+  add_avail_langs("No Translation");
 }
 
 void xml_translate_unload()

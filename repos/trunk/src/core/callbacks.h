@@ -37,6 +37,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
 
+#include "xml-ui.h"
 
 #define GLADE_HOOKUP_OBJECT(component,widget,name) \
   g_object_set_data_full (G_OBJECT (component), name, \
@@ -65,3 +66,4 @@ void on_buddy_toggle_toggled (GtkToggleButton       *button, gpointer         us
 void on_trans_server_combo_changed          (GtkComboBox     *combo, gpointer         user_data);
 
 void on_time_out_spin_value_changed               (GtkSpinButton     *spin, gpointer         user_data);
+

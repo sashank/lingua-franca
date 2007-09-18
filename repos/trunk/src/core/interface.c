@@ -35,6 +35,7 @@
 #define GLADE_HOOKUP_OBJECT_NO_REF(component,widget,name) \
   g_object_set_data (G_OBJECT (component), name, widget)
 
+GtkWidget *lingua_franca;
 GtkTooltips *tooltips;
 GList     *buddies = NULL;
 GList     *trans_servers = NULL;
@@ -50,6 +51,7 @@ void add_buddies_table(gchar *buddy,GtkTable *buddy_table)
    GtkWidget *buddy_label;
    GtkWidget *buddy_combo;
    GtkWidget *buddy_toggle;
+   int default_pref ;
 
   buddy_label = gtk_label_new (buddy);
   gtk_widget_show (buddy_label);
@@ -66,6 +68,8 @@ void add_buddies_table(gchar *buddy,GtkTable *buddy_table)
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_FILL), 0, 0);
   gtk_widget_set_size_request (buddy_combo, 35, 25);
+  default_pref = g_list_index(languages,get_outgoing_lang_pref(buddy));
+  gtk_combo_box_set_active(buddy_combo,default_pref);
 
   buddy_toggle = gtk_toggle_button_new_with_mnemonic ("gtk-yes");
   gtk_button_set_use_stock (GTK_BUTTON (buddy_toggle), TRUE);
@@ -78,52 +82,41 @@ void add_buddies_table(gchar *buddy,GtkTable *buddy_table)
 
   g_signal_connect ((gpointer)buddy_combo, "changed",
                     G_CALLBACK (on_buddy_combo_changed),
-                    (guint *)buddycount);
+                    (gchar *)buddy);
 
   g_signal_connect ((gpointer)buddy_toggle, "clicked",
                     G_CALLBACK (on_buddy_toggle_toggled),
-                    (guint *)buddycount);
+                    (gchar *)buddy);
   buddycount++;
 
- /*
-  buddy2_label = gtk_label_new ("Paddy");
-  gtk_widget_show (buddy2_label);
-  gtk_table_attach (GTK_TABLE (buddy_table), buddy2_label, 0, 1, 2, 3,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_widget_set_size_request (buddy2_label, 70, 25);
-  gtk_label_set_justify (GTK_LABEL (buddy2_label), GTK_JUSTIFY_CENTER);
-  gtk_misc_set_alignment (GTK_MISC (buddy2_label), 0.35, 0.5);
-
-  buddy2_combo = gtk_combo_box_new_text ();
-  g_list_foreach(languages,(GFunc)add_element, (gpointer)buddy2_combo);
-  gtk_widget_show (buddy2_combo);
-  gtk_table_attach (GTK_TABLE (buddy_table), buddy2_combo, 1, 2, 2, 3,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (GTK_FILL), 0, 0);
-  gtk_widget_set_size_request (buddy2_combo, -1, 35);
-
-  buddy2_toggle = gtk_toggle_button_new_with_mnemonic ("gtk-yes");
-  gtk_button_set_use_stock (GTK_BUTTON (buddy2_toggle), TRUE);
-  gtk_widget_show (buddy2_toggle);
-  gtk_table_attach (GTK_TABLE (buddy_table), buddy2_toggle, 2, 3, 2, 3,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  */
 }
 
-void interface_init(Glist buddies_list,char *dir)
+void interface_init(GList *buddies_list,char *dir)
 {
+   char *lf_prefs_file;
    buddies = buddies_list ;
    trans_servers = get_trans_servers();
    languages = get_avail_languages();
-   xml_ui_init(dir);
+
+   /* check for lf_prefs xml */
+   lf_prefs_file = g_build_filename(dir,"lf_prefs.xml");
+   if(g_file_test(lf_prefs_file) == TRUE)
+	xml_ui_init(lf_prefs_file);
+
+   /* create the interface */
+    create_ui();
 }
 
-GtkWidget*
-create_linguafranca (void)
+void interface_unload()
 {
-  GtkWidget *lingua_franca;
+  xml_ui_unload();
+}
+GtkWidget *get_interface()
+{
+  return lingua_franca;
+}
+void create_ui (void)
+{
   GtkWidget *notebook;
   GtkWidget *general_frame;
   GtkWidget *alignment1;
@@ -479,6 +472,5 @@ create_linguafranca (void)
   GLADE_HOOKUP_OBJECT (lingua_franca, misc_label, "misc_label");
   GLADE_HOOKUP_OBJECT_NO_REF (lingua_franca, tooltips, "tooltips");
 
-  return lingua_franca;
 }
 

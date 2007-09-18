@@ -23,9 +23,35 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
+#include <libxml/xmlwriter.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <libxml/encoding.h>
+#include <libxml/xmlreader.h>
+#include <glib.h>
 
-void xml_ui_init();
+
+void xml_ui_init(char *dir);
 
 char *get_incoming_lang_pref();
 
 char *get_outgoing_lang_pref(char *buddy);
+
+char *get_pref_status(char *buddy);
+
+void set_incoming_lang_pref(char *lang);
+
+void set_outgoing_lang_pref(char *buddy,char *lang);
+
+void set_view_translation(int  state);
+
+void set_buddy_toggle(gchar *buddy);
+
+void set_trans_server(char *server);
+
+void set_time_out(int time_out);
+
+void save_preferences();
+
+void xml_ui_unload();

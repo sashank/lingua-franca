@@ -1,5 +1,5 @@
 /**
- * @file interface.h
+ * @file lingua-franca.h
  * @ingroup core
  *
  * lingua-franca
@@ -23,23 +23,29 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-#include "xml-ui.h"
-#include "xml-translate.h"
 
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdio.h>
-
-#include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
+#include <glib.h>
 
+#include "interface.h"
+#include "support.h"
+#include "translate.h"
 
-void interface_init();
+/* Init method */
+void lf_init(Glist *buddies,char *dir);
 
-GtkWidget* get_interface(void);
+/* User Preferences */
+GtkWidget *lf_ui();
+
+/* translate outgoing messages inputs are mesg and buddyname */
+char *lf_translate_outgoing(char *mesg,char *buddy);
+
+/* translate outgoing messages inputs are mesg */
+char *lf_translate_incoming(char *mesg);
+
+/*Destructor method */
+void lf_unload();
