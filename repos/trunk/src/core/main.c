@@ -28,11 +28,7 @@
 #  include <config.h>
 #endif
 
-#include <gtk/gtk.h>
-
-#include "interface.h"
-#include "support.h"
-#include "translate.h"
+#include "lingua-franca.h"
 
 int
 main (int argc, char *argv[])
@@ -50,12 +46,13 @@ main (int argc, char *argv[])
 
   add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
 
-  /*
-   * The following code was added by Glade to create one of each component
-   * (except popup menus), just so that you see something after building
-   * the project. Delete any components that you don't want shown initially.
-   */
-  linguafranca = create_linguafranca();
+ /* Add dummy buddies */
+  GList *buddies =NULL ;
+  buddies = g_list_append(buddies,"Akilan");
+  buddies = g_list_append(buddies,"Sashi");
+
+  lf_init(buddies,"/home/sashank/workplace/lingua-franca/src/config");
+  linguafranca = lf_ui();
   gtk_widget_show (linguafranca);
 
   gtk_main ();

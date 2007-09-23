@@ -36,7 +36,7 @@
 #include "translate.h"
 
 /* Init method */
-void lf_init(Glist *buddies,char *dir);
+void lf_init(GList *buddies,char *dir);
 
 /* User Preferences */
 GtkWidget *lf_ui();

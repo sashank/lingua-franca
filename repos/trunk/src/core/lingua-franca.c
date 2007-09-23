@@ -28,31 +28,46 @@
 
 GtkWidget *lf_ui()
 {
-  return get_interface();
+  printf("lingua-franca:lf-ui  entered \n");
+  GtkWidget *ui = get_interface();
+  printf("lingua-franca:lf-ui  exiting \n");
+  return ui;
 }
 
 char *lf_translate_incoming(char *mesg)
 {
+  printf("lingua-franca:lf_translate_incoming  entered \n");
+  printf("lingua-franca:lf_translate_incoming  Mesg is %s \n",mesg);
   char *incoming_lang_pref = get_incoming_lang_pref();
   char *translated_mesg ;
+  printf("lingua-franca:lf_translate_incoming  incoming_lang_pref is %s \n",incoming_lang_pref);
 
   translated_mesg = translate(mesg,incoming_lang_pref);
 
+  printf("lingua-franca:lf_translate_incoming  translated mesg is %s \n",translated_mesg);
+  printf("lingua-franca:lf_translate_outgoing  exiting \n");
   return translated_mesg;
 }
 
-char *lf_translate_outgoing(char *mesg, char *buddy);
+char *lf_translate_outgoing(char *mesg, char *buddy)
 {
+  printf("lingua-franca:lf-translate_outgoing entered \n");
+  printf("lingua-franca: Mesg is %s \n",mesg);
+  printf("lingua-franca: buddy is %s \n",buddy);
   char *outgoing_lang = get_outgoing_lang_pref(buddy);
   char *translated_mesg ;
 
-  translated_mesg = translate(mesg,outgoing_lang_pref);
+  printf("lingua-franca: Outgoing Lang Pref is %s \n",outgoing_lang);
+  translated_mesg = translate(mesg,outgoing_lang);
 
+  printf("lingua-franca: Translated Mesg is %s \n",translated_mesg);
+  printf("lingua-franca:lf-translate_outgoing exited \n");
   return translated_mesg;
 }
 
-void lf_init(Glist *buddies,char *dir)
+void lf_init(GList *buddies,char *dir)
 {
+ printf("lingua-franca:lf-init entered \n");
  #ifdef ENABLE_NLS
   bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -63,12 +78,13 @@ void lf_init(Glist *buddies,char *dir)
   add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
 
   interface_init(buddies,dir);
-  translate_init(dir);
  
+ printf("lingua-franca:lf-init exited \n");
 }
 
 void lf_unload()
 {
+ printf("lingua-franca:lf-unload entered \n");
   interface_unload();
-  translate_unload();
+ printf("lingua-franca:lf-unload exited \n");
 }

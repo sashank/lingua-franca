@@ -32,8 +32,8 @@ typedef struct _LangPairStruct {
   char *lp;
 }LangPair;
 
-GList *langpairs_list;
-GList *langs;
+GList *langpairs_list= NULL;
+GList *langs = NULL;
 
 typedef struct _PostOptionStruct {
   char *name;
@@ -56,10 +56,13 @@ char *get_host_url()
 
 void add_avail_langs( char *lang)
 {
+ /* printf("xml-translate: add_avail_langs entered \n"); */
   char *l ;
   int i ;
   gboolean exists = FALSE;
   int count  = g_list_length(langs);
+ /* printf("xml-translate: count is %d \n ",count); 
+  printf("xml-translate: lang  is %s  \n",lang); */
   for(i = 0 ;i < count ; i++)
   {
     l = g_list_nth_data(langs,i); 
@@ -68,10 +71,15 @@ void add_avail_langs( char *lang)
   }
   if( exists == FALSE || count == 0)
     langs = g_list_append(langs,lang);
+ /* printf("xml-translate: add_avail_langs exited \n"); */
 }
   
 void add_lang_pair(char *from,char *to,char *lp)
 {
+/*  printf("xml-translate: add_lang_pairs entered \n");
+  printf("xml-translate:  from %s " ,from);
+  printf("to %s " ,to);
+   printf("lp %s \n" ,lp); */
   LangPair *langpair;
   g_return_if_fail(from != NULL);
   g_return_if_fail(to != NULL);
@@ -87,6 +95,7 @@ void add_lang_pair(char *from,char *to,char *lp)
   /* Add into Avail Langs list also*/
    add_avail_langs(from);
    add_avail_langs(to);
+  /* printf("xml-translate: add_lang_pairs exited"); */
 }
 
 void add_post_option(char *name ,char *value)
@@ -255,10 +264,12 @@ char *get_response_suffix()
 }
 GList *get_avail_languages()
 {
+  printf("xml-translate: get_avail_languages entered \n");
  return langs;
 }
 void xml_translate_init(char *serverfilename)
 {
+  printf("xml-translate: xml_translate_init entered \n");
     xmlTextReaderPtr xml_reader;
     int ret;
 
@@ -279,6 +290,7 @@ void xml_translate_init(char *serverfilename)
      
   /* add default */
   add_avail_langs("No Translation");
+  printf("xml-translate: xml_translate_init exited \n");
 }
 
 void xml_translate_unload()

@@ -161,10 +161,12 @@ char *translate_message(char *message , char *from , char *to)
 
 GList *get_trans_servers()
 {
- GList *server_list;
+   printf("translate.c: get_trans_servers entered \n");
+ GList *server_list = NULL;
   /* For now hardcoded , to be modified later */
   server_list = g_list_append(server_list , "Google"); 
   server_list = g_list_append(server_list , "Altavista"); 
+   printf("translate.c: get_trans_servers exited \n");
  return server_list;
 }
 gboolean is_translation_avail(char *lang1,char *lang2)
@@ -184,6 +186,7 @@ void set_translate_server(char *serverfilename)
 }
 void translate_init(char *dir)
 {
+   printf("translate.c: translate_init entered \n");
      /* By default load altavista xml */
      char *serverfilename =  g_build_filename(dir,"altavista.xml",NULL);
       if (!g_file_test(serverfilename, G_FILE_TEST_EXISTS))
@@ -195,10 +198,16 @@ void translate_init(char *dir)
 
  	//Initialise XML
   	xml_translate_init(serverfilename);
+   printf("translate.c: translate_init exiting \n");
 }
 
 char *translate(char *mesg,char *to)
 {
    char *from = determine_lang(mesg);  
    return translate_message(mesg,from,to);
+}
+
+void translate_unload()
+{
+  
 }

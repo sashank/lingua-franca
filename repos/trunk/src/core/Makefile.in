@@ -48,7 +48,7 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_lingua-franca_OBJECTS = main.$(OBJEXT) xml-ui.$(OBJEXT) xml-translate.$(OBJEXT) translate.$(OBJEXT) support.$(OBJEXT) \
-	interface.$(OBJEXT) callbacks.$(OBJEXT)
+	interface.$(OBJEXT) callbacks.$(OBJEXT) lingua-franca.$(OBJEXT)
 lingua-franca_OBJECTS = $(am_lingua-franca_OBJECTS)
 am__DEPENDENCIES_1 =
 lingua-franca_DEPENDENCIES = $(am__DEPENDENCIES_1)
@@ -170,7 +170,8 @@ lingua-franca_SOURCES = \
 	translate.c translate.h \
 	support.c support.h \
 	interface.c interface.h \
-	callbacks.c callbacks.h
+	callbacks.c callbacks.h \
+	lingua-franca.c lingua-franca.h
 
 lingua-franca_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 all: all-am
@@ -242,6 +243,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/callbacks.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/interface.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lingua-franca.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/support.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/translate.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xml-translate.Po@am__quote@

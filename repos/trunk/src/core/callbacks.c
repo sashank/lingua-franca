@@ -70,7 +70,7 @@ on_outgoing_combo_changed              (GtkComboBox     *combo,
                                         gpointer         user_data)
 {
   g_print("Outgoing Lang %s is selected \n", gtk_combo_box_get_active_text(combo)) ;
-  set_outgoing_lang_pref(gtk_combo_box_get_active_text(combo),-1);
+  set_outgoing_lang_pref(gtk_combo_box_get_active_text(combo),"ALL");
 }
 
 

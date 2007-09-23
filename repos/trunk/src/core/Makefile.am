@@ -15,6 +15,7 @@ lingua-franca_SOURCES = \
 	support.c support.h \
 	interface.c interface.h \
 	callbacks.c callbacks.h 
+	lingua-franca.c lingua-franca.h
 
 lingua-franca_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 

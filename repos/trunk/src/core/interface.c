@@ -44,10 +44,16 @@ int        buddycount = 0 ;
 
 void *add_element(gpointer data,gpointer userdata)
 {
+  /*  printf("interface.c: add_element  entered \n");
+    g_return_if_fail(data != NULL);
+  printf("interface.c: lang is %s \n",(gchar *)data); */
    gtk_combo_box_append_text((GtkComboBox *)userdata, (gchar *)data);
+  /* printf("interface.c: add_element  exiting \n"); */
 }
-void add_buddies_table(gchar *buddy,GtkTable *buddy_table)
+void add_buddies_table(char *buddy,GtkWidget *buddy_table)
 {
+  printf("interface.c: add_buddies_table entered \n");
+  printf("interface.c: buddy is %s \n",buddy);
    GtkWidget *buddy_label;
    GtkWidget *buddy_combo;
    GtkWidget *buddy_toggle;
@@ -63,12 +69,14 @@ void add_buddies_table(gchar *buddy,GtkTable *buddy_table)
 
   buddy_combo = gtk_combo_box_new_text ();
   g_list_foreach(languages,(GFunc)add_element, (gpointer)buddy_combo);
+  printf("interface.c: before index adding langs \n");
   gtk_widget_show (buddy_combo);
   gtk_table_attach (GTK_TABLE (buddy_table), buddy_combo, 1, 2, buddycount+1,buddycount+ 2,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_FILL), 0, 0);
   gtk_widget_set_size_request (buddy_combo, 35, 25);
   default_pref = g_list_index(languages,get_outgoing_lang_pref(buddy));
+  printf("interface.c: default pref %d \n",default_pref);
   gtk_combo_box_set_active(buddy_combo,default_pref);
 
   buddy_toggle = gtk_toggle_button_new_with_mnemonic ("gtk-yes");
@@ -89,27 +97,14 @@ void add_buddies_table(gchar *buddy,GtkTable *buddy_table)
                     (gchar *)buddy);
   buddycount++;
 
+  printf("interface.c: add_buddies_table exited \n");
 }
 
-void interface_init(GList *buddies_list,char *dir)
-{
-   char *lf_prefs_file;
-   buddies = buddies_list ;
-   trans_servers = get_trans_servers();
-   languages = get_avail_languages();
-
-   /* check for lf_prefs xml */
-   lf_prefs_file = g_build_filename(dir,"lf_prefs.xml");
-   if(g_file_test(lf_prefs_file) == TRUE)
-	xml_ui_init(lf_prefs_file);
-
-   /* create the interface */
-    create_ui();
-}
 
 void interface_unload()
 {
   xml_ui_unload();
+  translate_unload();
 }
 GtkWidget *get_interface()
 {
@@ -117,6 +112,7 @@ GtkWidget *get_interface()
 }
 void create_ui (void)
 {
+  printf("interface.c: create_ui entered \n");
   GtkWidget *notebook;
   GtkWidget *general_frame;
   GtkWidget *alignment1;
@@ -299,7 +295,16 @@ void create_ui (void)
   gtk_widget_set_size_request (enable_label, 88, -1);
 
   /* Add Buddies to table */
-  g_list_foreach(buddies,(GFunc)add_buddies_table, (gpointer)buddy_table);
+  int buddy_cnt = g_list_length(buddies);
+    printf(" buddy count is %d \n",buddy_cnt);
+  int i ;
+  gchar *buddy_name ;
+  for ( i =0 ; i < buddy_cnt ; i++)
+  {
+    buddy_name = (gchar *)g_list_nth_data(buddies,i);
+    printf(" buddy is %s \n",buddy_name);
+    add_buddies_table(buddy_name,buddy_table);
+  }
 
   buddy_lp_label = gtk_label_new ("<b>Buddy  Lang Preference</b>");
   gtk_widget_show (buddy_lp_label);
@@ -472,5 +477,31 @@ void create_ui (void)
   GLADE_HOOKUP_OBJECT (lingua_franca, misc_label, "misc_label");
   GLADE_HOOKUP_OBJECT_NO_REF (lingua_franca, tooltips, "tooltips");
 
+  printf("interface.c: create_ui entered \n");
+}
+
+void interface_init(GList *buddies_list,char *dir)
+{
+   printf("interface.c: interface_init entered \n");
+   printf("interface.c: interface_init dir is %s \n",dir);
+   gchar *lf_prefs_file;
+   /* check for lf_prefs xml */
+   lf_prefs_file = g_build_filename(dir,"lf_prefs.xml",NULL);
+   printf("interface.c: file is %s \n",lf_prefs_file);
+
+   buddies = buddies_list ;
+
+  /* Init Translate */
+   translate_init(dir);
+   trans_servers = get_trans_servers();
+   languages = get_avail_languages();
+
+  /* xml ui init */
+   xml_ui_init(lf_prefs_file);
+   g_free(lf_prefs_file);
+
+   /* create the interface */
+    create_ui();
+   printf("interface.c: interface_init exiting \n");
 }
 

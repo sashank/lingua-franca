@@ -48,7 +48,7 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_lingua-franca_OBJECTS = main.$(OBJEXT) xml-ui.$(OBJEXT) xml-translate.$(OBJEXT) translate.$(OBJEXT) support.$(OBJEXT) \
-	interface.$(OBJEXT) callbacks.$(OBJEXT)
+	interface.$(OBJEXT) callbacks.$(OBJEXT) lingua-franca.$(OBJEXT)
 lingua-franca_OBJECTS = $(am_lingua-franca_OBJECTS)
 am__DEPENDENCIES_1 =
 lingua-franca_DEPENDENCIES = $(am__DEPENDENCIES_1)
@@ -110,8 +110,8 @@ MSGFMT = /usr/bin/msgfmt
 OBJEXT = o
 PACKAGE = lingua-franca
 PACKAGE_BUGREPORT = 
-PACKAGE_CFLAGS = -I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libpng12  -I/usr/include/libxml -I/usr/local/include
-PACKAGE_LIBS = -L/lib -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgdk_pixbuf-2.0 -lm -lpangocairo-1.0 -lpango-1.0 -lcairo -lgobject-2.0 -lgmodule-2.0 -ldl -lglib-2.0 -L/usr/lib -lxml2 -lz -lm -L/usr/local/lib -lcurl -L/usr/kerberos/lib
+PACKAGE_CFLAGS = -I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libpng12  -I/usr/include/libxml2 -I/usr/local/include
+PACKAGE_LIBS = -L/lib -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgdk_pixbuf-2.0 -lm -lpangocairo-1.0 -lpango-1.0 -lcairo -lgobject-2.0 -lgmodule-2.0 -ldl -lglib-2.0  -L/usr/lib -lxml2 -lz -lm -L/usr/local/lib -lcurl -L/usr/kerberos/lib
 PACKAGE_NAME = 
 PACKAGE_STRING = 
 PACKAGE_TARNAME = 
@@ -161,21 +161,19 @@ target_alias =
 INCLUDES = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
-	-I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 \
-	-I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 \
-	-I/usr/lib/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libpng12 \
-	-I/usr/local/include -I/usr/include/libxml2 
+	-I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libpng12  -I/usr/include/libxml2 -I/usr/local/include
 
 lingua-franca_SOURCES = \
 	main.c \
+	xml-translate.c xml-translate.h \
 	xml-ui.c xml-ui.h \
 	translate.c translate.h \
-	xml-translate.c xml-translate.h \
 	support.c support.h \
 	interface.c interface.h \
-	callbacks.c callbacks.h
+	callbacks.c callbacks.h \
+	lingua-franca.c lingua-franca.h
 
-lingua-franca_LDADD = -L/lib -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgdk_pixbuf-2.0 -lm -lpangocairo-1.0 -lpango-1.0 -lcairo -lgobject-2.0 -lgmodule-2.0 -ldl -lglib-2.0 -L/usr/local/lib -lcurl -L/usr/kerberos/lib -L/usr/lib -lxml2 -lz -lm   $(INTLLIBS)
+lingua-franca_LDADD = -L/lib -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgdk_pixbuf-2.0 -lm -lpangocairo-1.0 -lpango-1.0 -lcairo -lgobject-2.0 -lgmodule-2.0 -ldl -lglib-2.0 -L/usr/lib -lxml2 -lz -lm -L/usr/local/lib -lcurl -L/usr/kerberos/lib $(INTLLIBS)
 all: all-am
 
 .SUFFIXES:
@@ -245,6 +243,7 @@ distclean-compile:
 include ./$(DEPDIR)/callbacks.Po
 include ./$(DEPDIR)/interface.Po
 include ./$(DEPDIR)/main.Po
+include ./$(DEPDIR)/lingua-franca.Po
 include ./$(DEPDIR)/support.Po
 include ./$(DEPDIR)/translate.Po
 include ./$(DEPDIR)/xml-translate.Po
