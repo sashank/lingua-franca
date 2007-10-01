@@ -63,15 +63,14 @@ char *parse_response(char *response)
    gchar **splits;
    char *parsed_response;
 
-/*   printf(" parse_response Entered %s\n ",response); 
+  /* printf(" parse_response Entered %s\n ",response);*/ 
    printf(" Parse response Size %d\n ",strlen(response)); 
    printf(" Prefix  %s\n ",get_response_prefix()); 
-   printf(" Suffix  %s\n ",get_response_suffix());  */
+   printf(" Suffix  %s\n ",get_response_suffix());  
 
    if(response != NULL)
     return NULL ;
   
-    printf(" response  %s\n ",response); 
 
    splits = g_strsplit(response ,get_response_prefix(),-1); 
    response = strdup(splits[1]);
@@ -97,7 +96,7 @@ char *determine_lang(char *mesg)
 char *translate_message(char *message , char *from , char *to)
 {
   char *translated_mesg;
-  GString *post; 
+  GString *post= NULL; 
    printf(" translate_message Entered \n "); 
 
   chunk.response=NULL; /* we expect realloc(NULL, size) to work */
@@ -105,6 +104,8 @@ char *translate_message(char *message , char *from , char *to)
 
   post = get_post_string(message,from,to);
 
+   printf(" Post String is %s\n ",post->str); 
+   printf(" host url is %s\n ",get_host_url()); 
   curl_global_init(CURL_GLOBAL_ALL);
 
   /* init the curl session */
@@ -113,7 +114,11 @@ char *translate_message(char *message , char *from , char *to)
   /* specify URL to get */
   curl_easy_setopt(curl, CURLOPT_URL, get_host_url());
 
-  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post->str);
+/*  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post->str); */
+  char *postthis;
+     sprintf(postthis,"doit=done&intl=1&tt=urltext&trtext=Hello&lp=en_fr&btnTrTxt=Translate");
+
+  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postthis); 
 
   /* send all data to this function  */
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, ResponseCallback);
@@ -123,7 +128,7 @@ char *translate_message(char *message , char *from , char *to)
 
   /* some servers don't like requests that are made without a user-agent
      field, so we provide one */
-  curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+  curl_easy_setopt(curl, CURLOPT_USERAGENT, "Mozilla/5.0");
 
   /* get it! */
   curl_easy_perform(curl);
@@ -144,8 +149,8 @@ char *translate_message(char *message , char *from , char *to)
    */
 
 
-     printf("It seems we have got response %s",chunk.response); 
-     translated_mesg = strdup(parse_response(chunk.response));
+     printf("It seems we have got response %s",chunk.response);  
+     translated_mesg = parse_response(chunk.response);
 
     /* You should be aware of the fact that at this point we might have an
      * allocated data block, and nothing has yet deallocated that data. So when

@@ -173,6 +173,9 @@ void xml_ui_init(char *filename)
     } else {
         printf("Unable to open %s\n", lf_prefs_file);
     }
+
+    /* Initialise incoming_lang */
+    incoming_lang = "No Translation";
     printf("xml-ui.c:  xml_ui_init exiting \n");
 }
 
@@ -207,7 +210,7 @@ char *get_outgoing_lang_pref(char *buddy)
    char *lang ;
    for ( i=0 ; i < count ; i++)
    {
-        lp = (LangPref)g_list_nth_data(outgoingList,i);
+        lp = (LangPref *)g_list_nth_data(outgoingList,i);
         if ( strcmp(lp->buddy,buddy) == 0 )
         {
           exists = TRUE ;
@@ -233,7 +236,7 @@ gboolean get_pref_status(char *buddy)
    gboolean exists = FALSE ;
    for ( i=0 ; i < count ; i++)
    {
-        lp = (LangPref)g_list_nth_data(outgoingList,i);
+        lp = (LangPref *)g_list_nth_data(outgoingList,i);
         if ( strcmp(lp->buddy,buddy) == 0 )
           exists = lp->enabled;
    }
@@ -258,7 +261,7 @@ void set_outgoing_lang_pref(char *buddy,char  *lang)
    gboolean exists = FALSE ;
    for ( i=0 ; i < count ; i++)
    {
-	lp = (LangPref)g_list_nth_data(outgoingList,i);	
+	lp = (LangPref *)g_list_nth_data(outgoingList,i);	
 	if ( strcmp(lp->buddy,buddy) == 0 ) 
 	{
 	  lp->lang = lang ;
@@ -281,7 +284,7 @@ void set_buddy_toggle(gchar *buddy)
    LangPref *lp;
    for ( i=0 ; i < count ; i++)
    {
-        lp = (LangPref)g_list_nth_data(outgoingList,i);
+        lp = (LangPref *)g_list_nth_data(outgoingList,i);
         if ( strcmp(lp->buddy,buddy) == 0 )
         {
           if(lp->enabled == TRUE)	
@@ -319,13 +322,12 @@ void save_preferences()
     xmlChar *tmp;
     FILE *fp;
      int count = g_list_length(outgoingList);
-        printf("xml-ui.c: Out going Prefs Count is %d \n",count);
      int i ;
      LangPref *lp;
-
     /* Create a new XML buffer, to which the XML document will be
      * written */
     buf = xmlBufferCreate();
+        printf("xml-ui.c: Out going Prefs Count is %d \n",count);
     if (buf == NULL) {
         printf(" Error creating the xml buffer\n");
         return;
@@ -395,7 +397,7 @@ void save_preferences()
     /* Add the outgoing preferences */
      for ( i=0 ; i < count ; i++)
      {
-       lp = (LangPref)g_list_nth_data(outgoingList,i);
+       lp = (LangPref *)g_list_nth_data(outgoingList,i);
 
        /* Start an element named "outgoing_pref" as child of lang_pref. */
        xmlTextWriterStartElement(writer, BAD_CAST "outgoing_pref");

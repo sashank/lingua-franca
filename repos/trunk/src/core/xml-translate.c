@@ -137,7 +137,7 @@ GString *get_post_string(char *mesg,char *from,char *to)
     PostOption *po;
     guint size = g_list_length(postoptions_list);
 /*    printf("Inside get post string %d \n",size);
-    printf("get post string called with  %s,%s,%s \n",mesg,from,to);  */
+    printf("get post string called with  %s,%s,%s \n",mesg,from,to); */ 
     GString *post_this = g_string_new(NULL) ;
     for ( i =0 ; i < size ; i++)
    {
@@ -156,7 +156,7 @@ GString *get_post_string(char *mesg,char *from,char *to)
    }
 
 /*    printf("Exiting get post options %d \n",size); 
-    printf("Exiting get post options %s \n",post_this->str);  */
+    printf("Exiting get post options %s \n",post_this->str); */
    return post_this;
 }
 char *get_server_name()

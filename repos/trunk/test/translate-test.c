@@ -24,7 +24,8 @@
 int main(int argc, char **argv)
 {
  char *result ;
- translate_init(argv[1]); 
- result = translate_message( argv[2],argv[3],argv[4]); 
+ char *dir = "../src/config/";
+ translate_init(dir); 
+ result = translate_message( "Hello","English","French"); 
  printf("Translated Message %s \n",result);
 }
