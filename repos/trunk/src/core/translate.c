@@ -18,7 +18,6 @@
  *
  */
 #include "translate.h"
-
 /* XML Processor */
 #include "xml-translate.h"
 struct ResponseStruct {
@@ -61,35 +60,39 @@ ResponseCallback(void *ptr, size_t size, size_t nmemb, void *data)
 char *parse_response(char *response)
 {
    gchar **splits;
-   char *parsed_response;
-
-  /* printf(" parse_response Entered %s\n ",response);*/ 
+   char *parsed_response,*prefix,*suffix;
+   int res_size;
+/*   printf(" parse_response Entered %s\n ",response); 
    printf(" Parse response Size %d\n ",strlen(response)); 
    printf(" Prefix  %s\n ",get_response_prefix()); 
-   printf(" Suffix  %s\n ",get_response_suffix());  
+   printf(" Suffix  %s\n ",get_response_suffix()); 
+ */  
 
-   if(response != NULL)
-    return NULL ;
-  
+/*
+   prefix = strstr(response,get_response_prefix());
+   prefix += strlen(get_response_prefix());
+    
+   suffix = strstr(prefix,get_response_suffix());
 
-   splits = g_strsplit(response ,get_response_prefix(),-1); 
+   res_size = strlen(prefix)-strlen(suffix);
+*/      
+   splits = g_strsplit(response ,get_response_prefix(),2); 
    response = strdup(splits[1]);
 
+
    g_strfreev(splits);
 
-   splits = g_strsplit(response,get_response_suffix(),-1);
+   splits = g_strsplit(response,get_response_suffix(),2);
    parsed_response = strdup(splits[0]);
 
-   g_strfreev(splits);
+   g_strfreev(splits); 
 
-    printf(" parsed_response  %s\n ",parsed_response);
    printf(" parse_response Exiting \n ");
-  return response;
+  return parsed_response;
 }
 
 char *determine_lang(char *mesg)
 {
-
  return "English";
 }
 
@@ -114,11 +117,7 @@ char *translate_message(char *message , char *from , char *to)
   /* specify URL to get */
   curl_easy_setopt(curl, CURLOPT_URL, get_host_url());
 
-/*  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post->str); */
-  char *postthis;
-     sprintf(postthis,"doit=done&intl=1&tt=urltext&trtext=Hello&lp=en_fr&btnTrTxt=Translate");
-
-  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postthis); 
+  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post->str); 
 
   /* send all data to this function  */
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, ResponseCallback);
@@ -149,7 +148,8 @@ char *translate_message(char *message , char *from , char *to)
    */
 
 
-     printf("It seems we have got response %s",chunk.response);  
+/*     printf("It seems we have got response %s",chunk.response);  */
+   if(chunk.response != NULL)
      translated_mesg = parse_response(chunk.response);
 
     /* You should be aware of the fact that at this point we might have an
@@ -192,8 +192,9 @@ void set_translate_server(char *serverfilename)
 void translate_init(char *dir)
 {
    printf("translate.c: translate_init entered \n");
-     /* By default load altavista xml */
-     char *serverfilename =  g_build_filename(dir,"altavista.xml",NULL);
+     /* By default load altavista xml 
+     char *serverfilename =  g_build_filename(dir,"altavista.xml",NULL); */
+     char *serverfilename =  g_build_filename(dir,"google.xml",NULL);
       if (!g_file_test(serverfilename, G_FILE_TEST_EXISTS))
         {
                 printf( "File %s does not exist (this is not "

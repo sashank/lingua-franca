@@ -7,17 +7,17 @@
    <post_option name="oe" value="UTF-8" />
    <post_option name="text" value="STRING_TO_BE_TRANSLATED" />
    <response_parsing>
-        <prefix>"&lt;textarea name=utrans wrap=PHYSICAL dir=ltr rows=5 id=suggestion&gt;"</prefix>
-        <suffix>"&lt;/textarea&gt;"</suffix>
+        <prefix>&lt;textarea name=utrans wrap=PHYSICAL dir=ltr rows=5 id=suggestion&gt;</prefix>
+        <suffix>&lt;/textarea&gt;</suffix>
    </response_parsing>
    <available_translations>
         <lang_pair from="Arabic" to="English " lp="ar|en"/>
 	<lang_pair from="Chinese" to="English " lp="zh|en"/>
-	<lang_pair from="Chinese(Simplified)" to="Chinese (Traditional)" lp="zh-CN|zh-TW "/>
-	<lang_pair from="Chinese(Traditional)" to="Chinese (Simplified)" lp="zh-TW|zh-CN"/>
+	<lang_pair from="Chinese(Simplified)" to="Chinese(Traditional)" lp="zh-CN|zh-TW "/>
+	<lang_pair from="Chinese(Traditional)" to="Chinese(Simplified)" lp="zh-TW|zh-CN"/>
 	<lang_pair from="English" to="Arabic" lp="en|ar"/>
-	<lang_pair from="English" to="Chinese (Simplified)" lp="en|zh-CN"/>
-	<lang_pair from="English" to="Chinese (Traditional)" lp="en|zh-TW"/>
+	<lang_pair from="English" to="Chinese(Simplified)" lp="en|zh-CN"/>
+	<lang_pair from="English" to="Chinese(Traditional)" lp="en|zh-TW"/>
 	<lang_pair from="English" to="French" lp="en|fr"/>
 	<lang_pair from="English" to="German" lp="en|de"/>
 	<lang_pair from="English" to="Italian" lp="en|it"/>

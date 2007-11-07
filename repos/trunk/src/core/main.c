@@ -51,7 +51,7 @@ main (int argc, char *argv[])
   buddies = g_list_append(buddies,"Akilan");
   buddies = g_list_append(buddies,"Sashi");
 
-  lf_init(buddies,"/home/sashank/workplace/lingua-franca/src/config");
+  lf_init(buddies,"/home/sashank/Projects/lingua-franca/src/config");
   linguafranca = lf_ui();
   gtk_widget_show (linguafranca);
 
