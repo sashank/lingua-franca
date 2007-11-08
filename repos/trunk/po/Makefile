@@ -62,7 +62,7 @@ POTFILES = \
 	../src/interface.c \
 	../src/callbacks.c \
 	../src/support.c \
-	../src/translate.c 
+	../src/translate.c
 
 CATALOGS = 
 CATOBJEXT = .gmo

@@ -24,7 +24,6 @@
  *
  */
 #include "xml-ui.h"
-#include "xml-translate.h"
 
 #ifdef HAVE_CONFIG_H
 #  include <config.h>

@@ -371,12 +371,12 @@ main.o: main.c ../../config.h lingua-franca.h \
   /usr/include/bits/string.h /usr/include/bits/string2.h \
   /usr/include/libxml2/libxml/xmlreader.h \
   /usr/include/libxml2/libxml/relaxng.h \
-  /usr/include/libxml2/libxml/xmlschemas.h xml-translate.h \
-  /usr/include/sys/stat.h /usr/include/bits/stat.h /usr/include/unistd.h \
+  /usr/include/libxml2/libxml/xmlschemas.h /usr/include/sys/stat.h \
+  /usr/include/bits/stat.h /usr/include/unistd.h \
   /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
   /usr/include/getopt.h /usr/include/gtk-2.0/gdk/gdkkeysyms.h support.h \
   /usr/include/libintl.h /usr/include/locale.h /usr/include/bits/locale.h \
-  translate.h /usr/include/curl/curl.h /usr/include/curl/curlver.h \
+  ../lib/translate.h /usr/include/curl/curl.h /usr/include/curl/curlver.h \
   /usr/include/sys/socket.h /usr/include/sys/uio.h \
   /usr/include/bits/uio.h /usr/include/bits/socket.h \
   /usr/include/bits/sockaddr.h /usr/include/asm/socket.h \
@@ -1251,8 +1251,6 @@ xml-ui.h:
 
 /usr/include/libxml2/libxml/xmlschemas.h:
 
-xml-translate.h:
-
 /usr/include/sys/stat.h:
 
 /usr/include/bits/stat.h:
@@ -1275,7 +1273,7 @@ support.h:
 
 /usr/include/bits/locale.h:
 
-translate.h:
+../lib/translate.h:
 
 /usr/include/curl/curl.h:
 

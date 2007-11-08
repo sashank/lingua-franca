@@ -33,7 +33,7 @@
 
 #include "interface.h"
 #include "support.h"
-#include "translate.h"
+#include "../lib/translate.h"
 
 /* Init method */
 void lf_init(GList *buddies,char *dir);
