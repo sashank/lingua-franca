@@ -1,14 +1,15 @@
-dnl Process this file with autoconf to produce a configure script.
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+AC_PREREQ(2.61)
+AC_INIT(lingua-franca, 0.1, lf-bugs@gmail.com)
+AM_INIT_AUTOMAKE(lingua-franca,0.1,lf-bugs@gmail.com)
+AC_CONFIG_SRCDIR([config.h.in])
+AC_CONFIG_HEADER([config.h])
 
-AC_INIT(configure.in)
-AM_INIT_AUTOMAKE(lingua-franca, 0.1)
-AM_CONFIG_HEADER(config.h)
-AM_MAINTAINER_MODE
 
-AC_ISC_POSIX
-AC_PROG_CC
-AM_PROG_CC_STDC
-AC_HEADER_STDC
+dnl ##############################################
+dnl # variable for installing library (liblf) alone
+dnl #######################################################################
 
 dnl #######################################################################
 dnl # Check for GLib 2.0 (required)
@@ -32,13 +33,13 @@ AC_ARG_ENABLE(consoleui, [AC_HELP_STRING([--disable-consoleui],
         enable_consoleui=$enableval, enable_consoleui=yes)
 
 dnl #######################################################################
-dnl # Check for GLib 2.0 (required)
+dnl # Check for GTK 2.0 (required)
 dnl #######################################################################
 PKG_CHECK_MODULES(GTK, [gtk+-2.0 >= 2.0.0], , [
                 AC_MSG_RESULT(no)
                 AC_MSG_ERROR([
 
-You must have the GTK+ 2.0 installed for configuration UI 
+You must have the GTK+ 2.0 installed for configuration UI
 ])])
         AC_SUBST(GTK_CFLAGS)
         AC_SUBST(GTK_LIBS)
@@ -68,17 +69,90 @@ You must have libcurl package for backend http post
 ])])
 AC_SUBST(CURL_CFLAGS)
 AC_SUBST(CURL_LIBS)
+dnl #######################################################################
+dnl # Check for purple  , translation is a back end plugin
+dnl # so purple is required , technically for development alone , pidgin
+dnl # is not required ,although we check for both
+dnl #######################################################################
+PKG_CHECK_MODULES(PURPLE, purple,
+[
+        AC_DEFINE(HAVE_PURPLE, 1, [Define if we've found libpurple.])
+])
 
-dnl ###########################################################################
-GETTEXT_PACKAGE=lingua-franca
-AC_SUBST(
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package.])
+HAVE_PURPLE="yes"
+AM_CONDITIONAL(HAVE_PURPLE, true)
+
+if test x"$prefix" = x"NONE" ; then
+        PURPLE_LIBDIR=`pkg-config --variable=libdir purple`
+        PURPLE_DATADIR=`pkg-config --variable=datadir purple`
+else
+        PURPLE_LIBDIR="$libdir"
+        PURPLE_DATADIR="$datadir"
+fi
+
+PURPLE_PIXMAPSDIR=""
+
+# this is a hack but should work fine.
+# we use the libpurple datadir for PP_LOCALEDIR since we are not breaking up
+# the pot's yet, and need to make sure they goto the same place
+PP_LOCALEDIR="PURPLE_DATADIR/locale"
+AC_DEFINE_UNQUOTED(PP_LOCALEDIR, ["$PP_LOCALEDIR"], [The localedir to use])
+
+if test x"$PURPLE_LIBDIR" != x"" ; then
+        PURPLE_LIBDIR="$PURPLE_LIBDIR/purple-2"
+fi
+
+if test x"$PURPLE_DATADIR" != x"" ; then
+        PURPLE_PIXMAPSDIR="$PURPLE_DATADIR/pixmaps/libpurple"
+        AC_DEFINE_UNQUOTED(PURPLE_PIXMAPSDIR, "$PURPLE_PIXMAPSDIR", [Libpurple pixmaps directory])
+fi
+
+AC_SUBST(PURPLE_LIBS)
+AC_SUBST(PURPLE_LIBDIR)
+AC_SUBST(PURPLE_DATADIR)
+AC_SUBST(PURPLE_PIXMAPSDIR)
+
+
+dnl #######################################################################
+dnl # Check for pidgin
+dnl #######################################################################
+PKG_CHECK_MODULES(PIDGIN, pidgin,
+[
+        AC_DEFINE(HAVE_PIDGIN, 1, [Define if we've found pidgin.])
+        HAVE_PIDGIN="yes"
+        AM_CONDITIONAL(HAVE_PIDGIN, true)
+], [
+        AC_MSG_RESULT([no])
+        HAVE_PIDGIN="no"
+        AM_CONDITIONAL(HAVE_PIDGIN, false)
+])
+
+
+if test x"$prefix" = x"NONE" ; then
+        PIDGIN_LIBDIR=`pkg-config --variable=libdir pidgin`
+        PIDGIN_DATADIR=`pkg-config --variable=datadir pidgin`
+else
+        PIDGIN_LIBDIR="$libdir"
+        PIDGIN_DATADIR="$datadir"
+fi
+
+AC_SUBST(PIDGIN_CFLAGS)
+AC_SUBST(PIDGIN_LIBS)
+AC_SUBST(PIDGIN_LIBDIR)
+AC_SUBST(PIDGIN_DATADIR)
 
 dnl Add the languages which your application supports here.
 ALL_LINGUAS=""
 AM_GLIB_GNU_GETTEXT
 
-# Checks for header files.
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+AC_PROG_MAKE_SET
+AC_PROG_LIBTOOL
+AM_PROG_CC_C_O
+
+# Checks for header files.C_SUBST(PURPLE_CFLAGS)
 AC_HEADER_STDC
 AC_CHECK_HEADERS([libintl.h stdlib.h string.h unistd.h])
 
@@ -91,9 +165,6 @@ AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 AC_CHECK_FUNCS([strdup])
 
-AC_CONFIG_FILES([
-Makefile
-src/Makefile
-po/Makefile.in
-])
+AC_CONFIG_FILES([Makefile
+                 src/Makefile])
 AC_OUTPUT
