@@ -38,6 +38,7 @@ PACKAGE=lingua-franca
 AC_SUBST(PACKAGE)
 AC_DEFINE_UNQUOTED(PACKAGE,"$PACKAGE", [lingua-franca])
 
+
 dnl #######################################################################
 dnl # Check for GLib 2.0 (required)
 dnl #######################################################################

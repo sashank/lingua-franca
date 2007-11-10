@@ -24,8 +24,9 @@
 int main(int argc, char **argv)
 {
  char *result ;
- char *dir = "../src/config/";
- lf_translate_init(dir); 
- result = lf_translate_from_to( "Hello","English","French"); 
+ if(lf_translate_init()) 
+  result = lf_translate_from_to( "Hello","English","French"); 
+ else
+   printf(" Translations Not available ");	
  printf("Translated Message %s \n",result);
 }

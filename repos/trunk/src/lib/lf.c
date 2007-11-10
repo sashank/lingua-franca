@@ -28,8 +28,8 @@ struct ResponseStruct {
 struct ResponseStruct chunk;
 int i= 0;
 
+char *serverfilename;
 CURL *curl;
-
 void *myrealloc(void *ptr, size_t size)
 {
   /* There might be a realloc() out there that doesn't like reallocing
@@ -62,27 +62,31 @@ char *parse_response(char *response)
    gchar **splits;
    char *parsed_response,*prefix,*suffix;
    int res_size;
-/*   printf(" parse_response Entered %s\n ",response); 
    printf(" Parse response Size %d\n ",strlen(response)); 
    printf(" Prefix  %s\n ",get_response_prefix()); 
    printf(" Suffix  %s\n ",get_response_suffix()); 
- */  
+   printf(" parse response %s",response);
+   
 
 /*
    prefix = strstr(response,get_response_prefix());
+   printf(" parse_response Prefix %s\n ",prefix); 
    prefix += strlen(get_response_prefix());
     
+
    suffix = strstr(prefix,get_response_suffix());
 
    res_size = strlen(prefix)-strlen(suffix);
-*/      
-   splits = g_strsplit(response ,get_response_prefix(),2); 
+      
+*/
+   splits = g_strsplit(response ,get_response_prefix(),-1); 
    response = strdup(splits[1]);
+   printf(" parse_response Stage 1 %s",response);
 
 
    g_strfreev(splits);
 
-   splits = g_strsplit(response,get_response_suffix(),2);
+   splits = g_strsplit(response,get_response_suffix(),-1);
    parsed_response = strdup(splits[0]);
 
    g_strfreev(splits); 
@@ -99,35 +103,22 @@ char *lf_determine_lang(char *mesg)
 char *lf_translate_from_to(char *message , char *from , char *to)
 {
   char *translated_mesg;
-  GString *post= NULL; 
    printf(" translate_message Entered \n "); 
 
   chunk.response=NULL; /* we expect realloc(NULL, size) to work */
   chunk.size = 0;    /* no data at this point */
 
+  GString *post= NULL; 
   post = get_post_string(message,from,to);
 
-   printf(" Post String is %s\n ",post->str); 
-   printf(" host url is %s\n ",get_host_url()); 
-  curl_global_init(CURL_GLOBAL_ALL);
-
-  /* init the curl session */
-  curl = curl_easy_init();
-
-  /* specify URL to get */
-  curl_easy_setopt(curl, CURLOPT_URL, get_host_url());
+  printf(" Post String is %s\n ",post->str); 
+  printf(" host url is %s\n ",get_host_url()); 
 
   curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post->str); 
 
   /* send all data to this function  */
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, ResponseCallback);
 
-  /* we pass our 'chunk' struct to the callback function */
-  curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
-
-  /* some servers don't like requests that are made without a user-agent
-     field, so we provide one */
-  curl_easy_setopt(curl, CURLOPT_USERAGENT, "Mozilla/5.0");
 
   /* get it! */
   curl_easy_perform(curl);
@@ -146,7 +137,6 @@ char *lf_translate_from_to(char *message , char *from , char *to)
      * allocated data block, and nothing has yet deallocated that data. So when
    * you're done with it, you should free() it as a nice application.
    */
-
 
 /*     printf("It seems we have got response %s",chunk.response);  */
    if(chunk.response != NULL)
@@ -179,10 +169,11 @@ gboolean lf_is_translation_avail(char *lang1,char *lang2)
  /*To Do */
  return TRUE ;
 }
-void lf_set_translate_server(char *serverfilename)
+void lf_set_translate_server(char *server)
 {
     /* For now do nothing this may be deprecated soon*/
-
+	
+       serverfilename = strcat(server,".xml") ;
       /*  //Free the existing XML
         xml_translate_unload();
 
@@ -190,22 +181,36 @@ void lf_set_translate_server(char *serverfilename)
   	xml_translate_init(serverfilename); */
 
 }
-void lf_translate_init(char *dir)
+gboolean lf_translate_init()
 {
    printf("translate.c: translate_init entered \n");
-     /* By default load altavista xml 
-     char *serverfilename =  g_build_filename(dir,"altavista.xml",NULL); */
-     char *serverfilename =  g_build_filename(dir,"google.xml",NULL);
-      if (!g_file_test(serverfilename, G_FILE_TEST_EXISTS))
-        {
-                printf( "File %s does not exist (this is not "
-                                                "necessarily an error)\n", serverfilename);
-                g_free(serverfilename);
-        }
+    gboolean xml_ret ;
+    xml_ret = xml_translate_init(serverfilename);
+    
+    if(xml_ret == FALSE)
+     {
+	printf("Boo Hoo .. ! No Translation \n");
+	printf("Could not find any server xmls \n");
+        return FALSE;
+     }
+ 
+     curl_global_init(CURL_GLOBAL_ALL);
 
- 	//Initialise XML
-  	xml_translate_init(serverfilename);
+    /* init the curl session */
+     curl = curl_easy_init();
+
+    /* specify URL to get */
+     curl_easy_setopt(curl, CURLOPT_URL, get_host_url());
+
+    /* we pass our 'chunk' struct to the callback function */
+     curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
+
+  /* some servers don't like requests that are made without a user-agent
+     field, so we provide one */
+     curl_easy_setopt(curl, CURLOPT_USERAGENT, "Mozilla/5.0");
+
    printf("translate.c: translate_init exiting \n");
+ return TRUE ;
 }
 
 char *lf_translate_to(char *mesg,char *to)

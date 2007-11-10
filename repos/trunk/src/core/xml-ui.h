@@ -32,7 +32,7 @@
 #include <glib.h>
 
 
-void xml_ui_init(char *dir);
+void xml_ui_init();
 
 char *get_incoming_lang_pref();
 

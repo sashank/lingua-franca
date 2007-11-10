@@ -480,28 +480,18 @@ void create_ui (void)
   printf("interface.c: create_ui entered \n");
 }
 
-void interface_init(GList *buddies_list,char *dir)
+void interface_init(GList *buddies_list,GList *servers,GList *langs)
 {
    printf("interface.c: interface_init entered \n");
-   printf("interface.c: interface_init dir is %s \n",dir);
-   gchar *lf_prefs_file;
-   /* check for lf_prefs xml */
-   lf_prefs_file = g_build_filename(dir,"lf_prefs.xml",NULL);
-   printf("interface.c: file is %s \n",lf_prefs_file);
 
    buddies = buddies_list ;
+   trans_servers = servers ;
+   languages  = langs ;
 
-  /* Init Translate */
-   lf_translate_init(dir);
-   trans_servers = lf_get_trans_servers();
-   languages = lf_get_avail_languages();
-
-  /* xml ui init */
-   xml_ui_init(lf_prefs_file);
-   g_free(lf_prefs_file);
+   xml_ui_init();
 
    /* create the interface */
-    create_ui();
+   create_ui();
    printf("interface.c: interface_init exiting \n");
 }
 

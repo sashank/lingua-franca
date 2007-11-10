@@ -7,7 +7,7 @@
    <post_option name="oe" value="UTF-8" />
    <post_option name="text" value="STRING_TO_BE_TRANSLATED" />
    <response_parsing>
-        <prefix>&lt;textarea name=utrans wrap=PHYSICAL dir=ltr rows=5 id=suggestion&gt;</prefix>
+        <prefix>&lt;textarea name=utrans wrap=SOFT dir=ltr rows=5 id=suggestion&gt;</prefix>
         <suffix>&lt;/textarea&gt;</suffix>
    </response_parsing>
    <available_translations>

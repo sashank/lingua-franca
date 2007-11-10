@@ -34,6 +34,9 @@ GtkWidget *lf_ui()
   return ui;
 }
 
+/* Determines whther translation engine is on */
+gboolean translation = TRUE ;
+
 char *lf_translate_incoming(char *mesg)
 {
   printf("lingua-franca:lf_translate_incoming  entered \n");
@@ -42,7 +45,10 @@ char *lf_translate_incoming(char *mesg)
   char *translated_mesg ;
   printf("lingua-franca:lf_translate_incoming  incoming_lang_pref is %s \n",incoming_lang_pref);
 
-  translated_mesg = lf_translate_to(mesg,incoming_lang_pref);
+  if ( translation == TRUE)
+   translated_mesg = lf_translate_to(mesg,incoming_lang_pref);
+  else
+   translated_mesg = mesg;
 
   printf("lingua-franca:lf_translate_incoming  translated mesg is %s \n",translated_mesg);
   printf("lingua-franca:lf_translate_outgoing  exiting \n");
@@ -58,7 +64,10 @@ char *lf_translate_outgoing(char *mesg, char *buddy)
   char *translated_mesg ;
 
   printf("lingua-franca: Outgoing Lang Pref is %s \n",outgoing_lang);
-  translated_mesg = lf_translate_to(mesg,outgoing_lang);
+  if(translation == TRUE)
+    translated_mesg = lf_translate_to(mesg,outgoing_lang);
+  else
+    translated_mesg = mesg;
 
   printf("lingua-franca: Translated Mesg is %s \n",translated_mesg);
   printf("lingua-franca:lf-translate_outgoing exited \n");
@@ -68,6 +77,7 @@ char *lf_translate_outgoing(char *mesg, char *buddy)
 void lf_init(GList *buddies)
 {
  printf("lingua-franca:lf-init entered \n");
+ GList *trans_servers,*languages;
  #ifdef ENABLE_NLS
   bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -77,7 +87,13 @@ void lf_init(GList *buddies)
   gtk_set_locale ();
   add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
 
-  interface_init(buddies,PACKAGE_DATA_DIR);
+  
+  /* Init Translate engine */
+   translation = lf_translate_init();
+   trans_servers = lf_get_trans_servers();
+   languages = lf_get_avail_languages();
+
+  interface_init(buddies,trans_servers,languages);
  
  printf("lingua-franca:lf-init exited \n");
 }

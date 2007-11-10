@@ -40,6 +40,6 @@
 #include <gtk/gtk.h>
 
 
-void interface_init();
+void interface_init(GList *buddies,GList *servers,GList *langs);
 
 GtkWidget* get_interface(void);

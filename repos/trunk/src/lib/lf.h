@@ -35,7 +35,7 @@
 #define USER_AGENT "lingua-franca" ;
 
 /*translate engine*/
-void lf_translate_init(char *filename);
+gboolean lf_translate_init();
 
 /* This method translates the message "from_lang" to "to_lang" language */
 char *lf_translate_from_to(char *message ,char *from_lang, char *to_lang);

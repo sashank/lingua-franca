@@ -148,16 +148,32 @@ void processXml(xmlTextReaderPtr reader)
     
 }
                                                                      
-void xml_ui_init(char *filename)
+void xml_ui_init()
 {
     printf("xml-ui.c: xml_ui_init entered \n");
- /* Read from file 
-    If file not found , create a new file */
+
+    /* Initialise incoming_lang */
+    incoming_lang = strdup("No Translation");
+
+    /* Initialise incoming_enabled */
+    incoming_enabled = strdup("No");
+
+   /* check for lf_prefs xml */
+   gchar *user_home = g_get_home_dir();
+   gchar *lf_dir = g_build_filename(user_home,".lf",NULL);
+   lf_prefs_file = g_build_filename(lf_dir,"lf_prefs.xml",NULL);
+   printf("xml-ui.c: file is %s \n",lf_prefs_file);
+   /* If File does not exists make dir and return */
+   if(!g_file_test(lf_prefs_file,G_FILE_TEST_EXISTS))
+   {
+        g_mkdir(lf_dir,0755);
+      printf("xml-ui.c:  xml_ui_init exiting \n");
+      return;
+   }
+
+   /* If File exists Read from file */
     xmlTextReaderPtr xml_reader;
     int ret;
-
-    printf("xml-ui.c: file name %s \n",filename);
-    lf_prefs_file = strdup(filename);
 
     xml_reader = xmlNewTextReaderFilename(lf_prefs_file);
     if (xml_reader != NULL) {
@@ -174,8 +190,6 @@ void xml_ui_init(char *filename)
         printf("Unable to open %s\n", lf_prefs_file);
     }
 
-    /* Initialise incoming_lang */
-    incoming_lang = "No Translation";
     printf("xml-ui.c:  xml_ui_init exiting \n");
 }
 
@@ -390,7 +404,7 @@ void save_preferences()
        rc = xmlTextWriterEndElement(writer);
        if ( rc < 0 )
        {
-	  printf(" cud not write lingua_franca \n");
+	  printf(" cud not write incoming_pref \n");
        }
 
       printf("xml-ui.c: Before Outgoing ");
@@ -423,7 +437,7 @@ void save_preferences()
        xmlTextWriterWriteElement(writer, BAD_CAST "trans_server", BAD_CAST trans_server );
 
     /* Add an element named "view_trans" and value */
-          xmlTextWriterWriteElement(writer, BAD_CAST "view_trans", BAD_CAST view_trans_enabled );
+       xmlTextWriterWriteElement(writer, BAD_CAST "view_trans", BAD_CAST view_trans_enabled );
 
     /* Add an element named "time_out" and value */ 
           char *timeout ;
@@ -436,7 +450,7 @@ void save_preferences()
        xmlFreeTextWriter(writer);
 
     /* Now write to a file */
-       fp = g_fopen(lf_prefs_file, "w");
+       fp = fopen(lf_prefs_file, "w");
 
        if (fp == NULL) {
         printf(" Could not open file %s \n",lf_prefs_file);
