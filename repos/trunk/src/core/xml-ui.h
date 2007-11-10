@@ -38,7 +38,7 @@ char *get_incoming_lang_pref();
 
 char *get_outgoing_lang_pref(char *buddy);
 
-gboolean get_pref_status(char *buddy);
+char *get_pref_status(char *buddy);
 
 void set_incoming_lang_pref(char *lang);
 

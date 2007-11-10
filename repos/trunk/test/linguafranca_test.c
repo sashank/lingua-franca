@@ -28,7 +28,7 @@
 #  include <config.h>
 #endif
 
-#include "lingua-franca.h"
+#include "../src/core/lingua-franca.h"
 
 int
 main (int argc, char *argv[])
@@ -44,14 +44,14 @@ main (int argc, char *argv[])
   gtk_set_locale ();
   gtk_init (&argc, &argv);
 
-  add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
+/*  add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");*/
 
  /* Add dummy buddies */
   GList *buddies =NULL ;
   buddies = g_list_append(buddies,"Akilan");
   buddies = g_list_append(buddies,"Sashi");
 
-  lf_init(buddies,"/home/sashank/Projects/lingua-franca/src/config");
+  lf_init(buddies);
   linguafranca = lf_ui();
   gtk_widget_show (linguafranca);
 

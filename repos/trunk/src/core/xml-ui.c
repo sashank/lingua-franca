@@ -29,8 +29,8 @@
 #define MY_ENCODING "ISO-8859-1"
 
 char *incoming_lang;
-gboolean incoming_enabled ;
-gboolean view_trans_enabled ;
+char *incoming_enabled ;
+char *view_trans_enabled ;
 char *trans_server;
 int time_out ;
 GList *outgoingList;
@@ -39,7 +39,7 @@ char *lf_prefs_file;
 typedef struct _LangPrefStruct {
   char *buddy;
   char *lang;
-  gboolean enabled;
+  char *enabled; /* Yes or No */
 }LangPref;
 
 void add_outgoing_pref(char *buddy,char *lang,char *enable)
@@ -54,9 +54,9 @@ void add_outgoing_pref(char *buddy,char *lang,char *enable)
   lp->buddy = g_strdup(buddy);
   lp->lang  = g_strdup(lang);
   if ( strcmp(enable , "on") == 0 )
-  	lp->enabled = TRUE;
+  	lp->enabled = "Yes";
   else 
-	lp->enabled = FALSE;
+	lp->enabled = "No";
 
   outgoingList = g_list_append(outgoingList,lp);
 }
@@ -75,9 +75,9 @@ void processXml(xmlTextReaderPtr reader)
         char *lang = xmlTextReaderGetAttribute(reader,(xmlChar *)"lang");
         char *enable = xmlTextReaderGetAttribute(reader,(xmlChar *)"enable");
         if ( strcmp(enable,"on") == 0 ) 
-          incoming_enabled = TRUE ;
+          incoming_enabled = "Yes" ;
         else
-          incoming_enabled = FALSE ;
+          incoming_enabled = "No" ;
 
         incoming_lang = strdup(lang);
      }
@@ -141,9 +141,9 @@ void processXml(xmlTextReaderPtr reader)
                 xmlTextReaderRead(reader);
 
         if ( strcmp(view,"on") == 0 )
-          view_trans_enabled = TRUE ;
+          view_trans_enabled = "Yes" ;
         else
-          view_trans_enabled = FALSE ;
+          view_trans_enabled = "No";
      }
     
 }
@@ -183,7 +183,7 @@ char *get_incoming_lang_pref()
 {
  printf("xml-ui.c:  get_incoming_lang_pref entered\n");
  
- if(incoming_enabled == TRUE)
+ if(strcmp(incoming_enabled,"Yes"))
  {
    printf("xml-ui.c:  incoming_enabled \n");
    printf("xml-ui.c:  lang is %s \n",incoming_lang);
@@ -224,7 +224,7 @@ char *get_outgoing_lang_pref(char *buddy)
    printf("xml-ui.c:  get_outgoing_lang_pref exiting\n");
    return lang;
 }
-gboolean get_pref_status(char *buddy)
+char *get_pref_status(char *buddy)
 {
    printf("xml-ui.c:  get_outgoing_lang_pref status entering\n");
    printf("xml-ui.c:  Buddy  is %s \n",buddy);
@@ -233,14 +233,14 @@ gboolean get_pref_status(char *buddy)
    int i ;
    LangPref *lp;
    char *lang;
-   gboolean exists = FALSE ;
+   char *exists = "No";
    for ( i=0 ; i < count ; i++)
    {
         lp = (LangPref *)g_list_nth_data(outgoingList,i);
         if ( strcmp(lp->buddy,buddy) == 0 )
           exists = lp->enabled;
    }
-   if ( exists == TRUE)
+   if ( strcmp(exists,"Yes"))
     printf("xml-ui.c: pref  status is enabled\n");
    else
     printf("xml-ui.c: pref  status is not enabled\n");
@@ -250,7 +250,7 @@ gboolean get_pref_status(char *buddy)
 void set_incoming_lang_pref(char *lang)
 {
   incoming_lang = lang ;
-  incoming_enabled = TRUE ;
+  incoming_enabled = "Yes" ;
 }
 
 void set_outgoing_lang_pref(char *buddy,char  *lang)
@@ -287,10 +287,10 @@ void set_buddy_toggle(gchar *buddy)
         lp = (LangPref *)g_list_nth_data(outgoingList,i);
         if ( strcmp(lp->buddy,buddy) == 0 )
         {
-          if(lp->enabled == TRUE)	
-          	lp->enabled = FALSE ;
+          if(lp->enabled == "Yes")	
+          	lp->enabled = "No" ;
 	  else
-          	lp->enabled = TRUE ;
+          	lp->enabled = "Yes" ;
         }
    }
 }
@@ -423,10 +423,7 @@ void save_preferences()
        xmlTextWriterWriteElement(writer, BAD_CAST "trans_server", BAD_CAST trans_server );
 
     /* Add an element named "view_trans" and value */
-       if(view_trans_enabled == TRUE )
-          xmlTextWriterWriteElement(writer, BAD_CAST "view_trans", BAD_CAST "on" );
-       else if(view_trans_enabled == FALSE )
-          xmlTextWriterWriteElement(writer, BAD_CAST "view_trans", BAD_CAST "off" );
+          xmlTextWriterWriteElement(writer, BAD_CAST "view_trans", BAD_CAST view_trans_enabled );
 
     /* Add an element named "time_out" and value */ 
           char *timeout ;

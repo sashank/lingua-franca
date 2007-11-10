@@ -33,10 +33,10 @@
 
 #include "interface.h"
 #include "support.h"
-#include "../lib/translate.h"
+#include "../lib/lf.h"
 
 /* Init method */
-void lf_init(GList *buddies,char *dir);
+void lf_init(GList *buddies);
 
 /* User Preferences */
 GtkWidget *lf_ui();

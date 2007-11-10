@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = src po 
+SUBDIRS = src po test
 
 EXTRA_DIST = \
 	autogen.sh 

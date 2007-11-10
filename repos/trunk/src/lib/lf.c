@@ -1,6 +1,6 @@
-/* @file translate.c Lang Translate API
+/* @file lf.c Language Translate Library
  * 
- * Translate API is developed by sashank (krishna.sashank@gmail.com)
+ * Author : Sashank Dara
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-#include "translate.h"
+#include "lf.h"
 /* XML Processor */
 #include "xml-translate.h"
 struct ResponseStruct {
@@ -91,12 +91,12 @@ char *parse_response(char *response)
   return parsed_response;
 }
 
-char *determine_lang(char *mesg)
+char *lf_determine_lang(char *mesg)
 {
  return "English";
 }
 
-char *translate_message(char *message , char *from , char *to)
+char *lf_translate_from_to(char *message , char *from , char *to)
 {
   char *translated_mesg;
   GString *post= NULL; 
@@ -159,12 +159,12 @@ char *translate_message(char *message , char *from , char *to)
      if(chunk.response)
        free(chunk.response);
 
-   printf(" translate_message Entered \n ");
+   printf(" translate_message Exited \n ");
 
  return translated_mesg;
 }
 
-GList *get_trans_servers()
+GList *lf_get_trans_servers()
 {
    printf("translate.c: get_trans_servers entered \n");
  GList *server_list = NULL;
@@ -174,13 +174,14 @@ GList *get_trans_servers()
    printf("translate.c: get_trans_servers exited \n");
  return server_list;
 }
-gboolean is_translation_avail(char *lang1,char *lang2)
+gboolean lf_is_translation_avail(char *lang1,char *lang2)
 {
+ /*To Do */
  return TRUE ;
 }
-void set_translate_server(char *serverfilename)
+void lf_set_translate_server(char *serverfilename)
 {
-    /* For now do nothing */
+    /* For now do nothing this may be deprecated soon*/
 
       /*  //Free the existing XML
         xml_translate_unload();
@@ -189,7 +190,7 @@ void set_translate_server(char *serverfilename)
   	xml_translate_init(serverfilename); */
 
 }
-void translate_init(char *dir)
+void lf_translate_init(char *dir)
 {
    printf("translate.c: translate_init entered \n");
      /* By default load altavista xml 
@@ -207,13 +208,17 @@ void translate_init(char *dir)
    printf("translate.c: translate_init exiting \n");
 }
 
-char *translate(char *mesg,char *to)
+char *lf_translate_to(char *mesg,char *to)
 {
-   char *from = determine_lang(mesg);  
-   return translate_message(mesg,from,to);
+   char *from = lf_determine_lang(mesg);  
+   return lf_translate_from_to(mesg,from,to);
 }
 
-void translate_unload()
+GList *lf_get_avail_languages()
+{
+ return get_avail_languages();
+}
+void lf_translate_unload()
 {
   
 }

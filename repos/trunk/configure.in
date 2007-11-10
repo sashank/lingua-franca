@@ -1,15 +1,42 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.61)
-AC_INIT(lingua-franca, 0.1, lf-bugs@gmail.com)
-AM_INIT_AUTOMAKE(lingua-franca,0.1,lf-bugs@gmail.com)
+AC_INIT(lingua-franca-beta, 0.1, lf-bugs@gmail.com)
+AM_INIT_AUTOMAKE(lingua-franca-beta,0.1,lf-bugs@gmail.com)
 AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADER([config.h])
 
+dnl Add the languages which your application supports here.
+ALL_LINGUAS=""
+AM_GLIB_GNU_GETTEXT
 
-dnl ##############################################
-dnl # variable for installing library (liblf) alone
-dnl #######################################################################
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+AC_PROG_MAKE_SET
+AC_PROG_LIBTOOL
+AM_PROG_CC_C_O
+
+# Checks for header files.C_SUBST(PURPLE_CFLAGS)
+AC_HEADER_STDC
+AC_CHECK_HEADERS([libintl.h stdlib.h string.h unistd.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_TYPE_SIZE_T
+
+# Checks for library functions.
+AC_FUNC_MALLOC
+AC_FUNC_REALLOC
+AC_CHECK_FUNCS([strdup])
+
+GETTEXT_PACKAGE=lingua-franca
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [lingua-franca])
+
+PACKAGE=lingua-franca
+AC_SUBST(PACKAGE)
+AC_DEFINE_UNQUOTED(PACKAGE,"$PACKAGE", [lingua-franca])
 
 dnl #######################################################################
 dnl # Check for GLib 2.0 (required)
@@ -74,13 +101,16 @@ dnl # Check for purple  , translation is a back end plugin
 dnl # so purple is required , technically for development alone , pidgin
 dnl # is not required ,although we check for both
 dnl #######################################################################
-PKG_CHECK_MODULES(PURPLE, purple,
+PKG_CHECK_MODULES(PIDGIN, purple,
 [
-        AC_DEFINE(HAVE_PURPLE, 1, [Define if we've found libpurple.])
+        AC_DEFINE(HAVE_PURPLE, 1, [Define if we've found pidgin.])
+        HAVE_PIDGIN="yes"
+        AM_CONDITIONAL(HAVE_PURPLE, true)
+], [
+        AC_MSG_RESULT([no])
+        HAVE_PURPLE="no"
+        AM_CONDITIONAL(HAVE_PURPLE, false)
 ])
-
-HAVE_PURPLE="yes"
-AM_CONDITIONAL(HAVE_PURPLE, true)
 
 if test x"$prefix" = x"NONE" ; then
         PURPLE_LIBDIR=`pkg-config --variable=libdir purple`
@@ -141,30 +171,8 @@ AC_SUBST(PIDGIN_LIBS)
 AC_SUBST(PIDGIN_LIBDIR)
 AC_SUBST(PIDGIN_DATADIR)
 
-dnl Add the languages which your application supports here.
-ALL_LINGUAS=""
-AM_GLIB_GNU_GETTEXT
-
-# Checks for programs.
-AC_PROG_CXX
-AC_PROG_CC
-AC_PROG_MAKE_SET
-AC_PROG_LIBTOOL
-AM_PROG_CC_C_O
-
-# Checks for header files.C_SUBST(PURPLE_CFLAGS)
-AC_HEADER_STDC
-AC_CHECK_HEADERS([libintl.h stdlib.h string.h unistd.h])
-
-# Checks for typedefs, structures, and compiler characteristics.
-AC_C_CONST
-AC_TYPE_SIZE_T
-
-# Checks for library functions.
-AC_FUNC_MALLOC
-AC_FUNC_REALLOC
-AC_CHECK_FUNCS([strdup])
 
 AC_CONFIG_FILES([Makefile
-                 src/Makefile])
+                 src/Makefile
+		 test/Makefile])
 AC_OUTPUT

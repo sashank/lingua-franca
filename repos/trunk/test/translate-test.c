@@ -19,13 +19,13 @@
  *
  */
 
-#include "../src/core/translate.h"
+#include "../src/lib/lf.h"
 
 int main(int argc, char **argv)
 {
  char *result ;
  char *dir = "../src/config/";
- translate_init(dir); 
- result = translate_message( "Hello","English","French"); 
+ lf_translate_init(dir); 
+ result = lf_translate_from_to( "Hello","English","French"); 
  printf("Translated Message %s \n",result);
 }

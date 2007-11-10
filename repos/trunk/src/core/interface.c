@@ -26,7 +26,7 @@
 
 #include "interface.h"
 #include "callbacks.h"
-#include "translate.h"
+#include "../lib/lf.h"
 
 #define GLADE_HOOKUP_OBJECT(component,widget,name) \
   g_object_set_data_full (G_OBJECT (component), name, \
@@ -104,7 +104,7 @@ void add_buddies_table(char *buddy,GtkWidget *buddy_table)
 void interface_unload()
 {
   xml_ui_unload();
-  translate_unload();
+  lf_translate_unload();
 }
 GtkWidget *get_interface()
 {
@@ -492,9 +492,9 @@ void interface_init(GList *buddies_list,char *dir)
    buddies = buddies_list ;
 
   /* Init Translate */
-   translate_init(dir);
-   trans_servers = get_trans_servers();
-   languages = get_avail_languages();
+   lf_translate_init(dir);
+   trans_servers = lf_get_trans_servers();
+   languages = lf_get_avail_languages();
 
   /* xml ui init */
    xml_ui_init(lf_prefs_file);

@@ -4,6 +4,9 @@
 /* always defined to indicate that i18n is enabled */
 #define ENABLE_NLS 1
 
+/* lingua-franca */
+#define GETTEXT_PACKAGE "lingua-franca"
+
 /* Define to 1 if you have the `bind_textdomain_codeset' function. */
 #define HAVE_BIND_TEXTDOMAIN_CODESET 1
 
@@ -38,8 +41,8 @@
 /* Define if we've found pidgin. */
 /* #undef HAVE_PIDGIN */
 
-/* Define if we've found libpurple. */
-#define HAVE_PURPLE 1
+/* Define if we've found pidgin. */
+/* #undef HAVE_PURPLE */
 
 /* Define to 1 if your system has a GNU libc compatible `realloc' function,
    and to 0 otherwise. */
@@ -72,17 +75,20 @@
 /* Define to 1 if your C compiler doesn't accept -c and -o together. */
 /* #undef NO_MINUS_C_MINUS_O */
 
+/* lingua-franca */
+#define PACKAGE "lingua-franca"
+
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT "lf-bugs@gmail.com"
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME "lingua-franca"
+#define PACKAGE_NAME "lingua-franca-beta"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "lingua-franca 0.1"
+#define PACKAGE_STRING "lingua-franca-beta 0.1"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "lingua-franca"
+#define PACKAGE_TARNAME "lingua-franca-beta"
 
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "0.1"

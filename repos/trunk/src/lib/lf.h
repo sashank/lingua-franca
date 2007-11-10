@@ -1,6 +1,6 @@
-/* @file translate.h Lang Translate API
+/* @file lf.h Language Translate lib from lingua-franca
  * 
- * Translate API alone is added to purple by sashank (krishna.sashank@gmail.com)
+ * Author : Sashank Dara
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,16 +35,24 @@
 #define USER_AGENT "lingua-franca" ;
 
 /*translate engine*/
-void translate_init(char *filename);
+void lf_translate_init(char *filename);
 
-/* This method translates the message to "to_lang" language */
-char *translate(char *message , char *to_lang);
+/* This method translates the message "from_lang" to "to_lang" language */
+char *lf_translate_from_to(char *message ,char *from_lang, char *to_lang);
+
+/* This method translates the message "to_lang" language
+ * this method is used when "from" language is unknown
+ * internally the language is determined .. its Magic !  */
+char *lf_translate_to(char *message , char *to_lang);
 
 /* Is translation available from lang1 to lang2 */
-gboolean is_translation_avail(char *lang1 ,char *lang2);
+gboolean lf_is_translation_avail(char *lang1 ,char *lang2);
 
 /* Set the translation server */
-void set_translate_server(char *serverfilename);
+void lf_set_translate_server(char *serverfilename);
 
 /* get the available servers */
-GList *get_trans_servers();
+GList *lf_get_trans_servers();
+
+/* get the available servers */
+GList *lf_get_avail_languages();

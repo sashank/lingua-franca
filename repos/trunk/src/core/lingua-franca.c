@@ -42,7 +42,7 @@ char *lf_translate_incoming(char *mesg)
   char *translated_mesg ;
   printf("lingua-franca:lf_translate_incoming  incoming_lang_pref is %s \n",incoming_lang_pref);
 
-  translated_mesg = translate(mesg,incoming_lang_pref);
+  translated_mesg = lf_translate_to(mesg,incoming_lang_pref);
 
   printf("lingua-franca:lf_translate_incoming  translated mesg is %s \n",translated_mesg);
   printf("lingua-franca:lf_translate_outgoing  exiting \n");
@@ -58,14 +58,14 @@ char *lf_translate_outgoing(char *mesg, char *buddy)
   char *translated_mesg ;
 
   printf("lingua-franca: Outgoing Lang Pref is %s \n",outgoing_lang);
-  translated_mesg = translate(mesg,outgoing_lang);
+  translated_mesg = lf_translate_to(mesg,outgoing_lang);
 
   printf("lingua-franca: Translated Mesg is %s \n",translated_mesg);
   printf("lingua-franca:lf-translate_outgoing exited \n");
   return translated_mesg;
 }
 
-void lf_init(GList *buddies,char *dir)
+void lf_init(GList *buddies)
 {
  printf("lingua-franca:lf-init entered \n");
  #ifdef ENABLE_NLS
@@ -77,7 +77,7 @@ void lf_init(GList *buddies,char *dir)
   gtk_set_locale ();
   add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
 
-  interface_init(buddies,dir);
+  interface_init(buddies,PACKAGE_DATA_DIR);
  
  printf("lingua-franca:lf-init exited \n");
 }

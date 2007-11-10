@@ -24,12 +24,12 @@
  *
  */
 
-#include "internal.h"
-#include "debug.h"
-#include "plugin.h"
-#include "signals.h"
-#include "version.h"
-#include "glib.h"
+#include <account.h>
+#include <debug.h>
+#include <plugin.h>
+#include <signals.h>
+#include <version.h>
+#include <glib.h>
 #include "../core/lingua-franca.h"
 
 /** Plugin id : sashank (to guarantee uniqueness) */
@@ -53,7 +53,7 @@ received_im_msg_cb(PurpleAccount *account, char *sender, char *buffer,
         purple_debug_misc("lingua-franca", "received-im-msg (%s, %s, %s, %s, %d)\n",
                                         purple_account_get_username(account), sender, buffer,
                                         (conv != NULL) ? purple_conversation_get_name(conv) : "(null)", flags);
-	lf_translate_incoming(*buffer,sender);
+	lf_translate_incoming(buffer);
 }
 
 
@@ -62,7 +62,7 @@ plugin_load(PurplePlugin *plugin)
 {
 
 	void *conv_handle     = purple_conversations_get_handle();
-	Glist buddies;
+	GList *buddies;
 
 	purple_debug(PURPLE_DEBUG_INFO, "translate", "translate plugin loaded.\n");
 
@@ -71,7 +71,7 @@ plugin_load(PurplePlugin *plugin)
         /*Get the path to locate XML files */
 
         /*Initialise the plug-in */
-	lf_init();
+	lf_init(buddies);
 
         /* Translate Message before it is sent */
 	purple_signal_connect(conv_handle, "sending-im-msg",

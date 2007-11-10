@@ -12,7 +12,7 @@
 # - Modified by jacob berkman <jacob@ximian.com> to install
 #   Makefile.in.in and po2tbl.sed.in for use with glib-gettextize
 
-GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
+GETTEXT_PACKAGE = lingua-franca
 PACKAGE = lingua-franca
 VERSION = 0.1
 
