@@ -17,9 +17,10 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-#include "lf.h"
 /* XML Processor */
 #include "xml-translate.h"
+#include "lf.h"
+
 struct ResponseStruct {
   char *response;
   size_t size;
@@ -185,7 +186,7 @@ gboolean lf_translate_init()
 {
    printf("translate.c: translate_init entered \n");
     gboolean xml_ret ;
-    xml_ret = xml_translate_init(serverfilename);
+    xml_ret = xml_translate_init();
     
     if(xml_ret == FALSE)
      {

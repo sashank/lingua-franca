@@ -105,6 +105,42 @@ void interface_unload()
   xml_ui_unload();
   lf_translate_unload();
 }
+GtkWidget *
+pidgin_frame(GtkWidget *parent, const char *title)
+{
+        GtkWidget *vbox, *label, *hbox;
+        char *labeltitle;
+
+        vbox = gtk_vbox_new(FALSE, 6);
+        gtk_box_pack_start(GTK_BOX(parent), vbox, FALSE, FALSE, 0);
+        gtk_widget_show(vbox);
+
+        label = gtk_label_new(NULL);
+
+        labeltitle = g_strdup_printf("<span weight=\"bold\">%s</span>", title);
+        gtk_label_set_markup(GTK_LABEL(label), labeltitle);
+        g_free(labeltitle);
+
+        gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
+        gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
+        gtk_widget_show(label);
+      /*  pidgin_set_accessible_label (vbox, label);*/
+
+        hbox = gtk_hbox_new(FALSE, 6);
+        gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
+        gtk_widget_show(hbox);
+
+        label = gtk_label_new("    ");
+        gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
+        gtk_widget_show(label);
+
+        vbox = gtk_vbox_new(FALSE, 6);
+        gtk_box_pack_start(GTK_BOX(hbox), vbox, FALSE, FALSE, 0);
+        gtk_widget_show(vbox);
+
+        return vbox;
+}
+
 GtkWidget *create_ui (void)
 {
   printf("interface.c: create_ui entered \n");
@@ -159,7 +195,7 @@ GtkWidget *create_ui (void)
   ret = gtk_vbox_new(FALSE, 18);
         gtk_container_set_border_width (GTK_CONTAINER(ret), 12);
 
-        vbox = pidgin_make_frame(ret, _("Lingua Franca Preferences"));
+        vbox = pidgin_frame(ret, ("Lingua Franca Preferences"));
         gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
         gtk_widget_show(vbox);
 

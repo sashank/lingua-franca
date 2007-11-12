@@ -58,16 +58,18 @@ liblf_la_OBJECTS = $(am_liblf_la_OBJECTS)
 liblf_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(liblf_la_CFLAGS) $(CFLAGS) \
 	$(liblf_la_LDFLAGS) $(LDFLAGS) -o $@
-libpurplelf_la_LIBADD =
-am_libpurplelf_la_OBJECTS = libpurplelf_la-plugin.lo \
-	libpurplelf_la-xml-ui.lo libpurplelf_la-xml-translate.lo \
-	libpurplelf_la-lf.lo libpurplelf_la-support.lo \
-	libpurplelf_la-interface.lo libpurplelf_la-callbacks.lo \
-	libpurplelf_la-lingua-franca.lo
-libpurplelf_la_OBJECTS = $(am_libpurplelf_la_OBJECTS)
-libpurplelf_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libpurplelf_la_CFLAGS) \
-	$(CFLAGS) $(libpurplelf_la_LDFLAGS) $(LDFLAGS) -o $@
+liblinguafranca_la_LIBADD =
+am_liblinguafranca_la_OBJECTS = liblinguafranca_la-plugin.lo \
+	liblinguafranca_la-xml-ui.lo \
+	liblinguafranca_la-xml-translate.lo liblinguafranca_la-lf.lo \
+	liblinguafranca_la-support.lo liblinguafranca_la-interface.lo \
+	liblinguafranca_la-callbacks.lo \
+	liblinguafranca_la-lingua-franca.lo
+liblinguafranca_la_OBJECTS = $(am_liblinguafranca_la_OBJECTS)
+liblinguafranca_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(liblinguafranca_la_CFLAGS) $(CFLAGS) \
+	$(liblinguafranca_la_LDFLAGS) $(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I. -I$(top_builddir)@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -80,8 +82,8 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(liblf_la_SOURCES) $(libpurplelf_la_SOURCES)
-DIST_SOURCES = $(liblf_la_SOURCES) $(libpurplelf_la_SOURCES)
+SOURCES = $(liblf_la_SOURCES) $(liblinguafranca_la_SOURCES)
+DIST_SOURCES = $(liblf_la_SOURCES) $(liblinguafranca_la_SOURCES)
 liblf_laHEADERS_INSTALL = $(INSTALL_HEADER)
 HEADERS = $(liblf_la_HEADERS)
 ETAGS = etags
@@ -232,60 +234,59 @@ INCLUDES = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" 
 
 
-# lingua-franca core sources 
-#liblingua-franca
-lib_LTLIBRARIES = liblf.la libpurplelf.la
-liblf_ladir = $(LIBDIR)
+# the core translation library
+liblf_ladir = $(packagedir)
+lib_LTLIBRARIES = liblf.la liblinguafranca.la
 liblf_la_SOURCES = lib/lf.c \
 		   lib/xml-translate.c \
 		   lib/xml-translate.h
 
-liblf_la_HEADERS = lib/lf.h 
+liblf_la_HEADERS = lib/lf.h
+liblf_la_CFLAGS = \
+		      $(GLIB_CFLAGS) \
+                      $(AM_CFLAGS) \
+                      $(LIBXML_CFLAGS)\
+                      $(CURL_CFLAGS)\
+		      $(GTK_CFLAGS)
+
 liblf_la_LDFLAGS = $(GLIB_LIBS) \
-		   $(CURL_LIBS)\
-		   $(LIBXML_LIBS)
+                      $(CURL_LIBS) \
+                      $(LIBXML_LIBS)\
+		      $(GTK_LIBS) \
+		      $(INTLLIBS)
 
-liblf_la_CFLAGS = $(GLIB_CFLAGS) \
-		   $(AM_CFLAGS) \
-		   $(LIBXML_CFLAGS)\
-		   $(CURL_CFLAGS)
+# lingua-franca plugin for pidgin 
+liblinguafranca_la_SOURCES = pidgin/plugin.c \
+                        core/xml-ui.c \
+                        core/xml-ui.h \
+                        lib/xml-translate.c \
+                        lib/xml-translate.h \
+                        lib/lf.c \
+                        lib/lf.h \
+                        core/support.c \
+                        core/support.h \
+                        core/interface.c \
+                        core/interface.h \
+                        core/callbacks.c \
+                        core/callbacks.h \
+                        core/lingua-franca.c \
+                        core/lingua-franca.h
 
+liblinguafranca_la_CFLAGS = \
+                      $(GLIB_CFLAGS) \
+                      $(AM_CFLAGS) \
+                      $(LIBXML_CFLAGS)\
+                      $(CURL_CFLAGS)\
+                      $(GTK_CFLAGS) \
+                      $(PURPLE_CFLAGS)\
+		      $(PIDGIN_CFLAGS)
 
-#pidgin plugin
-libpurplelfdir = $(PURPLE_LIBDIR)
-libpurplelf_la_SOURCES = \
-			pidgin/plugin.c \
-			core/xml-ui.c \
-			core/xml-ui.h \
-			lib/xml-translate.c \
-			lib/xml-translate.h \
-			lib/lf.c \
-			lib/lf.h \
-			core/support.c \
-			core/support.h \
-			core/interface.c \
-			core/interface.h \
-			core/callbacks.c \
-			core/callbacks.h \
-			core/lingua-franca.c \
-			core/lingua-franca.h
-
-libpurplelf_la_LDFLAGS = $(INTLLIBS)\
-		 $(GLIB_LIBS) \
-                 $(CURL_LIBS) \
-                 $(LIBXML_LIBS)\
-                 $(GTK_LIBS) \
-		 $(PURPLE_LIBS)\
-		 $(PIDGIN_LIBS)
-
-libpurplelf_la_CFLAGS = \
-                 $(GLIB_CFLAGS) \
-                 $(AM_CFLAGS) \
-                 $(LIBXML_CFLAGS)\
-                 $(CURL_CFLAGS)\
-		 $(GTK_CFLAGS) \
-		 $(PURPLE_CFLAGS)\
-		 $(PIDGIN_CFLAGS)
+liblinguafranca_la_LDFLAGS = $(GLIB_LIBS) \
+                      $(CURL_LIBS) \
+                      $(LIBXML_LIBS)\
+                      $(GTK_LIBS) \
+                      $(INTLLIBS)\
+                      $(PURPLE_LIBS)
 
 all: all-am
 
@@ -349,8 +350,8 @@ clean-libLTLIBRARIES:
 	done
 liblf.la: $(liblf_la_OBJECTS) $(liblf_la_DEPENDENCIES) 
 	$(liblf_la_LINK) -rpath $(libdir) $(liblf_la_OBJECTS) $(liblf_la_LIBADD) $(LIBS)
-libpurplelf.la: $(libpurplelf_la_OBJECTS) $(libpurplelf_la_DEPENDENCIES) 
-	$(libpurplelf_la_LINK) -rpath $(libdir) $(libpurplelf_la_OBJECTS) $(libpurplelf_la_LIBADD) $(LIBS)
+liblinguafranca.la: $(liblinguafranca_la_OBJECTS) $(liblinguafranca_la_DEPENDENCIES) 
+	$(liblinguafranca_la_LINK) -rpath $(libdir) $(liblinguafranca_la_OBJECTS) $(liblinguafranca_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -360,14 +361,14 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblf_la-lf.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblf_la-xml-translate.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpurplelf_la-callbacks.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpurplelf_la-interface.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpurplelf_la-lf.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpurplelf_la-lingua-franca.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpurplelf_la-plugin.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpurplelf_la-support.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpurplelf_la-xml-translate.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpurplelf_la-xml-ui.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblinguafranca_la-callbacks.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblinguafranca_la-interface.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblinguafranca_la-lf.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblinguafranca_la-lingua-franca.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblinguafranca_la-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblinguafranca_la-support.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblinguafranca_la-xml-translate.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblinguafranca_la-xml-ui.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -404,61 +405,61 @@ liblf_la-xml-translate.lo: lib/xml-translate.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblf_la_CFLAGS) $(CFLAGS) -c -o liblf_la-xml-translate.lo `test -f 'lib/xml-translate.c' || echo '$(srcdir)/'`lib/xml-translate.c
 
-libpurplelf_la-plugin.lo: pidgin/plugin.c
-@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpurplelf_la_CFLAGS) $(CFLAGS) -MT libpurplelf_la-plugin.lo -MD -MP -MF $(DEPDIR)/libpurplelf_la-plugin.Tpo -c -o libpurplelf_la-plugin.lo `test -f 'pidgin/plugin.c' || echo '$(srcdir)/'`pidgin/plugin.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libpurplelf_la-plugin.Tpo $(DEPDIR)/libpurplelf_la-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pidgin/plugin.c' object='libpurplelf_la-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+liblinguafranca_la-plugin.lo: pidgin/plugin.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblinguafranca_la_CFLAGS) $(CFLAGS) -MT liblinguafranca_la-plugin.lo -MD -MP -MF $(DEPDIR)/liblinguafranca_la-plugin.Tpo -c -o liblinguafranca_la-plugin.lo `test -f 'pidgin/plugin.c' || echo '$(srcdir)/'`pidgin/plugin.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/liblinguafranca_la-plugin.Tpo $(DEPDIR)/liblinguafranca_la-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pidgin/plugin.c' object='liblinguafranca_la-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpurplelf_la_CFLAGS) $(CFLAGS) -c -o libpurplelf_la-plugin.lo `test -f 'pidgin/plugin.c' || echo '$(srcdir)/'`pidgin/plugin.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblinguafranca_la_CFLAGS) $(CFLAGS) -c -o liblinguafranca_la-plugin.lo `test -f 'pidgin/plugin.c' || echo '$(srcdir)/'`pidgin/plugin.c
 
-libpurplelf_la-xml-ui.lo: core/xml-ui.c
-@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpurplelf_la_CFLAGS) $(CFLAGS) -MT libpurplelf_la-xml-ui.lo -MD -MP -MF $(DEPDIR)/libpurplelf_la-xml-ui.Tpo -c -o libpurplelf_la-xml-ui.lo `test -f 'core/xml-ui.c' || echo '$(srcdir)/'`core/xml-ui.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libpurplelf_la-xml-ui.Tpo $(DEPDIR)/libpurplelf_la-xml-ui.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='core/xml-ui.c' object='libpurplelf_la-xml-ui.lo' libtool=yes @AMDEPBACKSLASH@
+liblinguafranca_la-xml-ui.lo: core/xml-ui.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblinguafranca_la_CFLAGS) $(CFLAGS) -MT liblinguafranca_la-xml-ui.lo -MD -MP -MF $(DEPDIR)/liblinguafranca_la-xml-ui.Tpo -c -o liblinguafranca_la-xml-ui.lo `test -f 'core/xml-ui.c' || echo '$(srcdir)/'`core/xml-ui.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/liblinguafranca_la-xml-ui.Tpo $(DEPDIR)/liblinguafranca_la-xml-ui.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='core/xml-ui.c' object='liblinguafranca_la-xml-ui.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpurplelf_la_CFLAGS) $(CFLAGS) -c -o libpurplelf_la-xml-ui.lo `test -f 'core/xml-ui.c' || echo '$(srcdir)/'`core/xml-ui.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblinguafranca_la_CFLAGS) $(CFLAGS) -c -o liblinguafranca_la-xml-ui.lo `test -f 'core/xml-ui.c' || echo '$(srcdir)/'`core/xml-ui.c
 
-libpurplelf_la-xml-translate.lo: lib/xml-translate.c
-@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpurplelf_la_CFLAGS) $(CFLAGS) -MT libpurplelf_la-xml-translate.lo -MD -MP -MF $(DEPDIR)/libpurplelf_la-xml-translate.Tpo -c -o libpurplelf_la-xml-translate.lo `test -f 'lib/xml-translate.c' || echo '$(srcdir)/'`lib/xml-translate.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libpurplelf_la-xml-translate.Tpo $(DEPDIR)/libpurplelf_la-xml-translate.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lib/xml-translate.c' object='libpurplelf_la-xml-translate.lo' libtool=yes @AMDEPBACKSLASH@
+liblinguafranca_la-xml-translate.lo: lib/xml-translate.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblinguafranca_la_CFLAGS) $(CFLAGS) -MT liblinguafranca_la-xml-translate.lo -MD -MP -MF $(DEPDIR)/liblinguafranca_la-xml-translate.Tpo -c -o liblinguafranca_la-xml-translate.lo `test -f 'lib/xml-translate.c' || echo '$(srcdir)/'`lib/xml-translate.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/liblinguafranca_la-xml-translate.Tpo $(DEPDIR)/liblinguafranca_la-xml-translate.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lib/xml-translate.c' object='liblinguafranca_la-xml-translate.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpurplelf_la_CFLAGS) $(CFLAGS) -c -o libpurplelf_la-xml-translate.lo `test -f 'lib/xml-translate.c' || echo '$(srcdir)/'`lib/xml-translate.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblinguafranca_la_CFLAGS) $(CFLAGS) -c -o liblinguafranca_la-xml-translate.lo `test -f 'lib/xml-translate.c' || echo '$(srcdir)/'`lib/xml-translate.c
 
-libpurplelf_la-lf.lo: lib/lf.c
-@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpurplelf_la_CFLAGS) $(CFLAGS) -MT libpurplelf_la-lf.lo -MD -MP -MF $(DEPDIR)/libpurplelf_la-lf.Tpo -c -o libpurplelf_la-lf.lo `test -f 'lib/lf.c' || echo '$(srcdir)/'`lib/lf.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libpurplelf_la-lf.Tpo $(DEPDIR)/libpurplelf_la-lf.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lib/lf.c' object='libpurplelf_la-lf.lo' libtool=yes @AMDEPBACKSLASH@
+liblinguafranca_la-lf.lo: lib/lf.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblinguafranca_la_CFLAGS) $(CFLAGS) -MT liblinguafranca_la-lf.lo -MD -MP -MF $(DEPDIR)/liblinguafranca_la-lf.Tpo -c -o liblinguafranca_la-lf.lo `test -f 'lib/lf.c' || echo '$(srcdir)/'`lib/lf.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/liblinguafranca_la-lf.Tpo $(DEPDIR)/liblinguafranca_la-lf.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lib/lf.c' object='liblinguafranca_la-lf.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpurplelf_la_CFLAGS) $(CFLAGS) -c -o libpurplelf_la-lf.lo `test -f 'lib/lf.c' || echo '$(srcdir)/'`lib/lf.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblinguafranca_la_CFLAGS) $(CFLAGS) -c -o liblinguafranca_la-lf.lo `test -f 'lib/lf.c' || echo '$(srcdir)/'`lib/lf.c
 
-libpurplelf_la-support.lo: core/support.c
-@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpurplelf_la_CFLAGS) $(CFLAGS) -MT libpurplelf_la-support.lo -MD -MP -MF $(DEPDIR)/libpurplelf_la-support.Tpo -c -o libpurplelf_la-support.lo `test -f 'core/support.c' || echo '$(srcdir)/'`core/support.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libpurplelf_la-support.Tpo $(DEPDIR)/libpurplelf_la-support.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='core/support.c' object='libpurplelf_la-support.lo' libtool=yes @AMDEPBACKSLASH@
+liblinguafranca_la-support.lo: core/support.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblinguafranca_la_CFLAGS) $(CFLAGS) -MT liblinguafranca_la-support.lo -MD -MP -MF $(DEPDIR)/liblinguafranca_la-support.Tpo -c -o liblinguafranca_la-support.lo `test -f 'core/support.c' || echo '$(srcdir)/'`core/support.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/liblinguafranca_la-support.Tpo $(DEPDIR)/liblinguafranca_la-support.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='core/support.c' object='liblinguafranca_la-support.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpurplelf_la_CFLAGS) $(CFLAGS) -c -o libpurplelf_la-support.lo `test -f 'core/support.c' || echo '$(srcdir)/'`core/support.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblinguafranca_la_CFLAGS) $(CFLAGS) -c -o liblinguafranca_la-support.lo `test -f 'core/support.c' || echo '$(srcdir)/'`core/support.c
 
-libpurplelf_la-interface.lo: core/interface.c
-@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpurplelf_la_CFLAGS) $(CFLAGS) -MT libpurplelf_la-interface.lo -MD -MP -MF $(DEPDIR)/libpurplelf_la-interface.Tpo -c -o libpurplelf_la-interface.lo `test -f 'core/interface.c' || echo '$(srcdir)/'`core/interface.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libpurplelf_la-interface.Tpo $(DEPDIR)/libpurplelf_la-interface.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='core/interface.c' object='libpurplelf_la-interface.lo' libtool=yes @AMDEPBACKSLASH@
+liblinguafranca_la-interface.lo: core/interface.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblinguafranca_la_CFLAGS) $(CFLAGS) -MT liblinguafranca_la-interface.lo -MD -MP -MF $(DEPDIR)/liblinguafranca_la-interface.Tpo -c -o liblinguafranca_la-interface.lo `test -f 'core/interface.c' || echo '$(srcdir)/'`core/interface.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/liblinguafranca_la-interface.Tpo $(DEPDIR)/liblinguafranca_la-interface.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='core/interface.c' object='liblinguafranca_la-interface.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpurplelf_la_CFLAGS) $(CFLAGS) -c -o libpurplelf_la-interface.lo `test -f 'core/interface.c' || echo '$(srcdir)/'`core/interface.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblinguafranca_la_CFLAGS) $(CFLAGS) -c -o liblinguafranca_la-interface.lo `test -f 'core/interface.c' || echo '$(srcdir)/'`core/interface.c
 
-libpurplelf_la-callbacks.lo: core/callbacks.c
-@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpurplelf_la_CFLAGS) $(CFLAGS) -MT libpurplelf_la-callbacks.lo -MD -MP -MF $(DEPDIR)/libpurplelf_la-callbacks.Tpo -c -o libpurplelf_la-callbacks.lo `test -f 'core/callbacks.c' || echo '$(srcdir)/'`core/callbacks.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libpurplelf_la-callbacks.Tpo $(DEPDIR)/libpurplelf_la-callbacks.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='core/callbacks.c' object='libpurplelf_la-callbacks.lo' libtool=yes @AMDEPBACKSLASH@
+liblinguafranca_la-callbacks.lo: core/callbacks.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblinguafranca_la_CFLAGS) $(CFLAGS) -MT liblinguafranca_la-callbacks.lo -MD -MP -MF $(DEPDIR)/liblinguafranca_la-callbacks.Tpo -c -o liblinguafranca_la-callbacks.lo `test -f 'core/callbacks.c' || echo '$(srcdir)/'`core/callbacks.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/liblinguafranca_la-callbacks.Tpo $(DEPDIR)/liblinguafranca_la-callbacks.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='core/callbacks.c' object='liblinguafranca_la-callbacks.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpurplelf_la_CFLAGS) $(CFLAGS) -c -o libpurplelf_la-callbacks.lo `test -f 'core/callbacks.c' || echo '$(srcdir)/'`core/callbacks.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblinguafranca_la_CFLAGS) $(CFLAGS) -c -o liblinguafranca_la-callbacks.lo `test -f 'core/callbacks.c' || echo '$(srcdir)/'`core/callbacks.c
 
-libpurplelf_la-lingua-franca.lo: core/lingua-franca.c
-@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpurplelf_la_CFLAGS) $(CFLAGS) -MT libpurplelf_la-lingua-franca.lo -MD -MP -MF $(DEPDIR)/libpurplelf_la-lingua-franca.Tpo -c -o libpurplelf_la-lingua-franca.lo `test -f 'core/lingua-franca.c' || echo '$(srcdir)/'`core/lingua-franca.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libpurplelf_la-lingua-franca.Tpo $(DEPDIR)/libpurplelf_la-lingua-franca.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='core/lingua-franca.c' object='libpurplelf_la-lingua-franca.lo' libtool=yes @AMDEPBACKSLASH@
+liblinguafranca_la-lingua-franca.lo: core/lingua-franca.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblinguafranca_la_CFLAGS) $(CFLAGS) -MT liblinguafranca_la-lingua-franca.lo -MD -MP -MF $(DEPDIR)/liblinguafranca_la-lingua-franca.Tpo -c -o liblinguafranca_la-lingua-franca.lo `test -f 'core/lingua-franca.c' || echo '$(srcdir)/'`core/lingua-franca.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/liblinguafranca_la-lingua-franca.Tpo $(DEPDIR)/liblinguafranca_la-lingua-franca.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='core/lingua-franca.c' object='liblinguafranca_la-lingua-franca.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpurplelf_la_CFLAGS) $(CFLAGS) -c -o libpurplelf_la-lingua-franca.lo `test -f 'core/lingua-franca.c' || echo '$(srcdir)/'`core/lingua-franca.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(liblinguafranca_la_CFLAGS) $(CFLAGS) -c -o liblinguafranca_la-lingua-franca.lo `test -f 'core/lingua-franca.c' || echo '$(srcdir)/'`core/lingua-franca.c
 
 mostlyclean-libtool:
 	-rm -f *.lo
