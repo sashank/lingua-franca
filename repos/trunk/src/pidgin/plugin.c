@@ -1,11 +1,11 @@
 /**
- * @file translate.c
+ * @file lingua-franca
  * @ingroup pidgin
  *
  * lingua-franca
  *
- * lingua-franca is the legal property of its developers, whose names are too numerous
- * to list here.  Please refer to the COPYRIGHT file distributed with this
+ * lingua-franca is the legal property of its developers, 
+ * Please refer to the COPYRIGHT file distributed with this
  * source distribution.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -24,6 +24,7 @@
  *
  */
 
+#define PURPLE_PLUGINS
 #include <account.h>
 #include <debug.h>
 #include <plugin.h>
@@ -32,12 +33,16 @@
 #include <glib.h>
 #include "../core/lingua-franca.h"
 
-/** Plugin id : sashank (to guarantee uniqueness) */
+
+#include <gtkplugin.h>
+#include <gtkprefs.h>
+#include <gtkutils.h>
+#include <pidgin.h>
+
 #define TRANSLATE_PLUGIN_ID "lingua-franca"
-#define VERSION 0.1
-
-
-static void
+#define VERSION "0.1"
+#define PLUGIN_STATIC_NAME  "lingua-franca"
+ void
 sending_im_msg_cb(PurpleAccount *account, char *recipient, char **buffer, void *data)
 {
         purple_debug_misc("lingua-franca", "sending-im-msg (%s, %s, %s)\n",
@@ -62,13 +67,15 @@ plugin_load(PurplePlugin *plugin)
 {
 
 	void *conv_handle     = purple_conversations_get_handle();
-	GList *buddies;
+	GList *buddies =NULL;
 
 	purple_debug(PURPLE_DEBUG_INFO, "translate", "translate plugin loaded.\n");
 
         /* Get all Buddies*/
 	
-        /*Get the path to locate XML files */
+	 buddies = g_list_append(buddies,"Akilan");
+  	 buddies = g_list_append(buddies,"Sashi");
+
 
         /*Initialise the plug-in */
 	lf_init(buddies);
@@ -93,8 +100,16 @@ plugin_unload(PurplePlugin *plugin)
 	return TRUE;
 }
 
-static PurplePluginUiInfo prefs_info = {
-        lf_ui,
+static GtkWidget *get_config_frame(PurplePlugin *plugin)
+{
+  purple_debug(PURPLE_DEBUG_INFO, "translate", "translate plugin ui creation .\n");
+  printf("Getting get_config_frame");
+  GtkWidget *ui = lf_ui();
+  printf("Getting get_config_frame");
+  return ui ;
+}
+static PidginPluginUiInfo ui_info = {
+        get_config_frame,
         0,   /* page_num (Reserved) */
         NULL, /* frame (Reserved) */
         /* Padding */
@@ -109,27 +124,25 @@ static PurplePluginInfo info =
 	PURPLE_PLUGIN_MAGIC,
 	PURPLE_MAJOR_VERSION,
 	PURPLE_MINOR_VERSION,
-	PURPLE_PLUGIN_STANDARD,                             /**< type           */
-	NULL,                                             /**< ui_requirement */
+	PURPLE_PLUGIN_STANDARD,                           /**< type           */
+	PIDGIN_UI,				  /**< ui_requirement */
 	0,                                                /**< flags          */
 	NULL,                                             /**< dependencies   */
-	PURPLE_PRIORITY_DEFAULT,                            /**< priority       */
-
-	TRANSLATE_PLUGIN_ID,                                 /**< id             */
-	N_("Translate Plugin"),                              /**< name           */
+	PURPLE_PRIORITY_DEFAULT,                          /**< priority       */
+	TRANSLATE_PLUGIN_ID,                              /**< id             */
+	N_("lingua-Franca"),        /**< name           */
 	VERSION,                                          /**< version        */
 	                                                  /**  summary        */
 	N_("This plugin is to translate chat text into different languages set by the user "),
 	                                                  /**  description    */
 	N_("This plugin is to translate chat text into different languages set by the user "),
-	"sashank <krishna.sashank@gmail.org>",        	/**< author         */
-	"http://code.google.com/p/lingua-franca",          /**< homepage       */
-
+	"sashank <krishna.sashank@gmail.org>",        	  /**< author         */
+	"http://code.google.com/p/lingua-franca",         /**< homepage       */
 	plugin_load,                                      /**< load           */
 	plugin_unload,                                    /**< unload         */
 	NULL,                                             /**< destroy        */
 
-	NULL,                                             /**< ui_info        */
+	&ui_info,                                             /**< ui_info        */
 	NULL,                                             /**< extra_info     */
 	NULL,
 	NULL,
@@ -140,9 +153,9 @@ static PurplePluginInfo info =
 	NULL
 };
 
-static void
-init_plugin(PurplePlugin *plugin)
+static void init_plugin(PurplePlugin *plugin)
 {
+	purple_debug(PURPLE_DEBUG_INFO, "lingua-franca", "translate plugin inited.\n");
 }
 
-PURPLE_INIT_PLUGIN(translate, init_plugin, info)
+PURPLE_INIT_PLUGIN(PLUGIN_STATIC_NAME, init_plugin, info)

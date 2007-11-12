@@ -42,4 +42,4 @@
 
 void interface_init(GList *buddies,GList *servers,GList *langs);
 
-GtkWidget* get_interface(void);
+GtkWidget* create_ui(void);

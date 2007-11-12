@@ -35,7 +35,6 @@
 #define GLADE_HOOKUP_OBJECT_NO_REF(component,widget,name) \
   g_object_set_data (G_OBJECT (component), name, widget)
 
-GtkWidget *lingua_franca;
 GtkTooltips *tooltips;
 GList     *buddies = NULL;
 GList     *trans_servers = NULL;
@@ -106,13 +105,10 @@ void interface_unload()
   xml_ui_unload();
   lf_translate_unload();
 }
-GtkWidget *get_interface()
-{
-  return lingua_franca;
-}
-void create_ui (void)
+GtkWidget *create_ui (void)
 {
   printf("interface.c: create_ui entered \n");
+  GtkWidget *lingua_franca_win;
   GtkWidget *notebook;
   GtkWidget *general_frame;
   GtkWidget *alignment1;
@@ -160,14 +156,14 @@ void create_ui (void)
 
   tooltips = gtk_tooltips_new ();
 
-  lingua_franca = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title (GTK_WINDOW (lingua_franca), ("Lingua Franca Preferences"));
-  gtk_window_set_position (GTK_WINDOW (lingua_franca), GTK_WIN_POS_CENTER_ALWAYS);
-  gtk_window_set_default_size (GTK_WINDOW (lingua_franca), 390, 425);
+  lingua_franca_win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title (GTK_WINDOW (lingua_franca_win), ("Lingua Franca Preferences"));
+  gtk_window_set_position (GTK_WINDOW (lingua_franca_win), GTK_WIN_POS_CENTER_ALWAYS);
+  gtk_window_set_default_size (GTK_WINDOW (lingua_franca_win), 390, 425);
 
   notebook = gtk_notebook_new ();
   gtk_widget_show (notebook);
-  gtk_container_add (GTK_CONTAINER (lingua_franca), notebook);
+  gtk_container_add (GTK_CONTAINER (lingua_franca_win), notebook);
 
   general_frame = gtk_frame_new (NULL);
   gtk_widget_show (general_frame);
@@ -402,10 +398,10 @@ void create_ui (void)
   gtk_widget_show (misc_label);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 2), misc_label);
 
-  g_signal_connect ((gpointer) lingua_franca, "delete_event",
+  g_signal_connect ((gpointer) lingua_franca_win, "delete_event",
                     G_CALLBACK (on_pref_window_delete_event),
                     NULL);
-  g_signal_connect ((gpointer) lingua_franca, "destroy_event",
+  g_signal_connect ((gpointer) lingua_franca_win, "destroy_event",
                     G_CALLBACK (on_pref_window_destroy_event),
                     NULL);
   g_signal_connect ((gpointer) save_button, "clicked",
@@ -432,52 +428,53 @@ void create_ui (void)
                     (guint *)10000);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (lingua_franca, lingua_franca, "lingua_franca");
-  GLADE_HOOKUP_OBJECT (lingua_franca, notebook, "notebook");
-  GLADE_HOOKUP_OBJECT (lingua_franca, general_frame, "general_frame");
-  GLADE_HOOKUP_OBJECT (lingua_franca, alignment1, "alignment1");
-  GLADE_HOOKUP_OBJECT (lingua_franca, scrolledwindow1, "scrolledwindow1");
-  GLADE_HOOKUP_OBJECT (lingua_franca, general_layout, "general_layout");
-  GLADE_HOOKUP_OBJECT (lingua_franca, incoming_label, "incoming_label");
-  GLADE_HOOKUP_OBJECT (lingua_franca, save_button, "save_button");
-  GLADE_HOOKUP_OBJECT (lingua_franca, save_align, "save_align");
-  GLADE_HOOKUP_OBJECT (lingua_franca, hbox4, "hbox4");
-  GLADE_HOOKUP_OBJECT (lingua_franca, image4, "image4");
-  GLADE_HOOKUP_OBJECT (lingua_franca, save_label1, "save_label1");
-  GLADE_HOOKUP_OBJECT (lingua_franca, incoming_combo, "incoming_combo");
-  GLADE_HOOKUP_OBJECT (lingua_franca, outgoing_label, "outgoing_label");
-  GLADE_HOOKUP_OBJECT (lingua_franca, outgoing_combo, "outgoing_combo");
-  GLADE_HOOKUP_OBJECT (lingua_franca, general_label, "general_label");
-  GLADE_HOOKUP_OBJECT (lingua_franca, general_label2, "general_label2");
-  GLADE_HOOKUP_OBJECT (lingua_franca, buddy_frame, "buddy_frame");
-  GLADE_HOOKUP_OBJECT (lingua_franca, alignment3, "alignment3");
-  GLADE_HOOKUP_OBJECT (lingua_franca, scrolledwindow2, "scrolledwindow2");
-  GLADE_HOOKUP_OBJECT (lingua_franca, viewport1, "viewport1");
-  GLADE_HOOKUP_OBJECT (lingua_franca, buddy_table, "buddy_table");
-  GLADE_HOOKUP_OBJECT (lingua_franca, bname_label, "bname_label");
-  GLADE_HOOKUP_OBJECT (lingua_franca, lp_label, "lp_label");
-  GLADE_HOOKUP_OBJECT (lingua_franca, enable_label, "enable_label");
-  GLADE_HOOKUP_OBJECT (lingua_franca, buddyconfig_label, "buddyconfig_label");
-  GLADE_HOOKUP_OBJECT (lingua_franca, misc_frame, "misc_frame");
-  GLADE_HOOKUP_OBJECT (lingua_franca, alignment4, "alignment4");
-  GLADE_HOOKUP_OBJECT (lingua_franca, scrolledwindow4, "scrolledwindow4");
-  GLADE_HOOKUP_OBJECT (lingua_franca, misc_layout, "misc_layout");
-  GLADE_HOOKUP_OBJECT (lingua_franca, trans_server_label, "trans_server_label");
-  GLADE_HOOKUP_OBJECT (lingua_franca, trans_server_combo, "trans_server_combo");
-  GLADE_HOOKUP_OBJECT (lingua_franca, view_trans_label, "view_trans_label");
-  GLADE_HOOKUP_OBJECT (lingua_franca, view_trans_toggle, "view_trans_toggle");
-  GLADE_HOOKUP_OBJECT (lingua_franca, time_out_label, "time_out_label");
-  GLADE_HOOKUP_OBJECT (lingua_franca, time_out_spin, "time_out_spin");
-  GLADE_HOOKUP_OBJECT (lingua_franca, save2_button, "save2_button");
-  GLADE_HOOKUP_OBJECT (lingua_franca, alignment6, "alignment6");
-  GLADE_HOOKUP_OBJECT (lingua_franca, hbox3, "hbox3");
-  GLADE_HOOKUP_OBJECT (lingua_franca, image3, "image3");
-  GLADE_HOOKUP_OBJECT (lingua_franca, label21, "label21");
-  GLADE_HOOKUP_OBJECT (lingua_franca, misc_label2, "misc_label2");
-  GLADE_HOOKUP_OBJECT (lingua_franca, misc_label, "misc_label");
-  GLADE_HOOKUP_OBJECT_NO_REF (lingua_franca, tooltips, "tooltips");
+  GLADE_HOOKUP_OBJECT_NO_REF (lingua_franca_win, lingua_franca_win, "lingua_franca");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, notebook, "notebook");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, general_frame, "general_frame");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, alignment1, "alignment1");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, scrolledwindow1, "scrolledwindow1");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, general_layout, "general_layout");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, incoming_label, "incoming_label");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, save_button, "save_button");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, save_align, "save_align");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, hbox4, "hbox4");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, image4, "image4");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, save_label1, "save_label1");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, incoming_combo, "incoming_combo");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, outgoing_label, "outgoing_label");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, outgoing_combo, "outgoing_combo");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, general_label, "general_label");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, general_label2, "general_label2");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, buddy_frame, "buddy_frame");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, alignment3, "alignment3");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, scrolledwindow2, "scrolledwindow2");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, viewport1, "viewport1");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, buddy_table, "buddy_table");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, bname_label, "bname_label");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, lp_label, "lp_label");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, enable_label, "enable_label");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, buddyconfig_label, "buddyconfig_label");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, misc_frame, "misc_frame");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, alignment4, "alignment4");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, scrolledwindow4, "scrolledwindow4");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, misc_layout, "misc_layout");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, trans_server_label, "trans_server_label");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, trans_server_combo, "trans_server_combo");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, view_trans_label, "view_trans_label");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, view_trans_toggle, "view_trans_toggle");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, time_out_label, "time_out_label");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, time_out_spin, "time_out_spin");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, save2_button, "save2_button");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, alignment6, "alignment6");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, hbox3, "hbox3");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, image3, "image3");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, label21, "label21");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, misc_label2, "misc_label2");
+  GLADE_HOOKUP_OBJECT (lingua_franca_win, misc_label, "misc_label");
+  GLADE_HOOKUP_OBJECT_NO_REF (lingua_franca_win, tooltips, "tooltips");
 
-  printf("interface.c: create_ui entered \n");
+  printf("interface.c: create_ui exiting \n");
+  return lingua_franca_win;
 }
 
 void interface_init(GList *buddies_list,GList *servers,GList *langs)
@@ -490,8 +487,6 @@ void interface_init(GList *buddies_list,GList *servers,GList *langs)
 
    xml_ui_init();
 
-   /* create the interface */
-   create_ui();
    printf("interface.c: interface_init exiting \n");
 }
 

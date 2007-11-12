@@ -39,10 +39,10 @@
 #define HAVE_MEMORY_H 1
 
 /* Define if we've found pidgin. */
-/* #undef HAVE_PIDGIN */
+#define HAVE_PIDGIN 1
 
 /* Define if we've found pidgin. */
-/* #undef HAVE_PURPLE */
+#define HAVE_PURPLE 1
 
 /* Define to 1 if your system has a GNU libc compatible `realloc' function,
    and to 0 otherwise. */

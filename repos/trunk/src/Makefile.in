@@ -275,7 +275,8 @@ libpurplelf_la_LDFLAGS = $(INTLLIBS)\
                  $(CURL_LIBS) \
                  $(LIBXML_LIBS)\
                  $(GTK_LIBS) \
-		 $(PURPLE_LDFLAGS)
+		 $(PURPLE_LIBS)\
+		 $(PIDGIN_LIBS)
 
 libpurplelf_la_CFLAGS = \
                  $(GLIB_CFLAGS) \
@@ -283,7 +284,8 @@ libpurplelf_la_CFLAGS = \
                  $(LIBXML_CFLAGS)\
                  $(CURL_CFLAGS)\
 		 $(GTK_CFLAGS) \
-		 $(PURPLE_CFLAGS)
+		 $(PURPLE_CFLAGS)\
+		 $(PIDGIN_CFLAGS)
 
 all: all-am
 

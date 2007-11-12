@@ -29,7 +29,7 @@
 GtkWidget *lf_ui()
 {
   printf("lingua-franca:lf-ui  entered \n");
-  GtkWidget *ui = get_interface();
+  GtkWidget *ui = create_ui();
   printf("lingua-franca:lf-ui  exiting \n");
   return ui;
 }
