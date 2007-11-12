@@ -106,8 +106,9 @@ static GtkWidget *get_config_frame(PurplePlugin *plugin)
   printf("Getting get_config_frame");
   GtkWidget *ui = lf_ui();
   printf("Getting get_config_frame");
-  return ui ;
+  return ui; 
 }
+
 static PidginPluginUiInfo ui_info = {
         get_config_frame,
         0,   /* page_num (Reserved) */
@@ -159,3 +160,4 @@ static void init_plugin(PurplePlugin *plugin)
 }
 
 PURPLE_INIT_PLUGIN(PLUGIN_STATIC_NAME, init_plugin, info)
+
