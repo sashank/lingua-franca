@@ -148,6 +148,7 @@ POFILES = @POFILES@
 POSUB = @POSUB@
 PO_IN_DATADIR_FALSE = @PO_IN_DATADIR_FALSE@
 PO_IN_DATADIR_TRUE = @PO_IN_DATADIR_TRUE@
+PURPLE_CFLAGS = @PURPLE_CFLAGS@
 PURPLE_DATADIR = @PURPLE_DATADIR@
 PURPLE_LIBDIR = @PURPLE_LIBDIR@
 PURPLE_LIBS = @PURPLE_LIBS@
@@ -211,7 +212,7 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = src po test
+SUBDIRS = src/lib src/pidgin po test
 EXTRA_DIST = \
 	autogen.sh 
 

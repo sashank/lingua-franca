@@ -31,7 +31,7 @@
 #include <signals.h>
 #include <version.h>
 #include <blist.h>
-#include "../core/lingua-franca.h"
+#include "../ui/lingua-franca.h"
 #include <glib.h>
 
 #include <gtkplugin.h>

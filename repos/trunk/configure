@@ -898,14 +898,15 @@ LIBXML_CFLAGS
 LIBXML_LIBS
 CURL_CFLAGS
 CURL_LIBS
-PIDGIN_CFLAGS
-PIDGIN_LIBS
+PURPLE_CFLAGS
+PURPLE_LIBS
 HAVE_PURPLE_TRUE
 HAVE_PURPLE_FALSE
-PURPLE_LIBS
 PURPLE_LIBDIR
 PURPLE_DATADIR
 PURPLE_PIXMAPSDIR
+PIDGIN_CFLAGS
+PIDGIN_LIBS
 HAVE_PIDGIN_TRUE
 HAVE_PIDGIN_FALSE
 PIDGIN_LIBDIR
@@ -936,6 +937,8 @@ LIBXML_CFLAGS
 LIBXML_LIBS
 CURL_CFLAGS
 CURL_LIBS
+PURPLE_CFLAGS
+PURPLE_LIBS
 PIDGIN_CFLAGS
 PIDGIN_LIBS'
 
@@ -1560,6 +1563,9 @@ Some influential environment variables:
   LIBXML_LIBS linker flags for LIBXML, overriding pkg-config
   CURL_CFLAGS C compiler flags for CURL, overriding pkg-config
   CURL_LIBS   linker flags for CURL, overriding pkg-config
+  PURPLE_CFLAGS
+              C compiler flags for PURPLE, overriding pkg-config
+  PURPLE_LIBS linker flags for PURPLE, overriding pkg-config
   PIDGIN_CFLAGS
               C compiler flags for PIDGIN, overriding pkg-config
   PIDGIN_LIBS linker flags for PIDGIN, overriding pkg-config
@@ -7649,7 +7655,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 7652 "configure"' > conftest.$ac_ext
+  echo '#line 7658 "configure"' > conftest.$ac_ext
   if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -9434,11 +9440,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:9437: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:9443: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:9441: \$? = $ac_status" >&5
+   echo "$as_me:9447: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -9702,11 +9708,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:9705: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:9711: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:9709: \$? = $ac_status" >&5
+   echo "$as_me:9715: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -9806,11 +9812,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:9809: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:9815: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:9813: \$? = $ac_status" >&5
+   echo "$as_me:9819: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -11271,7 +11277,7 @@ linux*)
   libsuff=
   case "$host_cpu" in
   x86_64*|s390x*|powerpc64*)
-    echo '#line 11274 "configure"' > conftest.$ac_ext
+    echo '#line 11280 "configure"' > conftest.$ac_ext
     if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -12135,7 +12141,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 12138 "configure"
+#line 12144 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -12235,7 +12241,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 12238 "configure"
+#line 12244 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -14571,11 +14577,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:14574: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:14580: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:14578: \$? = $ac_status" >&5
+   echo "$as_me:14584: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -14675,11 +14681,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:14678: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:14684: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:14682: \$? = $ac_status" >&5
+   echo "$as_me:14688: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -15211,7 +15217,7 @@ linux*)
   libsuff=
   case "$host_cpu" in
   x86_64*|s390x*|powerpc64*)
-    echo '#line 15214 "configure"' > conftest.$ac_ext
+    echo '#line 15220 "configure"' > conftest.$ac_ext
     if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -16266,11 +16272,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:16269: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16275: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:16273: \$? = $ac_status" >&5
+   echo "$as_me:16279: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -16370,11 +16376,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:16373: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16379: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:16377: \$? = $ac_status" >&5
+   echo "$as_me:16383: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -17815,7 +17821,7 @@ linux*)
   libsuff=
   case "$host_cpu" in
   x86_64*|s390x*|powerpc64*)
-    echo '#line 17818 "configure"' > conftest.$ac_ext
+    echo '#line 17824 "configure"' > conftest.$ac_ext
     if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -18589,11 +18595,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:18592: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:18598: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:18596: \$? = $ac_status" >&5
+   echo "$as_me:18602: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -18857,11 +18863,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:18860: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:18866: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:18864: \$? = $ac_status" >&5
+   echo "$as_me:18870: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -18961,11 +18967,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:18964: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:18970: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:18968: \$? = $ac_status" >&5
+   echo "$as_me:18974: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -20426,7 +20432,7 @@ linux*)
   libsuff=
   case "$host_cpu" in
   x86_64*|s390x*|powerpc64*)
-    echo '#line 20429 "configure"' > conftest.$ac_ext
+    echo '#line 20435 "configure"' > conftest.$ac_ext
     if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -23379,12 +23385,12 @@ fi
 
 
 pkg_failed=no
-{ echo "$as_me:$LINENO: checking for PIDGIN" >&5
-echo $ECHO_N "checking for PIDGIN... $ECHO_C" >&6; }
+{ echo "$as_me:$LINENO: checking for PURPLE" >&5
+echo $ECHO_N "checking for PURPLE... $ECHO_C" >&6; }
 
 if test -n "$PKG_CONFIG"; then
-    if test -n "$PIDGIN_CFLAGS"; then
-        pkg_cv_PIDGIN_CFLAGS="$PIDGIN_CFLAGS"
+    if test -n "$PURPLE_CFLAGS"; then
+        pkg_cv_PURPLE_CFLAGS="$PURPLE_CFLAGS"
     else
         if test -n "$PKG_CONFIG" && \
     { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"purple\"") >&5
@@ -23392,7 +23398,7 @@ if test -n "$PKG_CONFIG"; then
   ac_status=$?
   echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; then
-  pkg_cv_PIDGIN_CFLAGS=`$PKG_CONFIG --cflags "purple" 2>/dev/null`
+  pkg_cv_PURPLE_CFLAGS=`$PKG_CONFIG --cflags "purple" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -23401,8 +23407,8 @@ else
 	pkg_failed=untried
 fi
 if test -n "$PKG_CONFIG"; then
-    if test -n "$PIDGIN_LIBS"; then
-        pkg_cv_PIDGIN_LIBS="$PIDGIN_LIBS"
+    if test -n "$PURPLE_LIBS"; then
+        pkg_cv_PURPLE_LIBS="$PURPLE_LIBS"
     else
         if test -n "$PKG_CONFIG" && \
     { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"purple\"") >&5
@@ -23410,7 +23416,7 @@ if test -n "$PKG_CONFIG"; then
   ac_status=$?
   echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; then
-  pkg_cv_PIDGIN_LIBS=`$PKG_CONFIG --libs "purple" 2>/dev/null`
+  pkg_cv_PURPLE_LIBS=`$PKG_CONFIG --libs "purple" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -23429,12 +23435,12 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        PIDGIN_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "purple"`
+	        PURPLE_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "purple"`
         else
-	        PIDGIN_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "purple"`
+	        PURPLE_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "purple"`
         fi
 	# Put the nasty error message in config.log where it belongs
-	echo "$PIDGIN_PKG_ERRORS" >&5
+	echo "$PURPLE_PKG_ERRORS" >&5
 
 	{ echo "$as_me:$LINENO: result: no" >&5
 echo "${ECHO_T}no" >&6; }
@@ -23466,8 +23472,8 @@ fi
 
 
 else
-	PIDGIN_CFLAGS=$pkg_cv_PIDGIN_CFLAGS
-	PIDGIN_LIBS=$pkg_cv_PIDGIN_LIBS
+	PURPLE_CFLAGS=$pkg_cv_PURPLE_CFLAGS
+	PURPLE_LIBS=$pkg_cv_PURPLE_LIBS
         { echo "$as_me:$LINENO: result: yes" >&5
 echo "${ECHO_T}yes" >&6; }
 
@@ -23487,6 +23493,7 @@ fi
 
 
 fi
+
 
 if test x"$prefix" = x"NONE" ; then
         PURPLE_LIBDIR=`pkg-config --variable=libdir purple`
@@ -23520,6 +23527,7 @@ cat >>confdefs.h <<_ACEOF
 _ACEOF
 
 fi
+
 
 
 
@@ -23653,7 +23661,7 @@ fi
 
 
 
-ac_config_files="$ac_config_files Makefile src/Makefile test/Makefile"
+ac_config_files="$ac_config_files Makefile src/pidgin/Makefile src/lib/Makefile test/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -24293,7 +24301,8 @@ do
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "default-1") CONFIG_COMMANDS="$CONFIG_COMMANDS default-1" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
-    "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
+    "src/pidgin/Makefile") CONFIG_FILES="$CONFIG_FILES src/pidgin/Makefile" ;;
+    "src/lib/Makefile") CONFIG_FILES="$CONFIG_FILES src/lib/Makefile" ;;
     "test/Makefile") CONFIG_FILES="$CONFIG_FILES test/Makefile" ;;
 
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
@@ -24527,14 +24536,15 @@ LIBXML_CFLAGS!$LIBXML_CFLAGS$ac_delim
 LIBXML_LIBS!$LIBXML_LIBS$ac_delim
 CURL_CFLAGS!$CURL_CFLAGS$ac_delim
 CURL_LIBS!$CURL_LIBS$ac_delim
-PIDGIN_CFLAGS!$PIDGIN_CFLAGS$ac_delim
-PIDGIN_LIBS!$PIDGIN_LIBS$ac_delim
+PURPLE_CFLAGS!$PURPLE_CFLAGS$ac_delim
+PURPLE_LIBS!$PURPLE_LIBS$ac_delim
 HAVE_PURPLE_TRUE!$HAVE_PURPLE_TRUE$ac_delim
 HAVE_PURPLE_FALSE!$HAVE_PURPLE_FALSE$ac_delim
-PURPLE_LIBS!$PURPLE_LIBS$ac_delim
 PURPLE_LIBDIR!$PURPLE_LIBDIR$ac_delim
 PURPLE_DATADIR!$PURPLE_DATADIR$ac_delim
 PURPLE_PIXMAPSDIR!$PURPLE_PIXMAPSDIR$ac_delim
+PIDGIN_CFLAGS!$PIDGIN_CFLAGS$ac_delim
+PIDGIN_LIBS!$PIDGIN_LIBS$ac_delim
 HAVE_PIDGIN_TRUE!$HAVE_PIDGIN_TRUE$ac_delim
 HAVE_PIDGIN_FALSE!$HAVE_PIDGIN_FALSE$ac_delim
 PIDGIN_LIBDIR!$PIDGIN_LIBDIR$ac_delim
@@ -24542,7 +24552,7 @@ PIDGIN_DATADIR!$PIDGIN_DATADIR$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 45; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 46; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5

@@ -27,20 +27,20 @@ translate_test_LDFLAGS = $(GLIB_LIBS) \
 # lingua-franca, test purposes
 
 linguafranca_test_SOURCES = linguafranca_test.c \
-                        ../src/core/xml-ui.c \
-                        ../src/core/xml-ui.h \
+                        ../src/ui/xml-ui.c \
+                        ../src/ui/xml-ui.h \
                         ../src/lib/xml-translate.c \
                         ../src/lib/xml-translate.h \
                         ../src/lib/lf.c \
                         ../src/lib/lf.h \
-                        ../src/core/support.c \
-                        ../src/core/support.h \
-                        ../src/core/interface.c \
-                        ../src/core/interface.h \
-                        ../src/core/callbacks.c \
-                        ../src/core/callbacks.h \
-                        ../src/core/lingua-franca.c \
-                        ../src/core/lingua-franca.h
+                        ../src/ui/support.c \
+                        ../src/ui/support.h \
+                        ../src/ui/interface.c \
+                        ../src/ui/interface.h \
+                        ../src/ui/callbacks.c \
+                        ../src/ui/callbacks.h \
+                        ../src/ui/lingua-franca.c \
+                        ../src/ui/lingua-franca.h
 
 linguafranca_test_CFLAGS = \
                       $(GLIB_CFLAGS) \

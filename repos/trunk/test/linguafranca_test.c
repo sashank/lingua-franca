@@ -28,7 +28,7 @@
 #  include <config.h>
 #endif
 
-#include "../src/core/lingua-franca.h"
+#include "../src/ui/lingua-franca.h"
 
 int
 main (int argc, char *argv[])
@@ -54,8 +54,8 @@ main (int argc, char *argv[])
   buddies = g_list_append(buddies,"Harish");
 
   lf_init(buddies);
- /* linguafranca = lf_ui();
-  gtk_widget_show (linguafranca); */
+  linguafranca = lf_ui();
+  gtk_widget_show (linguafranca); 
   lf_translate_incoming("Hello","Harish");
 
  /* gtk_main (); */

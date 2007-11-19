@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = src po test
+SUBDIRS = src/lib src/pidgin po test
 
 EXTRA_DIST = \
 	autogen.sh 

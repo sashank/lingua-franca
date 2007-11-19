@@ -102,7 +102,7 @@ dnl # Check for purple  , translation is a back end plugin
 dnl # so purple is required , technically for development alone , pidgin
 dnl # is not required ,although we check for both
 dnl #######################################################################
-PKG_CHECK_MODULES(PIDGIN, purple,
+PKG_CHECK_MODULES(PURPLE, purple,
 [
         AC_DEFINE(HAVE_PURPLE, 1, [Define if we've found pidgin.])
         HAVE_PIDGIN="yes"
@@ -112,6 +112,7 @@ PKG_CHECK_MODULES(PIDGIN, purple,
         HAVE_PURPLE="no"
         AM_CONDITIONAL(HAVE_PURPLE, false)
 ])
+
 
 if test x"$prefix" = x"NONE" ; then
         PURPLE_LIBDIR=`pkg-config --variable=libdir purple`
@@ -139,6 +140,7 @@ if test x"$PURPLE_DATADIR" != x"" ; then
 fi
 
 AC_SUBST(PURPLE_LIBS)
+AC_SUBST(PURPLE_CFLAGS)
 AC_SUBST(PURPLE_LIBDIR)
 AC_SUBST(PURPLE_DATADIR)
 AC_SUBST(PURPLE_PIXMAPSDIR)
@@ -174,7 +176,8 @@ AC_SUBST(PIDGIN_DATADIR)
 
 
 AC_CONFIG_FILES([Makefile
-                 src/Makefile
+                 src/pidgin/Makefile
+                 src/lib/Makefile
 		 test/Makefile])
 AC_OUTPUT
 dnl #######################################################################

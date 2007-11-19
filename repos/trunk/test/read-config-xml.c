@@ -1,4 +1,4 @@
-#include "../src/core/xml-translate.h"
+#include "../src/ui/xml-translate.h"
 
 void print_lang(gchar *buddy)
 {

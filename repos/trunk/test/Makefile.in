@@ -162,6 +162,7 @@ POFILES = @POFILES@
 POSUB = @POSUB@
 PO_IN_DATADIR_FALSE = @PO_IN_DATADIR_FALSE@
 PO_IN_DATADIR_TRUE = @PO_IN_DATADIR_TRUE@
+PURPLE_CFLAGS = @PURPLE_CFLAGS@
 PURPLE_DATADIR = @PURPLE_DATADIR@
 PURPLE_LIBDIR = @PURPLE_LIBDIR@
 PURPLE_LIBS = @PURPLE_LIBS@
@@ -250,20 +251,20 @@ translate_test_LDFLAGS = $(GLIB_LIBS) \
 
 # lingua-franca, test purposes
 linguafranca_test_SOURCES = linguafranca_test.c \
-                        ../src/core/xml-ui.c \
-                        ../src/core/xml-ui.h \
+                        ../src/ui/xml-ui.c \
+                        ../src/ui/xml-ui.h \
                         ../src/lib/xml-translate.c \
                         ../src/lib/xml-translate.h \
                         ../src/lib/lf.c \
                         ../src/lib/lf.h \
-                        ../src/core/support.c \
-                        ../src/core/support.h \
-                        ../src/core/interface.c \
-                        ../src/core/interface.h \
-                        ../src/core/callbacks.c \
-                        ../src/core/callbacks.h \
-                        ../src/core/lingua-franca.c \
-                        ../src/core/lingua-franca.h
+                        ../src/ui/support.c \
+                        ../src/ui/support.h \
+                        ../src/ui/interface.c \
+                        ../src/ui/interface.h \
+                        ../src/ui/callbacks.c \
+                        ../src/ui/callbacks.h \
+                        ../src/ui/lingua-franca.c \
+                        ../src/ui/lingua-franca.h
 
 linguafranca_test_CFLAGS = \
                       $(GLIB_CFLAGS) \
@@ -399,19 +400,19 @@ linguafranca_test-linguafranca_test.obj: linguafranca_test.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-linguafranca_test.obj `if test -f 'linguafranca_test.c'; then $(CYGPATH_W) 'linguafranca_test.c'; else $(CYGPATH_W) '$(srcdir)/linguafranca_test.c'; fi`
 
-linguafranca_test-xml-ui.o: ../src/core/xml-ui.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-xml-ui.o -MD -MP -MF $(DEPDIR)/linguafranca_test-xml-ui.Tpo -c -o linguafranca_test-xml-ui.o `test -f '../src/core/xml-ui.c' || echo '$(srcdir)/'`../src/core/xml-ui.c
+linguafranca_test-xml-ui.o: ../src/ui/xml-ui.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-xml-ui.o -MD -MP -MF $(DEPDIR)/linguafranca_test-xml-ui.Tpo -c -o linguafranca_test-xml-ui.o `test -f '../src/ui/xml-ui.c' || echo '$(srcdir)/'`../src/ui/xml-ui.c
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/linguafranca_test-xml-ui.Tpo $(DEPDIR)/linguafranca_test-xml-ui.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/core/xml-ui.c' object='linguafranca_test-xml-ui.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/ui/xml-ui.c' object='linguafranca_test-xml-ui.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-xml-ui.o `test -f '../src/core/xml-ui.c' || echo '$(srcdir)/'`../src/core/xml-ui.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-xml-ui.o `test -f '../src/ui/xml-ui.c' || echo '$(srcdir)/'`../src/ui/xml-ui.c
 
-linguafranca_test-xml-ui.obj: ../src/core/xml-ui.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-xml-ui.obj -MD -MP -MF $(DEPDIR)/linguafranca_test-xml-ui.Tpo -c -o linguafranca_test-xml-ui.obj `if test -f '../src/core/xml-ui.c'; then $(CYGPATH_W) '../src/core/xml-ui.c'; else $(CYGPATH_W) '$(srcdir)/../src/core/xml-ui.c'; fi`
+linguafranca_test-xml-ui.obj: ../src/ui/xml-ui.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-xml-ui.obj -MD -MP -MF $(DEPDIR)/linguafranca_test-xml-ui.Tpo -c -o linguafranca_test-xml-ui.obj `if test -f '../src/ui/xml-ui.c'; then $(CYGPATH_W) '../src/ui/xml-ui.c'; else $(CYGPATH_W) '$(srcdir)/../src/ui/xml-ui.c'; fi`
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/linguafranca_test-xml-ui.Tpo $(DEPDIR)/linguafranca_test-xml-ui.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/core/xml-ui.c' object='linguafranca_test-xml-ui.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/ui/xml-ui.c' object='linguafranca_test-xml-ui.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-xml-ui.obj `if test -f '../src/core/xml-ui.c'; then $(CYGPATH_W) '../src/core/xml-ui.c'; else $(CYGPATH_W) '$(srcdir)/../src/core/xml-ui.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-xml-ui.obj `if test -f '../src/ui/xml-ui.c'; then $(CYGPATH_W) '../src/ui/xml-ui.c'; else $(CYGPATH_W) '$(srcdir)/../src/ui/xml-ui.c'; fi`
 
 linguafranca_test-xml-translate.o: ../src/lib/xml-translate.c
 @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-xml-translate.o -MD -MP -MF $(DEPDIR)/linguafranca_test-xml-translate.Tpo -c -o linguafranca_test-xml-translate.o `test -f '../src/lib/xml-translate.c' || echo '$(srcdir)/'`../src/lib/xml-translate.c
@@ -441,61 +442,61 @@ linguafranca_test-lf.obj: ../src/lib/lf.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-lf.obj `if test -f '../src/lib/lf.c'; then $(CYGPATH_W) '../src/lib/lf.c'; else $(CYGPATH_W) '$(srcdir)/../src/lib/lf.c'; fi`
 
-linguafranca_test-support.o: ../src/core/support.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-support.o -MD -MP -MF $(DEPDIR)/linguafranca_test-support.Tpo -c -o linguafranca_test-support.o `test -f '../src/core/support.c' || echo '$(srcdir)/'`../src/core/support.c
+linguafranca_test-support.o: ../src/ui/support.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-support.o -MD -MP -MF $(DEPDIR)/linguafranca_test-support.Tpo -c -o linguafranca_test-support.o `test -f '../src/ui/support.c' || echo '$(srcdir)/'`../src/ui/support.c
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/linguafranca_test-support.Tpo $(DEPDIR)/linguafranca_test-support.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/core/support.c' object='linguafranca_test-support.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/ui/support.c' object='linguafranca_test-support.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-support.o `test -f '../src/core/support.c' || echo '$(srcdir)/'`../src/core/support.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-support.o `test -f '../src/ui/support.c' || echo '$(srcdir)/'`../src/ui/support.c
 
-linguafranca_test-support.obj: ../src/core/support.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-support.obj -MD -MP -MF $(DEPDIR)/linguafranca_test-support.Tpo -c -o linguafranca_test-support.obj `if test -f '../src/core/support.c'; then $(CYGPATH_W) '../src/core/support.c'; else $(CYGPATH_W) '$(srcdir)/../src/core/support.c'; fi`
+linguafranca_test-support.obj: ../src/ui/support.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-support.obj -MD -MP -MF $(DEPDIR)/linguafranca_test-support.Tpo -c -o linguafranca_test-support.obj `if test -f '../src/ui/support.c'; then $(CYGPATH_W) '../src/ui/support.c'; else $(CYGPATH_W) '$(srcdir)/../src/ui/support.c'; fi`
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/linguafranca_test-support.Tpo $(DEPDIR)/linguafranca_test-support.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/core/support.c' object='linguafranca_test-support.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/ui/support.c' object='linguafranca_test-support.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-support.obj `if test -f '../src/core/support.c'; then $(CYGPATH_W) '../src/core/support.c'; else $(CYGPATH_W) '$(srcdir)/../src/core/support.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-support.obj `if test -f '../src/ui/support.c'; then $(CYGPATH_W) '../src/ui/support.c'; else $(CYGPATH_W) '$(srcdir)/../src/ui/support.c'; fi`
 
-linguafranca_test-interface.o: ../src/core/interface.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-interface.o -MD -MP -MF $(DEPDIR)/linguafranca_test-interface.Tpo -c -o linguafranca_test-interface.o `test -f '../src/core/interface.c' || echo '$(srcdir)/'`../src/core/interface.c
+linguafranca_test-interface.o: ../src/ui/interface.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-interface.o -MD -MP -MF $(DEPDIR)/linguafranca_test-interface.Tpo -c -o linguafranca_test-interface.o `test -f '../src/ui/interface.c' || echo '$(srcdir)/'`../src/ui/interface.c
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/linguafranca_test-interface.Tpo $(DEPDIR)/linguafranca_test-interface.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/core/interface.c' object='linguafranca_test-interface.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/ui/interface.c' object='linguafranca_test-interface.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-interface.o `test -f '../src/core/interface.c' || echo '$(srcdir)/'`../src/core/interface.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-interface.o `test -f '../src/ui/interface.c' || echo '$(srcdir)/'`../src/ui/interface.c
 
-linguafranca_test-interface.obj: ../src/core/interface.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-interface.obj -MD -MP -MF $(DEPDIR)/linguafranca_test-interface.Tpo -c -o linguafranca_test-interface.obj `if test -f '../src/core/interface.c'; then $(CYGPATH_W) '../src/core/interface.c'; else $(CYGPATH_W) '$(srcdir)/../src/core/interface.c'; fi`
+linguafranca_test-interface.obj: ../src/ui/interface.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-interface.obj -MD -MP -MF $(DEPDIR)/linguafranca_test-interface.Tpo -c -o linguafranca_test-interface.obj `if test -f '../src/ui/interface.c'; then $(CYGPATH_W) '../src/ui/interface.c'; else $(CYGPATH_W) '$(srcdir)/../src/ui/interface.c'; fi`
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/linguafranca_test-interface.Tpo $(DEPDIR)/linguafranca_test-interface.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/core/interface.c' object='linguafranca_test-interface.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/ui/interface.c' object='linguafranca_test-interface.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-interface.obj `if test -f '../src/core/interface.c'; then $(CYGPATH_W) '../src/core/interface.c'; else $(CYGPATH_W) '$(srcdir)/../src/core/interface.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-interface.obj `if test -f '../src/ui/interface.c'; then $(CYGPATH_W) '../src/ui/interface.c'; else $(CYGPATH_W) '$(srcdir)/../src/ui/interface.c'; fi`
 
-linguafranca_test-callbacks.o: ../src/core/callbacks.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-callbacks.o -MD -MP -MF $(DEPDIR)/linguafranca_test-callbacks.Tpo -c -o linguafranca_test-callbacks.o `test -f '../src/core/callbacks.c' || echo '$(srcdir)/'`../src/core/callbacks.c
+linguafranca_test-callbacks.o: ../src/ui/callbacks.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-callbacks.o -MD -MP -MF $(DEPDIR)/linguafranca_test-callbacks.Tpo -c -o linguafranca_test-callbacks.o `test -f '../src/ui/callbacks.c' || echo '$(srcdir)/'`../src/ui/callbacks.c
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/linguafranca_test-callbacks.Tpo $(DEPDIR)/linguafranca_test-callbacks.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/core/callbacks.c' object='linguafranca_test-callbacks.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/ui/callbacks.c' object='linguafranca_test-callbacks.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-callbacks.o `test -f '../src/core/callbacks.c' || echo '$(srcdir)/'`../src/core/callbacks.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-callbacks.o `test -f '../src/ui/callbacks.c' || echo '$(srcdir)/'`../src/ui/callbacks.c
 
-linguafranca_test-callbacks.obj: ../src/core/callbacks.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-callbacks.obj -MD -MP -MF $(DEPDIR)/linguafranca_test-callbacks.Tpo -c -o linguafranca_test-callbacks.obj `if test -f '../src/core/callbacks.c'; then $(CYGPATH_W) '../src/core/callbacks.c'; else $(CYGPATH_W) '$(srcdir)/../src/core/callbacks.c'; fi`
+linguafranca_test-callbacks.obj: ../src/ui/callbacks.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-callbacks.obj -MD -MP -MF $(DEPDIR)/linguafranca_test-callbacks.Tpo -c -o linguafranca_test-callbacks.obj `if test -f '../src/ui/callbacks.c'; then $(CYGPATH_W) '../src/ui/callbacks.c'; else $(CYGPATH_W) '$(srcdir)/../src/ui/callbacks.c'; fi`
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/linguafranca_test-callbacks.Tpo $(DEPDIR)/linguafranca_test-callbacks.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/core/callbacks.c' object='linguafranca_test-callbacks.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/ui/callbacks.c' object='linguafranca_test-callbacks.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-callbacks.obj `if test -f '../src/core/callbacks.c'; then $(CYGPATH_W) '../src/core/callbacks.c'; else $(CYGPATH_W) '$(srcdir)/../src/core/callbacks.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-callbacks.obj `if test -f '../src/ui/callbacks.c'; then $(CYGPATH_W) '../src/ui/callbacks.c'; else $(CYGPATH_W) '$(srcdir)/../src/ui/callbacks.c'; fi`
 
-linguafranca_test-lingua-franca.o: ../src/core/lingua-franca.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-lingua-franca.o -MD -MP -MF $(DEPDIR)/linguafranca_test-lingua-franca.Tpo -c -o linguafranca_test-lingua-franca.o `test -f '../src/core/lingua-franca.c' || echo '$(srcdir)/'`../src/core/lingua-franca.c
+linguafranca_test-lingua-franca.o: ../src/ui/lingua-franca.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-lingua-franca.o -MD -MP -MF $(DEPDIR)/linguafranca_test-lingua-franca.Tpo -c -o linguafranca_test-lingua-franca.o `test -f '../src/ui/lingua-franca.c' || echo '$(srcdir)/'`../src/ui/lingua-franca.c
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/linguafranca_test-lingua-franca.Tpo $(DEPDIR)/linguafranca_test-lingua-franca.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/core/lingua-franca.c' object='linguafranca_test-lingua-franca.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/ui/lingua-franca.c' object='linguafranca_test-lingua-franca.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-lingua-franca.o `test -f '../src/core/lingua-franca.c' || echo '$(srcdir)/'`../src/core/lingua-franca.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-lingua-franca.o `test -f '../src/ui/lingua-franca.c' || echo '$(srcdir)/'`../src/ui/lingua-franca.c
 
-linguafranca_test-lingua-franca.obj: ../src/core/lingua-franca.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-lingua-franca.obj -MD -MP -MF $(DEPDIR)/linguafranca_test-lingua-franca.Tpo -c -o linguafranca_test-lingua-franca.obj `if test -f '../src/core/lingua-franca.c'; then $(CYGPATH_W) '../src/core/lingua-franca.c'; else $(CYGPATH_W) '$(srcdir)/../src/core/lingua-franca.c'; fi`
+linguafranca_test-lingua-franca.obj: ../src/ui/lingua-franca.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -MT linguafranca_test-lingua-franca.obj -MD -MP -MF $(DEPDIR)/linguafranca_test-lingua-franca.Tpo -c -o linguafranca_test-lingua-franca.obj `if test -f '../src/ui/lingua-franca.c'; then $(CYGPATH_W) '../src/ui/lingua-franca.c'; else $(CYGPATH_W) '$(srcdir)/../src/ui/lingua-franca.c'; fi`
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/linguafranca_test-lingua-franca.Tpo $(DEPDIR)/linguafranca_test-lingua-franca.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/core/lingua-franca.c' object='linguafranca_test-lingua-franca.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../src/ui/lingua-franca.c' object='linguafranca_test-lingua-franca.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-lingua-franca.obj `if test -f '../src/core/lingua-franca.c'; then $(CYGPATH_W) '../src/core/lingua-franca.c'; else $(CYGPATH_W) '$(srcdir)/../src/core/lingua-franca.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(linguafranca_test_CFLAGS) $(CFLAGS) -c -o linguafranca_test-lingua-franca.obj `if test -f '../src/ui/lingua-franca.c'; then $(CYGPATH_W) '../src/ui/lingua-franca.c'; else $(CYGPATH_W) '$(srcdir)/../src/ui/lingua-franca.c'; fi`
 
 translate_test-translate-test.o: translate-test.c
 @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(translate_test_CFLAGS) $(CFLAGS) -MT translate_test-translate-test.o -MD -MP -MF $(DEPDIR)/translate_test-translate-test.Tpo -c -o translate_test-translate-test.o `test -f 'translate-test.c' || echo '$(srcdir)/'`translate-test.c
