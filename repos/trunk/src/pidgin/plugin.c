@@ -30,9 +30,9 @@
 #include <plugin.h>
 #include <signals.h>
 #include <version.h>
-#include <glib.h>
+#include <blist.h>
 #include "../core/lingua-franca.h"
-
+#include <glib.h>
 
 #include <gtkplugin.h>
 #include <gtkprefs.h>
@@ -42,12 +42,18 @@
 #define TRANSLATE_PLUGIN_ID "lingua-franca"
 #define VERSION "0.1"
 #define PLUGIN_STATIC_NAME  "lingua-franca"
+
+
  void
 sending_im_msg_cb(PurpleAccount *account, char *recipient, char **buffer, void *data)
 {
+        purple_debug_misc("lingua-franca", "msg typed  to  %s is  %s)\n",
+                                        recipient, *buffer);
+
+	*buffer = lf_translate_outgoing(*buffer,recipient);
+
         purple_debug_misc("lingua-franca", "sending-im-msg (%s, %s, %s)\n",
                                         purple_account_get_username(account), recipient, *buffer);
-	lf_translate_outgoing(*buffer,recipient);
 }
 
 
@@ -58,27 +64,53 @@ received_im_msg_cb(PurpleAccount *account, char *sender, char *buffer,
         purple_debug_misc("lingua-franca", "received-im-msg (%s, %s, %s, %s, %d)\n",
                                         purple_account_get_username(account), sender, buffer,
                                         (conv != NULL) ? purple_conversation_get_name(conv) : "(null)", flags);
-	lf_translate_incoming(buffer);
+	buffer = lf_translate_incoming(buffer,sender);
+
+        purple_debug_misc("lingua-franca", "displaying im msg (%s, %s, %s, %s, %d)\n",
+                                        purple_account_get_username(account), sender, buffer,
+                                        (conv != NULL) ? purple_conversation_get_name(conv) : "(null)", flags);
 }
 
+static GList *
+get_user_names()
+{
+        PurpleBlistNode *gnode,*cnode,*bnode;
+        static GList *tmp = NULL;
+
+        g_list_free(tmp);
+        tmp = NULL;
+
+                for(gnode = purple_get_blist()->root; gnode; gnode = gnode->next) {
+                        if(!PURPLE_BLIST_NODE_IS_GROUP(gnode))
+                                continue;
+                        for(cnode = gnode->child; cnode; cnode = cnode->next) {
+                                if(!PURPLE_BLIST_NODE_IS_CONTACT(cnode))
+                                        continue;
+                                for(bnode = cnode->child; bnode; bnode = bnode->next) {
+                                        PurpleBuddy *buddy;
+
+                                        if(!PURPLE_BLIST_NODE_IS_BUDDY(bnode))
+                                                continue;
+
+                                        buddy = (PurpleBuddy *)bnode;
+
+                                        tmp = g_list_insert_sorted(tmp, buddy->name, (GCompareFunc)g_utf8_collate);
+                                }
+                        }
+                }
+        return tmp;
+}
 
 static gboolean
 plugin_load(PurplePlugin *plugin)
 {
 
 	void *conv_handle     = purple_conversations_get_handle();
-	GList *buddies =NULL;
-
 	purple_debug(PURPLE_DEBUG_INFO, "translate", "translate plugin loaded.\n");
 
         /* Get all Buddies*/
-	
-	 buddies = g_list_append(buddies,"Akilan");
-  	 buddies = g_list_append(buddies,"Sashi");
-
-
         /*Initialise the plug-in */
-	lf_init(buddies);
+	lf_init(get_user_names());
 
         /* Translate Message before it is sent */
 	purple_signal_connect(conv_handle, "sending-im-msg",
@@ -96,7 +128,6 @@ static gboolean
 plugin_unload(PurplePlugin *plugin)
 {
 	purple_debug(PURPLE_DEBUG_INFO, "translate", "translate plugin unloaded.\n");
-
 	return TRUE;
 }
 

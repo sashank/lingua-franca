@@ -111,29 +111,29 @@ void add_post_option(char *name ,char *value)
  postoptions_list = g_list_append(postoptions_list,po); 
  
 }
-char *get_lang_pref(char *from ,char *to)
+char *get_lp(char *from ,char *to)
 {
   LangPair *lpair;
   int i = 0;
   guint size = g_list_length(langpairs_list);
+  char *lp = "NA";
 
  /* printf("Inside get lang pref %d \n",size);*/
   for ( i =0 ; i < size ; i++)
    {
         lpair = g_list_nth_data(langpairs_list,i);
-/*        printf("Name = %s , Value = %s \n",lpair->from,lpair->to); */
         if ((strcmp(lpair->from,from) == 0) && (strcmp(lpair->to,to) == 0))
-          return lpair->lp ;
+          lp = lpair->lp ;
    }
 
-  return "NA";
+  return lp;
 }
 
 GString *get_post_string(char *mesg,char *from,char *to)
 {
     int i;
     char *lp ;
-    lp = get_lang_pref(from,to);
+    lp = get_lp(from,to);
     PostOption *po;
     guint size = g_list_length(postoptions_list);
 /*    printf("Inside get post string %d \n",size);

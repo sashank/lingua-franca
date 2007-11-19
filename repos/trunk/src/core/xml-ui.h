@@ -34,15 +34,15 @@
 
 void xml_ui_init();
 
-char *get_incoming_lang_pref();
+char *get_my_lang_pref();
 
-char *get_outgoing_lang_pref(char *buddy);
+char *get_lang_pref(char *buddy);
 
 char *get_pref_status(char *buddy);
 
-void set_incoming_lang_pref(char *lang);
+void set_my_lang_pref(char *lang);
 
-void set_outgoing_lang_pref(char *buddy,char *lang);
+void set_lang_pref(char *buddy,char *lang);
 
 void set_view_translation(int  state);
 

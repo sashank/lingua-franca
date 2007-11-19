@@ -97,7 +97,7 @@
 #define PP_LOCALEDIR "PURPLE_DATADIR/locale"
 
 /* Libpurple pixmaps directory */
-/* #undef PURPLE_PIXMAPSDIR */
+#define PURPLE_PIXMAPSDIR "/usr/local/share/pixmaps/libpurple"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1

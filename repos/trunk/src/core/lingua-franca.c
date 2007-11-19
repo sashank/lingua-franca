@@ -37,40 +37,81 @@ GtkWidget *lf_ui()
 /* Determines whther translation engine is on */
 gboolean translation = TRUE ;
 
-char *lf_translate_incoming(char *mesg)
+char *lf_translate_incoming(char *mesg,char *buddy)
 {
   printf("lingua-franca:lf_translate_incoming  entered \n");
   printf("lingua-franca:lf_translate_incoming  Mesg is %s \n",mesg);
-  char *incoming_lang_pref = get_incoming_lang_pref();
+
   char *translated_mesg ;
-  printf("lingua-franca:lf_translate_incoming  incoming_lang_pref is %s \n",incoming_lang_pref);
+  char *my_lang =  get_lang_pref("MY_LANG");
+  char *buddy_lang = get_lang_pref(buddy);
 
-  if ( translation == TRUE)
-   translated_mesg = lf_translate_to(mesg,incoming_lang_pref);
+  /* Do translation only when 
+   * 1 . Translation engine is ON
+   * 2 . My language is not None  
+   * 3 . Buddy language is not None
+   * 4 . My lang and buddy lang are not same
+   * 5 . Language translation is available
+   */
+  if ( translation == TRUE 
+		&& !(strcmp(my_lang,"None") == 0)
+		&& !(strcmp(buddy_lang,"None")==0)
+		&& !(strcmp(my_lang,buddy_lang)==0)
+		&& lf_is_translation_avail(buddy_lang,my_lang) == TRUE)
+  {
+     translated_mesg = lf_translate_from_to(mesg,buddy_lang,my_lang); 
+     printf("Translated mesg is %s \n",translated_mesg);
+  }
   else
+  {
+   printf("lingua-franca:lf_translate_incoming  No Translation %s \n",translated_mesg);
    translated_mesg = mesg;
+  }
 
-  printf("lingua-franca:lf_translate_incoming  translated mesg is %s \n",translated_mesg);
-  printf("lingua-franca:lf_translate_outgoing  exiting \n");
+  printf("lingua-franca:lf_translate_incoming  exiting \n");
   return translated_mesg;
 }
 
-char *lf_translate_outgoing(char *mesg, char *buddy)
+char *lf_translate_outgoing(char *mesg,char *buddy)
 {
-  printf("lingua-franca:lf-translate_outgoing entered \n");
-  printf("lingua-franca: Mesg is %s \n",mesg);
-  printf("lingua-franca: buddy is %s \n",buddy);
-  char *outgoing_lang = get_outgoing_lang_pref(buddy);
+  printf("lingua-franca:lf_translate_outgoing  entered \n");
+  printf("lingua-franca:lf_translate_outgoing  Mesg is %s \n",mesg);
+
   char *translated_mesg ;
+  char *my_lang =  get_lang_pref("MY_LANG");
+  char *buddy_lang = get_lang_pref(buddy);
 
-  printf("lingua-franca: Outgoing Lang Pref is %s \n",outgoing_lang);
-  if(translation == TRUE)
-    translated_mesg = lf_translate_to(mesg,outgoing_lang);
+  /* If language is not set for this buddy
+   * check whther any preference is set for 
+   * all the buddies 
+   */ 
+  if(strcmp(buddy_lang,"None")==0)
+     buddy_lang = get_lang_pref("ALL");
+    
+
+  /* Do translation only when 
+   * 1 . Translation engine is ON
+   * 2 . My language is not None  
+   * 3 . Buddy language is not None
+   * 4 . My lang and buddy lang are not same
+   * 5 . Language translation available
+   */
+  if ( translation == TRUE 
+		&& !(strcmp(my_lang,"None") == 0)
+		&& !(strcmp(buddy_lang,"None")==0)
+		&& !(strcmp(my_lang,buddy_lang)==0)
+		&& lf_is_translation_avail(my_lang,buddy_lang) == TRUE)
+  {
+     translated_mesg = lf_translate_from_to(mesg,my_lang,buddy_lang); 
+     printf("Translated mesg is %s \n",translated_mesg);
+  }
   else
-    translated_mesg = mesg;
+  {
+   printf("lingua-franca:lf_translate_outgoing  No Translation %s \n",translated_mesg);
+   translated_mesg = mesg;
+  }
 
-  printf("lingua-franca: Translated Mesg is %s \n",translated_mesg);
-  printf("lingua-franca:lf-translate_outgoing exited \n");
+  printf("lingua-franca:lf_translate_outgoing  exiting \n");
   return translated_mesg;
 }
 
@@ -92,6 +133,11 @@ void lf_init(GList *buddies)
    translation = lf_translate_init();
    trans_servers = lf_get_trans_servers();
    languages = lf_get_avail_languages();
+  
+  buddies = g_list_append(buddies,"Akilan");
+  buddies = g_list_append(buddies,"Sashi");
+  buddies = g_list_append(buddies,"Raghu");
+  buddies = g_list_append(buddies,"Harish");
 
   interface_init(buddies,trans_servers,languages);
  

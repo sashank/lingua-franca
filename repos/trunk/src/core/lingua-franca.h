@@ -45,7 +45,7 @@ GtkWidget *lf_ui();
 char *lf_translate_outgoing(char *mesg,char *buddy);
 
 /* translate outgoing messages inputs are mesg */
-char *lf_translate_incoming(char *mesg);
+char *lf_translate_incoming(char *mesg,char *buddy);
 
 /*Destructor method */
 void lf_unload();

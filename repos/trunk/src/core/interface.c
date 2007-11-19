@@ -43,11 +43,7 @@ int        buddycount = 0 ;
 
 void *add_element(gpointer data,gpointer userdata)
 {
-  /*  printf("interface.c: add_element  entered \n");
-    g_return_if_fail(data != NULL);
-  printf("interface.c: lang is %s \n",(gchar *)data); */
    gtk_combo_box_append_text((GtkComboBox *)userdata, (gchar *)data);
-  /* printf("interface.c: add_element  exiting \n"); */
 }
 void add_buddies_table(char *buddy,GtkWidget *buddy_table)
 {
@@ -74,7 +70,7 @@ void add_buddies_table(char *buddy,GtkWidget *buddy_table)
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_FILL), 0, 0);
   gtk_widget_set_size_request (buddy_combo, 35, 25);
-  default_pref = g_list_index(languages,get_outgoing_lang_pref(buddy));
+  default_pref = g_list_index(languages,(gchar *)get_lang_pref(buddy));
   printf("interface.c: default pref %d \n",default_pref);
   gtk_combo_box_set_active(buddy_combo,default_pref);
 
@@ -108,11 +104,14 @@ void interface_unload()
 GtkWidget *
 pidgin_frame(GtkWidget *parent, const char *title)
 {
+        printf("pidgin_frame entered \n");
         GtkWidget *vbox, *label, *hbox;
         char *labeltitle;
 
         vbox = gtk_vbox_new(FALSE, 6);
         gtk_box_pack_start(GTK_BOX(parent), vbox, FALSE, FALSE, 0);
+  	gtk_window_set_position (GTK_VBOX (vbox), GTK_WIN_POS_CENTER_ALWAYS);
+  	gtk_window_set_default_size (GTK_VBOX (vbox), 450, 500); 
         gtk_widget_show(vbox);
 
         label = gtk_label_new(NULL);
@@ -138,6 +137,7 @@ pidgin_frame(GtkWidget *parent, const char *title)
         gtk_box_pack_start(GTK_BOX(hbox), vbox, FALSE, FALSE, 0);
         gtk_widget_show(vbox);
 
+        printf("pidgin_frame exited \n");
         return vbox;
 }
 
@@ -150,13 +150,13 @@ GtkWidget *create_ui (void)
   GtkWidget *alignment1;
   GtkWidget *scrolledwindow1;
   GtkWidget *general_layout;
-  GtkWidget *incoming_label;
+  GtkWidget *my_label;
   GtkWidget *save_button;
   GtkWidget *save_align;
   GtkWidget *hbox4;
   GtkWidget *image4;
   GtkWidget *save_label1;
-  GtkWidget *incoming_combo;
+  GtkWidget *my_combo;
   GtkWidget *outgoing_label;
   GtkWidget *outgoing_combo;
   GtkWidget *general_label;
@@ -190,6 +190,7 @@ GtkWidget *create_ui (void)
   GtkWidget *misc_label2;
   GtkWidget *misc_label;
   GtkWidget *ret,*vbox;
+  GtkWidget *no_buddy_text_view;
 
   tooltips = gtk_tooltips_new ();
   ret = gtk_vbox_new(FALSE, 18);
@@ -199,28 +200,35 @@ GtkWidget *create_ui (void)
         gtk_container_set_border_width(GTK_CONTAINER(vbox), 4);
         gtk_widget_show(vbox);
 
-        lingua_franca_win = gtk_scrolled_window_new(0, 0);
-        gtk_box_pack_start(GTK_BOX(vbox), lingua_franca_win, TRUE, TRUE, 0);
+/*
+        lingua_franca_win = gtk_scrolled_window_new(NULL,NULL);
+        printf("window created\n");
         gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(lingua_franca_win),
                                                                                 GTK_SHADOW_IN);
+        gtk_box_pack_start(GTK_BOX(vbox), lingua_franca_win, TRUE, TRUE, 0);
         gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(lingua_franca_win),
                         GTK_POLICY_NEVER,
                         GTK_POLICY_ALWAYS);
+
+       
+  	gtk_window_set_title (GTK_WINDOW (lingua_franca_win), ("Lingua Franca Preferences"));
+  	gtk_window_set_position (GTK_WINDOW (lingua_franca_win), GTK_WIN_POS_CENTER_ALWAYS);
+  	gtk_window_set_default_size (GTK_WINDOW (lingua_franca_win), 390, 425); 
+
         gtk_widget_show(lingua_franca_win);
+        printf("Beyond window \n");
+*/
+        notebook = gtk_notebook_new ();
+  	gtk_window_set_default_size (GTK_NOTEBOOK (notebook), 390, 425); 
+        gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
+ /* gtk_container_add (GTK_CONTAINER (lingua_franca_win), notebook); */
 
-  lingua_franca_win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title (GTK_WINDOW (lingua_franca_win), ("Lingua Franca Preferences"));
-  gtk_window_set_position (GTK_WINDOW (lingua_franca_win), GTK_WIN_POS_CENTER_ALWAYS);
-  gtk_window_set_default_size (GTK_WINDOW (lingua_franca_win), 390, 425);
-
-  notebook = gtk_notebook_new ();
   gtk_widget_show (notebook);
-  gtk_container_add (GTK_CONTAINER (lingua_franca_win), notebook);
-
   general_frame = gtk_frame_new (NULL);
   gtk_widget_show (general_frame);
   gtk_container_add (GTK_CONTAINER (notebook), general_frame);
   gtk_frame_set_shadow_type (GTK_FRAME (general_frame), GTK_SHADOW_NONE);
+  gtk_widget_set_size_request (notebook, 400, 450);
 
   alignment1 = gtk_alignment_new (0.5, 0.5, 1, 1);
   gtk_widget_show (alignment1);
@@ -236,16 +244,16 @@ GtkWidget *create_ui (void)
   general_layout = gtk_layout_new (NULL, NULL);
   gtk_widget_show (general_layout);
   gtk_container_add (GTK_CONTAINER (scrolledwindow1), general_layout);
-  gtk_tooltips_set_tip (tooltips, general_layout, ("Set the Preferred Incoming and Outgoing Languages"), NULL);
+  gtk_tooltips_set_tip (tooltips, general_layout, ("Set the Preferred Languages"), NULL);
   gtk_layout_set_size (GTK_LAYOUT (general_layout), 350, 370);
   GTK_ADJUSTMENT (GTK_LAYOUT (general_layout)->hadjustment)->step_increment = 10;
   GTK_ADJUSTMENT (GTK_LAYOUT (general_layout)->vadjustment)->step_increment = 10;
 
-  incoming_label = gtk_label_new (("Incoming Language"));
-  gtk_widget_show (incoming_label);
-  gtk_layout_put (GTK_LAYOUT (general_layout), incoming_label, 8, 32);
-  gtk_widget_set_size_request (incoming_label, 137, 25);
-  gtk_misc_set_alignment (GTK_MISC (incoming_label), 0.42, 0.62);
+  my_label = gtk_label_new (("My Language"));
+  gtk_widget_show (my_label);
+  gtk_layout_put (GTK_LAYOUT (general_layout), my_label, 8, 32);
+  gtk_widget_set_size_request (my_label, 137, 25);
+  gtk_misc_set_alignment (GTK_MISC (my_label), 0.42, 0.62);
 
   save_button = gtk_button_new ();
   gtk_widget_show (save_button);
@@ -268,11 +276,11 @@ GtkWidget *create_ui (void)
   gtk_widget_show (save_label1);
   gtk_box_pack_start (GTK_BOX (hbox4), save_label1, FALSE, FALSE, 0);
 
-  incoming_combo = gtk_combo_box_new_text();
-  gtk_widget_show (incoming_combo);
-  gtk_layout_put (GTK_LAYOUT (general_layout), incoming_combo, 168, 32);
-  gtk_widget_set_size_request (incoming_combo, 134, 31);
-  g_list_foreach(languages,(GFunc)add_element, (gpointer)incoming_combo);
+  my_combo = gtk_combo_box_new_text();
+  gtk_widget_show (my_combo);
+  gtk_layout_put (GTK_LAYOUT (general_layout), my_combo, 168, 32);
+  gtk_widget_set_size_request (my_combo, 134, 31);
+  g_list_foreach(languages,(GFunc)add_element, (gpointer)my_combo);
 
   outgoing_label = gtk_label_new ("Outgoing Language");
   gtk_widget_show (outgoing_label);
@@ -314,54 +322,65 @@ GtkWidget *create_ui (void)
   gtk_widget_show (viewport1);
   gtk_container_add (GTK_CONTAINER (scrolledwindow2), viewport1);
 
-  buddy_table = gtk_table_new (10, 3, FALSE);
-  gtk_widget_show (buddy_table);
-  gtk_container_add (GTK_CONTAINER (viewport1), buddy_table);
-  gtk_widget_set_size_request (buddy_table, 350, -1);
+        /* Add Buddies to table */
+  	int buddy_cnt = g_list_length(buddies);
+  	int i ;
+        printf(" buddy count is %d \n",buddy_cnt);
+  	gchar *buddy_name ;
+  	buddy_table = gtk_table_new (10, 3, FALSE);
+  	gtk_widget_show (buddy_table);
+ 	gtk_container_add (GTK_CONTAINER (viewport1), buddy_table);
+  	gtk_widget_set_size_request (buddy_table, 350, -1);
 
-  bname_label = gtk_label_new ("Buddy Name");
-  gtk_widget_show (bname_label);
-  gtk_table_attach (GTK_TABLE (buddy_table), bname_label, 0, 1, 0, 1,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_widget_set_size_request (bname_label, 100, 25);
-  gtk_label_set_justify (GTK_LABEL (bname_label), GTK_JUSTIFY_CENTER);
+  	bname_label = gtk_label_new ("Buddy Name");
+  	gtk_widget_show (bname_label);
+  	gtk_table_attach (GTK_TABLE (buddy_table), bname_label, 0, 1, 0, 1,
+       			             (GtkAttachOptions) (GTK_FILL),
+       			             (GtkAttachOptions) (0), 0, 0);
+ 	gtk_widget_set_size_request (bname_label, 100, 25);
+  	gtk_label_set_justify (GTK_LABEL (bname_label), GTK_JUSTIFY_CENTER);
 
-  lp_label = gtk_label_new ("Language Preference");
-  gtk_widget_show (lp_label);
-  gtk_table_attach (GTK_TABLE (buddy_table), lp_label, 1, 2, 0, 1,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_widget_set_size_request (lp_label, 158, 25);
-  gtk_label_set_justify (GTK_LABEL (lp_label), GTK_JUSTIFY_CENTER);
+  	lp_label = gtk_label_new ("Language Preference");
+  	gtk_widget_show (lp_label);
+  	gtk_table_attach (GTK_TABLE (buddy_table), lp_label, 1, 2, 0, 1,
+       		             (GtkAttachOptions) (GTK_FILL),
+       		             (GtkAttachOptions) (0), 0, 0);
+  	gtk_widget_set_size_request (lp_label, 158, 25);
+  	gtk_label_set_justify (GTK_LABEL (lp_label), GTK_JUSTIFY_CENTER);
 
-  enable_label = gtk_label_new ("Enable");
-  gtk_widget_show (enable_label);
-  gtk_table_attach (GTK_TABLE (buddy_table), enable_label, 2, 3, 0, 1,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0), 0, 0);
-  gtk_widget_set_size_request (enable_label, 88, -1);
+  	enable_label = gtk_label_new ("Enable");
+  	gtk_widget_show (enable_label);
+  	gtk_table_attach (GTK_TABLE (buddy_table), enable_label, 2, 3, 0, 1,
+       		             (GtkAttachOptions) (GTK_FILL),
+       		             (GtkAttachOptions) (0), 0, 0);
+  	gtk_widget_set_size_request (enable_label, 88, -1);
 
-  /* Add Buddies to table */
-  int buddy_cnt = g_list_length(buddies);
-    printf(" buddy count is %d \n",buddy_cnt);
-  int i ;
-  gchar *buddy_name ;
-  for ( i =0 ; i < buddy_cnt ; i++)
-  {
-    buddy_name = (gchar *)g_list_nth_data(buddies,i);
-    printf(" buddy is %s \n",buddy_name);
-    add_buddies_table(buddy_name,buddy_table);
-  }
+  	for ( i =0 ; i < buddy_cnt ; i++)
+  	{
+   	  buddy_name = (gchar *)g_list_nth_data(buddies,i);
+  	  printf(" buddy is %s \n",buddy_name);
+    	  add_buddies_table(buddy_name,buddy_table);
+  	}
+        
+        if ( buddy_cnt == 0)
+        {
+	  /* This text_view is not seen in UI 
+ 	   * some body gotto fix ! */
+	   no_buddy_text_view = gtk_text_view_new();
+           GtkTextBuffer *buffer;
+  	   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (no_buddy_text_view));
+  	   gtk_text_buffer_set_text (buffer, "No Buddies were found , Login to any IM and come back ", -1);
+           gtk_container_add (GTK_CONTAINER (viewport1), no_buddy_text_view);
+           gtk_widget_show(no_buddy_text_view);
+        }
+    buddy_lp_label = gtk_label_new ("<b>Buddy  Lang Preference</b>");
+    gtk_widget_show (buddy_lp_label);
+    gtk_frame_set_label_widget (GTK_FRAME (buddy_frame), buddy_lp_label);
+    gtk_label_set_use_markup (GTK_LABEL (buddy_lp_label), TRUE);
 
-  buddy_lp_label = gtk_label_new ("<b>Buddy  Lang Preference</b>");
-  gtk_widget_show (buddy_lp_label);
-  gtk_frame_set_label_widget (GTK_FRAME (buddy_frame), buddy_lp_label);
-  gtk_label_set_use_markup (GTK_LABEL (buddy_lp_label), TRUE);
-
-  buddyconfig_label = gtk_label_new ("Buddy Config");
-  gtk_widget_show (buddyconfig_label);
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 1), buddyconfig_label);
+    buddyconfig_label = gtk_label_new ("Buddy Config");
+    gtk_widget_show (buddyconfig_label);
+    gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 1), buddyconfig_label);
 
   misc_frame = gtk_frame_new (NULL);
   gtk_widget_show (misc_frame);
@@ -450,17 +469,17 @@ GtkWidget *create_ui (void)
   gtk_widget_show (misc_label);
   gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 2), misc_label);
 
-  g_signal_connect ((gpointer) lingua_franca_win, "delete_event",
+ /* g_signal_connect ((gpointer) lingua_franca_win, "delete_event",
                     G_CALLBACK (on_pref_window_delete_event),
                     NULL);
   g_signal_connect ((gpointer) lingua_franca_win, "destroy_event",
                     G_CALLBACK (on_pref_window_destroy_event),
-                    NULL);
+                    NULL); */
   g_signal_connect ((gpointer) save_button, "clicked",
                     G_CALLBACK (on_save_button_clicked),
                     (guint *)1);
-  g_signal_connect_after ((gpointer) incoming_combo, "changed",
-                          G_CALLBACK (on_incoming_combo_changed),
+  g_signal_connect_after ((gpointer) my_combo, "changed",
+                          G_CALLBACK (on_my_combo_changed),
                         (guint *)1);
   g_signal_connect_after ((gpointer) outgoing_combo, "changed",
                           G_CALLBACK (on_outgoing_combo_changed),
@@ -486,13 +505,13 @@ GtkWidget *create_ui (void)
   GLADE_HOOKUP_OBJECT (ret, alignment1, "alignment1");
   GLADE_HOOKUP_OBJECT (ret, scrolledwindow1, "scrolledwindow1");
   GLADE_HOOKUP_OBJECT (ret, general_layout, "general_layout");
-  GLADE_HOOKUP_OBJECT (ret, incoming_label, "incoming_label");
+  GLADE_HOOKUP_OBJECT (ret, my_label, "my_label");
   GLADE_HOOKUP_OBJECT (ret, save_button, "save_button");
   GLADE_HOOKUP_OBJECT (ret, save_align, "save_align");
   GLADE_HOOKUP_OBJECT (ret, hbox4, "hbox4");
   GLADE_HOOKUP_OBJECT (ret, image4, "image4");
   GLADE_HOOKUP_OBJECT (ret, save_label1, "save_label1");
-  GLADE_HOOKUP_OBJECT (ret, incoming_combo, "incoming_combo");
+  GLADE_HOOKUP_OBJECT (ret, my_combo, "my_combo");
   GLADE_HOOKUP_OBJECT (ret, outgoing_label, "outgoing_label");
   GLADE_HOOKUP_OBJECT (ret, outgoing_combo, "outgoing_combo");
   GLADE_HOOKUP_OBJECT (ret, general_label, "general_label");

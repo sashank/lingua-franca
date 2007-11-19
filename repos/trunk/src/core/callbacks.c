@@ -57,11 +57,10 @@ on_save_button_clicked                 (GtkButton       *button,
 
 
 void
-on_incoming_combo_changed              (GtkComboBox     *combo,
+on_my_combo_changed              (GtkComboBox     *combo,
                                         gpointer         user_data)
 {
-  g_print("Incoming Lang %s is selected \n", gtk_combo_box_get_active_text(combo)) ;
-  set_incoming_lang_pref(gtk_combo_box_get_active_text(combo));
+  set_lang_pref("MY_LANG",gtk_combo_box_get_active_text(combo));
 }
 
 
@@ -70,7 +69,7 @@ on_outgoing_combo_changed              (GtkComboBox     *combo,
                                         gpointer         user_data)
 {
   g_print("Outgoing Lang %s is selected \n", gtk_combo_box_get_active_text(combo)) ;
-  set_outgoing_lang_pref(gtk_combo_box_get_active_text(combo),"ALL");
+  set_lang_pref("ALL",gtk_combo_box_get_active_text(combo));
 }
 
 
@@ -79,7 +78,7 @@ on_buddy_combo_changed                 (GtkComboBox     *combo,
                                         gpointer         user_data)
 {
   g_print("Buddy %s Lang %s is selected \n", (char *)user_data,gtk_combo_box_get_active_text(combo)) ;
-  set_outgoing_lang_pref((char *)user_data,gtk_combo_box_get_active_text(combo));
+  set_lang_pref((char *)user_data,gtk_combo_box_get_active_text(combo));
 }
 
 

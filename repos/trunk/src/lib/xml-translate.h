@@ -37,7 +37,7 @@
 gboolean xml_translate_init();
 
 /* Is Translation available from lang1 to lang2 */
-char *get_lang_pair(char *lang1 ,char *lang2);
+char *get_lp(char *lang1 ,char *lang2);
 
 /* get the Host Url */
 char *get_host_url();

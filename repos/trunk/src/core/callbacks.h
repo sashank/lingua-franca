@@ -53,7 +53,7 @@ gboolean on_pref_window_destroy_event(GtkWidget       *widget, GdkEvent        *
 
 void on_save_button_clicked(GtkButton       *button, gpointer         user_data) ;
 
-void on_incoming_combo_changed (GtkComboBox     *combo, gpointer         user_data);
+void on_my_combo_changed (GtkComboBox     *combo, gpointer         user_data);
 
 void on_outgoing_combo_changed(GtkComboBox     *combo, gpointer         user_data);
 

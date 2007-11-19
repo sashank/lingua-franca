@@ -627,8 +627,8 @@ s,@GLIB_CFLAGS@,|#_!!_#|-pthread -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/inc
 s,@GLIB_LIBS@,|#_!!_#|-Wl\,--export-dynamic -pthread -lgobject-2.0 -lgmodule-2.0 -ldl -lgthread-2.0 -lrt -lglib-2.0  ,g
 s,@GTK_CFLAGS@,|#_!!_#|-I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include  ,g
 s,@GTK_LIBS@,|#_!!_#|-lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgdk_pixbuf-2.0 -lpng12 -lm -lpangocairo-1.0 -lpango-1.0 -lcairo -lgobject-2.0 -lgmodule-2.0 -ldl -lglib-2.0  ,g
-s,@LIBXML_CFLAGS@,|#_!!_#|-I/usr/include/libxml2  ,g
-s,@LIBXML_LIBS@,|#_!!_#|-lxml2  ,g
+s,@LIBXML_CFLAGS@,|#_!!_#|-I/usr/local/include/libxml2  ,g
+s,@LIBXML_LIBS@,|#_!!_#|-L/usr/local/lib -lxml2  ,g
 s,@CURL_CFLAGS@,|#_!!_#| ,g
 s,@CURL_LIBS@,|#_!!_#|-lcurl  ,g
 s,@PIDGIN_CFLAGS@,|#_!!_#|-I/usr/local/include/pidgin/,g
@@ -636,13 +636,13 @@ s,@PIDGIN_LIBS@,|#_!!_#|-lpidgin,g
 s,@HAVE_PURPLE_TRUE@,|#_!!_#|,g
 s,@HAVE_PURPLE_FALSE@,|#_!!_#|#,g
 s,@PURPLE_LIBS@,|#_!!_#|-lpurple,g
-s,@PURPLE_LIBDIR@,|#_!!_#|,g
-s,@PURPLE_DATADIR@,|#_!!_#|,g
-s,@PURPLE_PIXMAPSDIR@,|#_!!_#|,g
+s,@PURPLE_LIBDIR@,|#_!!_#|/usr/local/lib/purple-2,g
+s,@PURPLE_DATADIR@,|#_!!_#|/usr/local/share,g
+s,@PURPLE_PIXMAPSDIR@,|#_!!_#|/usr/local/share/pixmaps/libpurple,g
 s,@HAVE_PIDGIN_TRUE@,|#_!!_#|,g
 s,@HAVE_PIDGIN_FALSE@,|#_!!_#|#,g
-s,@PIDGIN_LIBDIR@,|#_!!_#|,g
-s,@PIDGIN_DATADIR@,|#_!!_#|,g
+s,@PIDGIN_LIBDIR@,|#_!!_#|/usr/local/lib,g
+s,@PIDGIN_DATADIR@,|#_!!_#|/usr/local/share,g
 s,@LTLIBOBJS@,|#_!!_#|,g
 :end
 s/|#_!!_#|//g
@@ -937,6 +937,7 @@ s,^\([	 #]*\)[^	 ]*\([	 ]*GETTEXT_PACKAGE\)[	 (].*,\1define\2 "lingua-franca" ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*PACKAGE\)[	 (].*,\1define\2 "lingua-franca" ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_PURPLE\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*PP_LOCALEDIR\)[	 (].*,\1define\2 "PURPLE_DATADIR/locale" ,
+s,^\([	 #]*\)[^	 ]*\([	 ]*PURPLE_PIXMAPSDIR\)[	 (].*,\1define\2 "/usr/local/share/pixmaps/libpurple" ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_PIDGIN\)[	 (].*,\1define\2 1 ,
 s/ $//
 s,^[	 #]*u.*,/* & */,

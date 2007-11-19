@@ -177,3 +177,37 @@ AC_CONFIG_FILES([Makefile
                  src/Makefile
 		 test/Makefile])
 AC_OUTPUT
+dnl #######################################################################
+dnl # Ouput!!
+dnl #######################################################################
+echo;
+echo $PACKAGE $VERSION Configuration complete
+echo;
+echo Debugging enabled................: $enable_debug
+echo;
+
+echo Build purple plugins.............: $HAVE_PURPLE
+if test x"$HAVE_PURPLE" = x"yes" ; then
+        echo Installing purple plugins to.....: `eval eval echo $PURPLE_LIBDIR`
+        echo Installing purple plugin data to.: `eval eval echo $PURPLE_DATADIR`
+        if test x"$PP_PURPLE_BUILD" = x"" ; then
+                echo Purple plugins to be built.......: none
+        else
+                echo Purple plugins to be built.......:
+                echo $PP_PURPLE_BUILD | xargs -n 4 echo "       "
+        fi
+fi
+echo;
+
+echo Build pidgin plugins.............: $HAVE_PIDGIN
+if test x"$HAVE_PIDGIN" = x"yes" ; then
+        echo Installing pidgin plugins to.....: `eval eval echo $PIDGIN_LIBDIR`
+        echo Installing pidgin plugin data to.: `eval eval echo $PIDGIN_DATADIR`
+        if test x"$PP_PIDGIN_BUILD" = x"" ; then
+                echo Pidgin plugins to be built.......: none
+        else
+                echo Pidgin plugins to be built.......:
+                echo $PP_PIDGIN_BUILD | xargs -n 4 echo "       "
+        fi
+fi
+echo;

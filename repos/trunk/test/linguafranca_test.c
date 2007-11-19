@@ -50,12 +50,15 @@ main (int argc, char *argv[])
   GList *buddies =NULL ;
   buddies = g_list_append(buddies,"Akilan");
   buddies = g_list_append(buddies,"Sashi");
+  buddies = g_list_append(buddies,"Raghu");
+  buddies = g_list_append(buddies,"Harish");
 
   lf_init(buddies);
-  linguafranca = lf_ui();
-  gtk_widget_show (linguafranca);
+ /* linguafranca = lf_ui();
+  gtk_widget_show (linguafranca); */
+  lf_translate_incoming("Hello","Harish");
 
-  gtk_main ();
+ /* gtk_main (); */
   return 0;
 }
 

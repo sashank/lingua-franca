@@ -104,7 +104,19 @@ char *lf_determine_lang(char *mesg)
 char *lf_translate_from_to(char *message , char *from , char *to)
 {
   char *translated_mesg;
+  CURLcode ret;
    printf(" translate_message Entered \n "); 
+  
+  if ( strcmp(from,to) == 0)
+  {
+    printf ( "Both languages seem to be same ");
+    return message ;
+  }
+  if ( lf_is_translation_avail(from,to) == FALSE )
+  {
+    printf ( "Language Translation does not exist ");
+    return message ;
+  }
 
   chunk.response=NULL; /* we expect realloc(NULL, size) to work */
   chunk.size = 0;    /* no data at this point */
@@ -122,7 +134,13 @@ char *lf_translate_from_to(char *message , char *from , char *to)
 
 
   /* get it! */
-  curl_easy_perform(curl);
+  ret = curl_easy_perform(curl);
+  if ( ret != CURLE_OK)
+  {
+    printf(" Some Network error \n");
+    return message;
+  }
+     
 
   /* cleanup curl stuff */
   curl_easy_cleanup(curl);
@@ -160,19 +178,22 @@ GList *lf_get_trans_servers()
    printf("translate.c: get_trans_servers entered \n");
  GList *server_list = NULL;
   /* For now hardcoded , to be modified later */
-  server_list = g_list_append(server_list , "Google"); 
-  server_list = g_list_append(server_list , "Altavista"); 
+  server_list = g_list_append(server_list , "google"); 
+  server_list = g_list_append(server_list , "altavista"); 
    printf("translate.c: get_trans_servers exited \n");
  return server_list;
 }
 gboolean lf_is_translation_avail(char *lang1,char *lang2)
 {
- /*To Do */
- return TRUE ;
+ gboolean exists = TRUE ;
+ char *lp = get_lp(lang1,lang2);
+  if ( strcmp(lp,"NA")==0)
+   exists = FALSE ;
+ return exists ;
 }
 void lf_set_translate_server(char *server)
 {
-    /* For now do nothing this may be deprecated soon*/
+    /* this may be deprecated soon*/
 	
        serverfilename = strcat(server,".xml") ;
       /*  //Free the existing XML
