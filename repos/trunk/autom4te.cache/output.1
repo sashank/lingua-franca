@@ -23482,7 +23482,7 @@ cat >>confdefs.h <<\_ACEOF
 @%:@define HAVE_PURPLE 1
 _ACEOF
 
-        HAVE_PIDGIN="yes"
+        HAVE_PURPLE="yes"
          if true; then
   HAVE_PURPLE_TRUE=
   HAVE_PURPLE_FALSE='#'
@@ -23661,7 +23661,7 @@ fi
 
 
 
-ac_config_files="$ac_config_files Makefile src/pidgin/Makefile src/lib/Makefile test/Makefile"
+ac_config_files="$ac_config_files Makefile src/pidgin/Makefile src/lib/Makefile src/lib/lf.pc src/lib/lf-uninstalled.pc test/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -24303,6 +24303,8 @@ do
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "src/pidgin/Makefile") CONFIG_FILES="$CONFIG_FILES src/pidgin/Makefile" ;;
     "src/lib/Makefile") CONFIG_FILES="$CONFIG_FILES src/lib/Makefile" ;;
+    "src/lib/lf.pc") CONFIG_FILES="$CONFIG_FILES src/lib/lf.pc" ;;
+    "src/lib/lf-uninstalled.pc") CONFIG_FILES="$CONFIG_FILES src/lib/lf-uninstalled.pc" ;;
     "test/Makefile") CONFIG_FILES="$CONFIG_FILES test/Makefile" ;;
 
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
@@ -25155,8 +25157,6 @@ fi
 
 echo;
 echo $PACKAGE $VERSION Configuration complete
-echo;
-echo Debugging enabled................: $enable_debug
 echo;
 
 echo Build purple plugins.............: $HAVE_PURPLE

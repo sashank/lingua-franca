@@ -4,6 +4,10 @@ INCLUDES = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" 
 
+#pkgconfig INFO
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = lf.pc
+
 # the core translation library
 liblf_ladir = $(packagedir)
 lib_LTLIBRARIES = liblf.la 
@@ -26,3 +30,4 @@ liblf_la_LDFLAGS = $(GLIB_LIBS) \
                       $(LIBXML_LIBS)\
 		      $(GTK_LIBS) \
 		      $(INTLLIBS)
+liblf_la_DATA = ../config/google.xml ../config/altavista.xml

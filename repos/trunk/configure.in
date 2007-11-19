@@ -105,7 +105,7 @@ dnl #######################################################################
 PKG_CHECK_MODULES(PURPLE, purple,
 [
         AC_DEFINE(HAVE_PURPLE, 1, [Define if we've found pidgin.])
-        HAVE_PIDGIN="yes"
+        HAVE_PURPLE="yes"
         AM_CONDITIONAL(HAVE_PURPLE, true)
 ], [
         AC_MSG_RESULT([no])
@@ -178,6 +178,8 @@ AC_SUBST(PIDGIN_DATADIR)
 AC_CONFIG_FILES([Makefile
                  src/pidgin/Makefile
                  src/lib/Makefile
+                 src/lib/lf.pc
+                 src/lib/lf-uninstalled.pc
 		 test/Makefile])
 AC_OUTPUT
 dnl #######################################################################
@@ -185,8 +187,6 @@ dnl # Ouput!!
 dnl #######################################################################
 echo;
 echo $PACKAGE $VERSION Configuration complete
-echo;
-echo Debugging enabled................: $enable_debug
 echo;
 
 echo Build purple plugins.............: $HAVE_PURPLE

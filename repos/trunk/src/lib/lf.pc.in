@@ -1,0 +1,13 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+datadir=@datadir@
+sysconfdir=@sysconfdir@
+
+Name: lingua-franca
+Description: language translation library
+Version: @VERSION@
+Requires: libcurl libxml2
+Cflags: -I${includedir}/lf
+
