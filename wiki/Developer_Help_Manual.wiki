@@ -45,7 +45,7 @@ This is lingua-franca plug-in developers Help Document
 
 === Read Only Copy ===
      If you wish to have a read only copy, you will still get it
-      _svn checkout http://lingua-ranca.googlecode.com/svn/trunk/repos  lingua-franca_
+      _svn checkout http://lingua-franca.googlecode.com/svn/repose/trunk/ lingua-franca_
 
 = Development Cycle =
 
