@@ -327,7 +327,7 @@ GtkWidget *create_ui (void)
   	buddy_table = gtk_table_new (10, 3, FALSE);
   	gtk_widget_show (buddy_table);
  	gtk_container_add (GTK_CONTAINER (viewport1), buddy_table);
-  	gtk_widget_set_size_request (buddy_table, 350, -1);
+  	gtk_widget_set_size_request (buddy_table, 400, -1);
 
   	bname_label = gtk_label_new ("Buddy Name");
   	gtk_widget_show (bname_label);

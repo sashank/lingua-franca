@@ -186,8 +186,11 @@ void xml_ui_init()
             processXml(xml_reader);
             ret = xmlTextReaderRead(xml_reader);
         }
-        load_default = FALSE ;
         xmlFreeTextReader(xml_reader);
+        if ( ret != 0)
+         g_remove(lf_prefs_file);
+        else
+          load_default = FALSE ;
     } 
     else {
     }
