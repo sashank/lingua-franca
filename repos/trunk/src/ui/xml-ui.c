@@ -161,20 +161,16 @@ void processXml(xmlTextReaderPtr reader)
                                                                      
 void xml_ui_init()
 {
-    printf("xml-ui.c: xml_ui_init entered \n");
-
     gboolean load_default = TRUE ;
 
    /* check for lf_prefs xml */
    gchar *user_home = g_get_home_dir();
    gchar *lf_dir = g_build_filename(user_home,".lf",NULL);
    lf_prefs_file = g_build_filename(lf_dir,"lf_prefs.xml",NULL);
-   printf("xml-ui.c: file is %s \n",lf_prefs_file);
    /* If File does not exists make dir and return */
    if(!g_file_test(lf_prefs_file,G_FILE_TEST_EXISTS))
    {
       g_mkdir(lf_dir,0755);
-      printf("xml-ui.c:  xml_ui_init exiting \n");
    }
 
    /* If File exists Read from file */
@@ -192,17 +188,13 @@ void xml_ui_init()
         }
         load_default = FALSE ;
         xmlFreeTextReader(xml_reader);
-        if (ret != 0) 
-            printf("%s : failed to parse\n", lf_prefs_file);
     } 
     else {
-        printf("Unable to open %s\n", lf_prefs_file);
     }
 
     if (load_default == TRUE )
     {
     	/* Set default values */
-        printf("Loading default \n ");
     	time_out = -1;
     	trans_server = "google";
     	view_trans_enabled = "No";
@@ -210,12 +202,10 @@ void xml_ui_init()
     	add_lang_pref("ALL","None","on");
     }
    
-    printf("xml-ui.c:  xml_ui_init exiting \n");
 }
 
 char *get_lang_pref(char *buddy)
 {
- printf("xml-ui.c:  get_lang_pref entered\n");
 /* printf("xml-ui.c:  Buddy  is %s \n",buddy);*/
  int count = g_list_length(lpList);
    int i ;
@@ -225,7 +215,8 @@ char *get_lang_pref(char *buddy)
    for ( i=0 ; i < count ; i++)
    {
         lp = (LangPref *)g_list_nth_data(lpList,i);
-        if ( strcmp(lp->buddy,buddy) == 0 )
+        if ( (strcmp(lp->buddy,buddy) == 0 )
+		&& (strcmp(lp->enabled,"On")==0))
         {
           exists = TRUE ;
 	  lang = strdup(lp->lang);
@@ -234,16 +225,11 @@ char *get_lang_pref(char *buddy)
     if ( exists == FALSE)
 	  lang = strdup("None");
 
-   printf("xml-ui.c:  Lang is %s \n",lang);
-   printf("xml-ui.c:  get_lang_pref exiting\n");
    return lang;
 }
 char *get_pref_status(char *buddy)
 {
-   printf("xml-ui.c:  get_lang_pref status entering\n");
-   printf("xml-ui.c:  Buddy  is %s \n",buddy);
    int count = g_list_length(lpList);
-   printf("xml-ui.c:  buddy list count %d \n",count);
    int i ;
    LangPref *lp;
    char *lang;
@@ -254,17 +240,11 @@ char *get_pref_status(char *buddy)
         if ( strcmp(lp->buddy,buddy) == 0 )
           exists = lp->enabled;
    }
-   if ( strcmp(exists,"On"))
-    printf("xml-ui.c: pref  status is enabled\n");
-   else
-    printf("xml-ui.c: pref  status is not enabled\n");
-  printf("xml-ui.c:  get_lang_pref status exiting\n");
   return exists ;
 }
 
 void set_lang_pref(char *buddy,char  *lang)
 {
-   printf("Set lang pref %s,%s\n",buddy,lang);
    add_lang_pref(buddy,lang,"on");
 }
 
@@ -311,7 +291,6 @@ void xml_ui_unload()
 void save_preferences()
 {
   /* This will write the Preferences into File */
-        printf("xml-ui.c: save_preferences entered \n ");
     int rc;
     xmlTextWriterPtr writer;
     xmlBufferPtr buf;
@@ -332,7 +311,6 @@ void save_preferences()
         printf(" Error creating the xml writer\n");
         return;
     }
-        printf("xml-ui.c: xml writer created ");
 
     /* Start an element named "lingua-franca". Since this is the first
      * element, this will be the root element of the document. */
@@ -416,7 +394,6 @@ void save_preferences()
      /* Clean Up and reload 
       xml_ui_unload();
       xml_ui_init();*/
-      printf("xml-ui.c: save_preferences exiting ");
       return ;
 }
 

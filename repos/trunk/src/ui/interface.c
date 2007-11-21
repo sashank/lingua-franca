@@ -47,8 +47,8 @@ void *add_element(gpointer data,gpointer userdata)
 }
 void add_buddies_table(char *buddy,GtkWidget *buddy_table)
 {
-  printf("interface.c: add_buddies_table entered \n");
-  printf("interface.c: buddy is %s \n",buddy);
+ /* printf("interface.c: add_buddies_table entered \n");
+  printf("interface.c: buddy is %s \n",buddy); */
    GtkWidget *buddy_label;
    GtkWidget *buddy_combo;
    GtkWidget *buddy_toggle;
@@ -59,19 +59,17 @@ void add_buddies_table(char *buddy,GtkWidget *buddy_table)
   gtk_table_attach (GTK_TABLE (buddy_table), buddy_label, 0, 1, buddycount+1, buddycount+2,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_widget_set_size_request (buddy_label, 70, 25);
+  gtk_widget_set_size_request (buddy_label, 100, 25);
   gtk_misc_set_alignment (GTK_MISC (buddy_label), 0.35, 0.5);
 
   buddy_combo = gtk_combo_box_new_text ();
   g_list_foreach(languages,(GFunc)add_element, (gpointer)buddy_combo);
-  printf("interface.c: before index adding langs \n");
   gtk_widget_show (buddy_combo);
   gtk_table_attach (GTK_TABLE (buddy_table), buddy_combo, 1, 2, buddycount+1,buddycount+ 2,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_FILL), 0, 0);
   gtk_widget_set_size_request (buddy_combo, 35, 25);
   default_pref = g_list_index(languages,(gchar *)get_lang_pref(buddy));
-  printf("interface.c: default pref %d \n",default_pref);
   gtk_combo_box_set_active(buddy_combo,default_pref);
 
   buddy_toggle = gtk_toggle_button_new_with_mnemonic ("gtk-yes");
@@ -92,7 +90,7 @@ void add_buddies_table(char *buddy,GtkWidget *buddy_table)
                     (gchar *)buddy);
   buddycount++;
 
-  printf("interface.c: add_buddies_table exited \n");
+ /* printf("interface.c: add_buddies_table exited \n");*/
 }
 
 
@@ -104,7 +102,7 @@ void interface_unload()
 GtkWidget *
 pidgin_frame(GtkWidget *parent, const char *title)
 {
-        printf("pidgin_frame entered \n");
+      /*  printf("pidgin_frame entered \n");*/
         GtkWidget *vbox, *label, *hbox;
         char *labeltitle;
 
@@ -137,13 +135,13 @@ pidgin_frame(GtkWidget *parent, const char *title)
         gtk_box_pack_start(GTK_BOX(hbox), vbox, FALSE, FALSE, 0);
         gtk_widget_show(vbox);
 
-        printf("pidgin_frame exited \n");
+       /* printf("pidgin_frame exited \n");*/
         return vbox;
 }
 
 GtkWidget *create_ui (void)
 {
-  printf("interface.c: create_ui entered \n");
+/*  printf("interface.c: create_ui entered \n"); */
   GtkWidget *lingua_franca_win;
   GtkWidget *notebook;
   GtkWidget *general_frame;
@@ -325,7 +323,6 @@ GtkWidget *create_ui (void)
         /* Add Buddies to table */
   	int buddy_cnt = g_list_length(buddies);
   	int i ;
-        printf(" buddy count is %d \n",buddy_cnt);
   	gchar *buddy_name ;
   	buddy_table = gtk_table_new (10, 3, FALSE);
   	gtk_widget_show (buddy_table);
@@ -358,7 +355,6 @@ GtkWidget *create_ui (void)
   	for ( i =0 ; i < buddy_cnt ; i++)
   	{
    	  buddy_name = (gchar *)g_list_nth_data(buddies,i);
-  	  printf(" buddy is %s \n",buddy_name);
           if ( buddy_name != NULL)
     	  	add_buddies_table(buddy_name,buddy_table);
   	}
@@ -545,14 +541,13 @@ GtkWidget *create_ui (void)
   GLADE_HOOKUP_OBJECT (ret, misc_label, "misc_label");
   GLADE_HOOKUP_OBJECT_NO_REF (ret, tooltips, "tooltips");
 
-  printf("interface.c: create_ui exiting \n");
+ /* printf("interface.c: create_ui exiting \n");*/
   gtk_widget_show_all(ret);
   return ret;
 }
 
 void interface_init(GList *buddies_list,GList *servers,GList *langs)
 {
-   printf("interface.c: interface_init entered \n");
 
    buddies = buddies_list ;
    trans_servers = servers ;
@@ -560,6 +555,5 @@ void interface_init(GList *buddies_list,GList *servers,GList *langs)
 
    xml_ui_init();
 
-   printf("interface.c: interface_init exiting \n");
 }
 

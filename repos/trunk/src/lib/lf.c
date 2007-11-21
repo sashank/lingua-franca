@@ -91,7 +91,6 @@ char *parse_response(char *response)
 
    g_strfreev(splits); 
 
-   printf(" parse_response Exiting \n ");
   return parsed_response;
 }
 
@@ -104,8 +103,6 @@ char *lf_translate_from_to(char *message , char *from , char *to)
 {
   char *translated_mesg;
   CURLcode ret;
-   printf("lib: translate_message Entered \n "); 
-/*A*/   printf("lib: translate_message %s,%s,%s \n ",message,from,to); 
   
   if ( strcmp(from,to) == 0)
   {
@@ -137,9 +134,6 @@ char *lf_translate_from_to(char *message , char *from , char *to)
 
   GString *post;
   post = get_post_string(message,from,to);
-
-  printf(" Post String is %s\n ",post->str); 
-  printf(" host url is %s\n ",get_host_url()); 
 
   curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post->str); 
 
@@ -183,26 +177,21 @@ char *lf_translate_from_to(char *message , char *from , char *to)
      if(chunk.response)
        free(chunk.response);
 
-   printf(" translate_message Exited \n ");
-
  return translated_mesg;
 }
 
 GList *lf_get_trans_servers()
 {
-   printf("translate.c: get_trans_servers entered \n");
  GList *server_list = NULL;
   /* For now hardcoded , to be modified later */
   server_list = g_list_append(server_list , "google"); 
   server_list = g_list_append(server_list , "altavista"); 
-   printf("translate.c: get_trans_servers exited \n");
  return server_list;
 }
 gboolean lf_is_translation_avail(char *lang1,char *lang2)
 {
  gboolean exists = TRUE ;
  char *lp = get_lp(lang1,lang2);
-  printf("is_avail ..%s",lp);
   if ( strcmp(lp,"NA")==0)
    exists = FALSE ;
  return exists ;
@@ -221,7 +210,6 @@ void lf_set_translate_server(char *server)
 }
 gboolean lf_translate_init()
 {
-   printf("translate.c: translate_init entered \n");
     gboolean xml_ret ;
     xml_ret = xml_translate_init();
     
@@ -232,8 +220,6 @@ gboolean lf_translate_init()
         return FALSE;
      }
  
-
-   printf("translate.c: translate_init exiting \n");
  return TRUE ;
 }
 

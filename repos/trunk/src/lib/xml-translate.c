@@ -56,13 +56,10 @@ char *get_host_url()
 
 void add_avail_langs( char *lang)
 {
- /* printf("xml-translate: add_avail_langs entered \n"); */
   char *l ;
   int i ;
   gboolean exists = FALSE;
   int count  = g_list_length(langs);
- /* printf("xml-translate: count is %d \n ",count); 
-  printf("xml-translate: lang  is %s  \n",lang); */
   for(i = 0 ;i < count ; i++)
   {
     l = g_list_nth_data(langs,i); 
@@ -71,7 +68,6 @@ void add_avail_langs( char *lang)
   }
   if( exists == FALSE || count == 0)
     langs = g_list_append(langs,lang);
- /* printf("xml-translate: add_avail_langs exited \n"); */
 }
   
 void add_lang_pair(char *from,char *to,char *lp)
@@ -157,7 +153,6 @@ GString *get_post_string(char *mesg,char *from,char *to)
    }
 
 /*    printf("Exiting get post options %d \n",size); */
-    printf("Exiting get post options %s \n",post_this->str); 
    return post_this;
 }
 char *get_server_name()
@@ -265,12 +260,10 @@ char *get_response_suffix()
 }
 GList *get_avail_languages()
 {
-  printf("xml-translate: get_avail_languages entered \n");
  return langs;
 }
 gboolean xml_translate_init()
 {
-  printf("xml-translate: xml_translate_init entered \n");
     xmlTextReaderPtr xml_reader;
     int ret;
     gboolean xml_init = TRUE;
@@ -300,7 +293,6 @@ gboolean xml_translate_init()
      
   /* add default */
   add_avail_langs("No Translation");
-  printf("xml-translate: xml_translate_init exited \n");
 
   return xml_init;
 }

@@ -33,6 +33,11 @@ You should run 'make install' as root to make sure plugins and other files
 get installed into locations they want to be in. 
 
 To get started,
+Currently only pidgin(gaim) is supported
+after installing , just restart your pidgin client
+and look for "lingua-franca" in plugins section
 
-If you come across a bug, 
+If you come across a bug,
 please report it at: http://code.google.com/p/lingua-franca
+or mail to lf.bugs@gmail.com
+

@@ -93,7 +93,6 @@ get_user_names()
                                                 continue;
 
                                         buddy = (PurpleBuddy *)bnode;
-                                        printf("Buddy name is %s",buddy->name);
 
                                         tmp = g_list_insert_sorted(tmp, buddy->name, (GCompareFunc)g_utf8_collate);
                                 }
@@ -135,9 +134,7 @@ plugin_unload(PurplePlugin *plugin)
 static GtkWidget *get_config_frame(PurplePlugin *plugin)
 {
   purple_debug(PURPLE_DEBUG_INFO, "translate", "translate plugin ui creation .\n");
-  printf("Getting get_config_frame");
   GtkWidget *ui = lf_ui();
-  printf("Getting get_config_frame");
   return ui; 
 }
 
