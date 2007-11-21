@@ -1,11 +1,11 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = src/lib src/pidgin test
+SUBDIRS = src/lib src/pidgin test po
 
 EXTRA_DIST = \
-	autogen.sh 
-	src/config/google.xml 
-	src/config/altavista.xml 
-	src/lib/lf.pc
+	autogen.sh \
+	src/config/google.xml \
+	src/config/altavista.xml \
+	src/lib/lf.pc \
 	src/lib/lf-uninstalled.pc
 
 DIST_SUBDIRS = test src/lib src/pidgin

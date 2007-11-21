@@ -75,7 +75,6 @@ char *lf_translate_incoming(char *mesg,char *buddy)
 char *lf_translate_outgoing(char *mesg,char *buddy)
 {
   printf("lingua-franca:lf_translate_outgoing  entered \n");
-  printf("lingua-franca:lf_translate_outgoing  Mesg is %s \n",mesg);
 
   char *translated_mesg ;
   char *my_lang =  get_lang_pref("MY_LANG");
@@ -100,8 +99,9 @@ char *lf_translate_outgoing(char *mesg,char *buddy)
 		&& !(strcmp(my_lang,"None") == 0)
 		&& !(strcmp(buddy_lang,"None")==0)
 		&& !(strcmp(my_lang,buddy_lang)==0)
-		&& lf_is_translation_avail(my_lang,buddy_lang) == TRUE)
+/*		&& lf_is_translation_avail(my_lang,buddy_lang) == TRUE*/)
   {
+    printf("lingua-franca:lf_translate_outgoing  Mesg is %s,%s,%s \n",mesg,my_lang,buddy_lang);
      translated_mesg = lf_translate_from_to(mesg,my_lang,buddy_lang); 
      printf("Translated mesg is %s \n",translated_mesg);
   }

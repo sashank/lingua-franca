@@ -45,7 +45,7 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_linguafranca_test_OBJECTS =  \
+dist_linguafranca_test_OBJECTS =  \
 	linguafranca_test-linguafranca_test.$(OBJEXT) \
 	linguafranca_test-xml-ui.$(OBJEXT) \
 	linguafranca_test-xml-translate.$(OBJEXT) \
@@ -54,16 +54,16 @@ am_linguafranca_test_OBJECTS =  \
 	linguafranca_test-interface.$(OBJEXT) \
 	linguafranca_test-callbacks.$(OBJEXT) \
 	linguafranca_test-lingua-franca.$(OBJEXT)
-linguafranca_test_OBJECTS = $(am_linguafranca_test_OBJECTS)
+linguafranca_test_OBJECTS = $(dist_linguafranca_test_OBJECTS)
 linguafranca_test_LDADD = $(LDADD)
 linguafranca_test_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(linguafranca_test_CFLAGS) $(CFLAGS) \
 	$(linguafranca_test_LDFLAGS) $(LDFLAGS) -o $@
-am_translate_test_OBJECTS = translate_test-translate-test.$(OBJEXT) \
+dist_translate_test_OBJECTS = translate_test-translate-test.$(OBJEXT) \
 	translate_test-xml-translate.$(OBJEXT) \
 	translate_test-lf.$(OBJEXT)
-translate_test_OBJECTS = $(am_translate_test_OBJECTS)
+translate_test_OBJECTS = $(dist_translate_test_OBJECTS)
 translate_test_LDADD = $(LDADD)
 translate_test_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(translate_test_CFLAGS) \
@@ -80,8 +80,10 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(linguafranca_test_SOURCES) $(translate_test_SOURCES)
-DIST_SOURCES = $(linguafranca_test_SOURCES) $(translate_test_SOURCES)
+SOURCES = $(dist_linguafranca_test_SOURCES) \
+	$(dist_translate_test_SOURCES)
+DIST_SOURCES = $(dist_linguafranca_test_SOURCES) \
+	$(dist_translate_test_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -230,7 +232,7 @@ INCLUDES = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" 
 
-translate_test_SOURCES = translate-test.c \
+dist_translate_test_SOURCES = translate-test.c \
 			../src/lib/xml-translate.c \
 			../src/lib/xml-translate.h \
 			../src/lib/lf.c \
@@ -250,7 +252,7 @@ translate_test_LDFLAGS = $(GLIB_LIBS) \
 		      $(INTLLIBS)
 
 # lingua-franca, test purposes
-linguafranca_test_SOURCES = linguafranca_test.c \
+dist_linguafranca_test_SOURCES = linguafranca_test.c \
                         ../src/ui/xml-ui.c \
                         ../src/ui/xml-ui.h \
                         ../src/lib/xml-translate.c \

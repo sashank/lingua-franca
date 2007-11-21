@@ -82,7 +82,6 @@ char *parse_response(char *response)
 */
    splits = g_strsplit(response ,get_response_prefix(),-1); 
    response = strdup(splits[1]);
-   printf(" parse_response Stage 1 %s",response);
 
 
    g_strfreev(splits);
@@ -105,7 +104,8 @@ char *lf_translate_from_to(char *message , char *from , char *to)
 {
   char *translated_mesg;
   CURLcode ret;
-   printf(" translate_message Entered \n "); 
+   printf("lib: translate_message Entered \n "); 
+/*A*/   printf("lib: translate_message %s,%s,%s \n ",message,from,to); 
   
   if ( strcmp(from,to) == 0)
   {
@@ -202,6 +202,7 @@ gboolean lf_is_translation_avail(char *lang1,char *lang2)
 {
  gboolean exists = TRUE ;
  char *lp = get_lp(lang1,lang2);
+  printf("is_avail ..%s",lp);
   if ( strcmp(lp,"NA")==0)
    exists = FALSE ;
  return exists ;

@@ -216,9 +216,8 @@ void xml_ui_init()
 char *get_lang_pref(char *buddy)
 {
  printf("xml-ui.c:  get_lang_pref entered\n");
- printf("xml-ui.c:  Buddy  is %s \n",buddy);
+/* printf("xml-ui.c:  Buddy  is %s \n",buddy);*/
  int count = g_list_length(lpList);
- printf("xml-ui.c:  buddy list count %d \n",count);
    int i ;
    LangPref *lp;
    gboolean exists = FALSE ;
@@ -235,7 +234,7 @@ char *get_lang_pref(char *buddy)
     if ( exists == FALSE)
 	  lang = strdup("None");
 
-   printf("xml-ui.c: Outgoing Lang is %s \n",lang);
+   printf("xml-ui.c:  Lang is %s \n",lang);
    printf("xml-ui.c:  get_lang_pref exiting\n");
    return lang;
 }

@@ -11,9 +11,9 @@
         <suffix>&lt;/textarea&gt;</suffix>
    </response_parsing>
    <available_translations>
-        <lang_pair from="Arabic" to="English " lp="ar|en"/>
-	<lang_pair from="Chinese" to="English " lp="zh|en"/>
-	<lang_pair from="Chinese(Simplified)" to="Chinese(Traditional)" lp="zh-CN|zh-TW "/>
+        <lang_pair from="Arabic" to="English" lp="ar|en"/>
+	<lang_pair from="Chinese" to="English" lp="zh|en"/>
+	<lang_pair from="Chinese(Simplified)" to="Chinese(Traditional)" lp="zh-CN|zh-TW"/>
 	<lang_pair from="Chinese(Traditional)" to="Chinese(Simplified)" lp="zh-TW|zh-CN"/>
 	<lang_pair from="English" to="Arabic" lp="en|ar"/>
 	<lang_pair from="English" to="Chinese(Simplified)" lp="en|zh-CN"/>
@@ -26,11 +26,11 @@
 	<lang_pair from="English" to="Portuguese" lp="en|pt"/>
 	<lang_pair from="English" to="Russian" lp="en|ru"/>
 	<lang_pair from="English" to="Spanish" lp="en|es"/>
-	<lang_pair from="French" to="English" lp="fr|en "/>
+	<lang_pair from="French" to="English" lp="fr|en"/>
 	<lang_pair from="French" to="German" lp="fr|de"/>
-	<lang_pair from="German" to="English" lp="de|en "/>
+	<lang_pair from="German" to="English" lp="de|en"/>
 	<lang_pair from="German" to="French" lp="de|fr"/>
-	<lang_pair from="Italian" to="English" lp="it|en "/>
+	<lang_pair from="Italian" to="English" lp="it|en"/>
 	<lang_pair from="Japanese" to="English" lp="ja|en"/>
 	<lang_pair from="Korean" to="English" lp="ko|en"/>
 	<lang_pair from="Portuguese" to="English" lp="pt|en"/>

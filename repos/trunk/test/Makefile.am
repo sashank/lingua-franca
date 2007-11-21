@@ -7,7 +7,7 @@ INCLUDES = \
 # test the core translation library
 bin_PROGRAMS = translate_test linguafranca_test
 
-translate_test_SOURCES = translate-test.c \
+dist_translate_test_SOURCES = translate-test.c \
 			../src/lib/xml-translate.c \
 			../src/lib/xml-translate.h \
 			../src/lib/lf.c \
@@ -26,7 +26,7 @@ translate_test_LDFLAGS = $(GLIB_LIBS) \
 		      $(INTLLIBS)
 # lingua-franca, test purposes
 
-linguafranca_test_SOURCES = linguafranca_test.c \
+dist_linguafranca_test_SOURCES = linguafranca_test.c \
                         ../src/ui/xml-ui.c \
                         ../src/ui/xml-ui.h \
                         ../src/lib/xml-translate.c \

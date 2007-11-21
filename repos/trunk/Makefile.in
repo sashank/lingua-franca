@@ -211,9 +211,13 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = src/lib src/pidgin test
+SUBDIRS = src/lib src/pidgin test po
 EXTRA_DIST = \
-	autogen.sh 
+	autogen.sh \
+	src/config/google.xml \
+	src/config/altavista.xml \
+	src/lib/lf.pc \
+	src/lib/lf-uninstalled.pc
 
 DIST_SUBDIRS = test src/lib src/pidgin
 all: config.h
@@ -662,10 +666,6 @@ uninstall-am:
 	mostlyclean mostlyclean-generic mostlyclean-libtool pdf pdf-am \
 	ps ps-am tags tags-recursive uninstall uninstall-am
 
-	src/config/google.xml 
-	src/config/altavista.xml 
-	src/lib/lf.pc
-	src/lib/lf-uninstalled.pc
 
 install-data-local:
 	@$(NORMAL_INSTALL)

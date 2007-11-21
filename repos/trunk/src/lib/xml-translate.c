@@ -118,7 +118,7 @@ char *get_lp(char *from ,char *to)
   guint size = g_list_length(langpairs_list);
   char *lp = "NA";
 
- /* printf("Inside get lang pref %d \n",size);*/
+ /* printf("Inside get lang pref %d \n",size); */
   for ( i =0 ; i < size ; i++)
    {
         lpair = g_list_nth_data(langpairs_list,i);
@@ -136,8 +136,8 @@ GString *get_post_string(char *mesg,char *from,char *to)
     lp = get_lp(from,to);
     PostOption *po ;
     guint size = g_list_length(postoptions_list);
-/*    printf("Inside get post string %d \n",size);*/
-    printf("get post string called with  %s,%s,%s \n",mesg,from,to); 
+/*    printf("Inside get post string %d \n",size);
+    printf("get post string called with  %s,%s,%s \n",mesg,from,to); */
     GString *post_this = g_string_new(NULL) ;
     for ( i =0 ; i < size ; i++)
    {
