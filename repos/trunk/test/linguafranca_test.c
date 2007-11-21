@@ -56,7 +56,7 @@ main (int argc, char *argv[])
   lf_init(buddies);
   linguafranca = lf_ui();
   gtk_widget_show (linguafranca); 
-  lf_translate_incoming("Hello","Harish");
+  lf_translate_outgoing("How are you","lf.bugs");
 
  /* gtk_main (); */
   return 0;

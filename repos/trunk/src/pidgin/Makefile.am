@@ -10,7 +10,7 @@ lib_LTLIBRARIES = liblinguafranca.la
 
 libdir = $(PURPLE_LIBDIR)
 
-liblinguafranca_la_SOURCES = plugin.c \
+dist_liblinguafranca_la_SOURCES = plugin.c \
                         ../ui/xml-ui.c \
                         ../ui/xml-ui.h \
                         ../lib/xml-translate.c \

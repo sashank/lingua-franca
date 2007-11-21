@@ -63,10 +63,10 @@ char *parse_response(char *response)
    gchar **splits;
    char *parsed_response,*prefix,*suffix;
    int res_size;
-   printf(" Parse response Size %d\n ",strlen(response)); 
+/*   printf(" Parse response Size %d\n ",strlen(response)); 
    printf(" Prefix  %s\n ",get_response_prefix()); 
    printf(" Suffix  %s\n ",get_response_suffix()); 
-   printf(" parse response %s",response);
+   printf(" parse response %s",response); */
    
 
 /*
@@ -118,10 +118,24 @@ char *lf_translate_from_to(char *message , char *from , char *to)
     return message ;
   }
 
-  chunk.response=NULL; /* we expect realloc(NULL, size) to work */
-  chunk.size = 0;    /* no data at this point */
+     curl_global_init(CURL_GLOBAL_ALL);
 
-  GString *post= NULL; 
+    /* init the curl session */
+     curl = curl_easy_init();
+
+    /* specify URL to get */
+     curl_easy_setopt(curl, CURLOPT_URL, get_host_url());
+
+    /* we pass our 'chunk' struct to the callback function */
+     curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
+
+  /* some servers don't like requests that are made without a user-agent
+     field, so we provide one */
+     curl_easy_setopt(curl, CURLOPT_USERAGENT, "Mozilla/5.0");
+     chunk.response=NULL; /* we expect realloc(NULL, size) to work */
+     chunk.size = 0;    /* no data at this point */
+
+  GString *post;
   post = get_post_string(message,from,to);
 
   printf(" Post String is %s\n ",post->str); 
@@ -138,13 +152,14 @@ char *lf_translate_from_to(char *message , char *from , char *to)
   if ( ret != CURLE_OK)
   {
     printf(" Some Network error \n");
+    curl_easy_cleanup(curl);
     return message;
   }
      
 
+
   /* cleanup curl stuff */
   curl_easy_cleanup(curl);
-
   /*
    * Now, our chunk.memory points to a memory block that is chunk.size
    * bytes big and contains the remote file.
@@ -216,20 +231,6 @@ gboolean lf_translate_init()
         return FALSE;
      }
  
-     curl_global_init(CURL_GLOBAL_ALL);
-
-    /* init the curl session */
-     curl = curl_easy_init();
-
-    /* specify URL to get */
-     curl_easy_setopt(curl, CURLOPT_URL, get_host_url());
-
-    /* we pass our 'chunk' struct to the callback function */
-     curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
-
-  /* some servers don't like requests that are made without a user-agent
-     field, so we provide one */
-     curl_easy_setopt(curl, CURLOPT_USERAGENT, "Mozilla/5.0");
 
    printf("translate.c: translate_init exiting \n");
  return TRUE ;

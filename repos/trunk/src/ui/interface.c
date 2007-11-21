@@ -359,7 +359,8 @@ GtkWidget *create_ui (void)
   	{
    	  buddy_name = (gchar *)g_list_nth_data(buddies,i);
   	  printf(" buddy is %s \n",buddy_name);
-    	  add_buddies_table(buddy_name,buddy_table);
+          if ( buddy_name != NULL)
+    	  	add_buddies_table(buddy_name,buddy_table);
   	}
         
         if ( buddy_cnt == 0)

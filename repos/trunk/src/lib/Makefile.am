@@ -6,17 +6,20 @@ INCLUDES = \
 
 #pkgconfig INFO
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = lf.pc
+dist_pkgconfig_DATA = lf.pc
 
 # the core translation library
 liblf_ladir = $(packagedir)
+
 lib_LTLIBRARIES = liblf.la 
 
-liblf_la_SOURCES = lf.c \
+dist_pkgdata_DATA = ../config/google.xml ../config/altavista.xml
+
+dist_liblf_la_SOURCES = lf.c \
 		   xml-translate.c \
 		   xml-translate.h
 
-liblf_la_HEADERS = lf.h
+dist_liblf_la_HEADERS = lf.h
 
 liblf_la_CFLAGS = \
 		      $(GLIB_CFLAGS) \
@@ -30,4 +33,3 @@ liblf_la_LDFLAGS = $(GLIB_LIBS) \
                       $(LIBXML_LIBS)\
 		      $(GTK_LIBS) \
 		      $(INTLLIBS)
-liblf_la_DATA = ../config/google.xml ../config/altavista.xml

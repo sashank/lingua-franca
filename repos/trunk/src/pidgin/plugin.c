@@ -93,6 +93,7 @@ get_user_names()
                                                 continue;
 
                                         buddy = (PurpleBuddy *)bnode;
+                                        printf("Buddy name is %s",buddy->name);
 
                                         tmp = g_list_insert_sorted(tmp, buddy->name, (GCompareFunc)g_utf8_collate);
                                 }

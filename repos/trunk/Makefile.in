@@ -59,7 +59,6 @@ RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = $(SUBDIRS)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -212,10 +211,11 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = src/lib src/pidgin po test
+SUBDIRS = src/lib src/pidgin test
 EXTRA_DIST = \
 	autogen.sh 
 
+DIST_SUBDIRS = test src/lib src/pidgin
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -662,6 +662,10 @@ uninstall-am:
 	mostlyclean mostlyclean-generic mostlyclean-libtool pdf pdf-am \
 	ps ps-am tags tags-recursive uninstall uninstall-am
 
+	src/config/google.xml 
+	src/config/altavista.xml 
+	src/lib/lf.pc
+	src/lib/lf-uninstalled.pc
 
 install-data-local:
 	@$(NORMAL_INSTALL)
@@ -683,6 +687,7 @@ dist-hook:
 	    fi \
 	  done \
 	fi
+	rm -rf `find $(top_distdir) -name .svn`
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

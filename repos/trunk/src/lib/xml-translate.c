@@ -134,29 +134,30 @@ GString *get_post_string(char *mesg,char *from,char *to)
     int i;
     char *lp ;
     lp = get_lp(from,to);
-    PostOption *po;
+    PostOption *po ;
     guint size = g_list_length(postoptions_list);
-/*    printf("Inside get post string %d \n",size);
-    printf("get post string called with  %s,%s,%s \n",mesg,from,to); */ 
+/*    printf("Inside get post string %d \n",size);*/
+    printf("get post string called with  %s,%s,%s \n",mesg,from,to); 
     GString *post_this = g_string_new(NULL) ;
     for ( i =0 ; i < size ; i++)
    {
        char *pair;
         po = g_list_nth_data(postoptions_list,i);
+        post_this = g_string_append(post_this,po->name);
+        post_this = g_string_append(post_this,"=");
         if (strcmp(po->value,"STRING_TO_BE_TRANSLATED")==0)
-         po->value = strdup(mesg);
-        if (strcmp(po->value,"LANG_PAIR")==0)
-         po->value = strdup(lp);
-
-         post_this = g_string_append(post_this,po->name);
-         post_this = g_string_append(post_this,"=");
+         post_this = g_string_append(post_this,mesg);
+        else if (strcmp(po->value,"LANG_PAIR")==0)
+         post_this = g_string_append(post_this,lp);
+        else
          post_this = g_string_append(post_this,po->value);
+
          if (i < (size-1))
          post_this = g_string_append(post_this,"&");
    }
 
-/*    printf("Exiting get post options %d \n",size); 
-    printf("Exiting get post options %s \n",post_this->str); */
+/*    printf("Exiting get post options %d \n",size); */
+    printf("Exiting get post options %s \n",post_this->str); 
    return post_this;
 }
 char *get_server_name()

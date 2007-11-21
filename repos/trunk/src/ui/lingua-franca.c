@@ -134,11 +134,6 @@ void lf_init(GList *buddies)
    trans_servers = lf_get_trans_servers();
    languages = lf_get_avail_languages();
   
-  buddies = g_list_append(buddies,"Akilan");
-  buddies = g_list_append(buddies,"Sashi");
-  buddies = g_list_append(buddies,"Raghu");
-  buddies = g_list_append(buddies,"Harish");
-
   interface_init(buddies,trans_servers,languages);
  
  printf("lingua-franca:lf-init exited \n");
