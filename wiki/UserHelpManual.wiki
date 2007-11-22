@@ -33,7 +33,7 @@ This is help manual of the plugin
    
   To see what exactly the translated message being sent , 
   open the debug window of chat client ,
-  *Note* : incase you are behind a proxy  , set the below ENV param
- `setenv http_proxy http://proxy.ip.address:port`
+  Note:  incase you are behind a proxy  , set the below ENV param
+  `setenv http_proxy http://proxy.ip.address:port`
  
   enjoy ! 
