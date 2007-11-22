@@ -7,14 +7,13 @@ This is help manual of the plugin
 
 = Details =
   Installation is like any other 
-  ./configure
-   make
-   make install cycle 
+   # ./configure
+   # make
+   # make install cycle 
    ( currently rpms are not yet available )
   
   If the above is smooth , just restart the pidgin chat client and the plugin should be ready for use 
   Below are the snapshots which would guide you through using the plugin
-
  
   http://lingua-franca-users.googlegroups.com/web/plugins.png
   http://lingua-franca-users.googlegroups.com/web/general.png
@@ -32,4 +31,9 @@ This is help manual of the plugin
 
   You are done ! 
    
-  To see what exactly the translated message being sent , open the debug window of chat client , enjoy ! 
+  To see what exactly the translated message being sent , 
+  open the debug window of chat client ,
+  *Note* : incase you are behind a proxy  , set the below ENV param
+ `setenv http_proxy http://proxy.ip.address:port`
+ 
+  enjoy ! 
