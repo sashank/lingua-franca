@@ -1,0 +1,70 @@
+Summary: A language translation plugin for chat clients
+Name: lingua-franca
+Version: @VERSION@
+Release: 1
+License: GPLV2
+Group: 
+Source: http://code.google.com/p/lingua-franca/downloads/list
+BuildRoot: %{_tmppath}/%{name}-%{version}-root
+BuildRequires: pidgin libcurl
+URL: http://code.google.com/p/lingua-franca/
+Prefix: %{_prefix}
+Docdir: %{_docdir}
+
+%description
+lingua-franca is a library for language translation ,also
+currently pidgin's plugin 
+
+%package devel
+Summary: Libraries, includes, etc. to develop language translation applications
+Group: Development/Libraries
+Requires: libxml2
+Requires: libcurl 
+Requires: pkgconfig
+
+%description devel
+Libraries, include files, etc you can use to develop applications 
+based on language translation
+
+%prep
+%setup -q
+
+%build
+%configure
+make
+gzip -9 ChangeLog
+
+%install
+rm -fr %{buildroot}
+
+%makeinstall
+(cd doc/examples ; make clean ; rm -rf .deps)
+gzip -9 doc/libxml2-api.xml
+rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
+
+%clean
+rm -fr %{buildroot}
+
+%post
+/sbin/ldconfig
+
+%postun
+/sbin/ldconfig
+
+%files
+%defattr(-, root, root)
+
+%doc AUTHORS ChangeLog.gz NEWS README Copyright TODO
+
+%{_libdir}/lib*.so.*
+
+%files devel
+%defattr(-, root, root)
+
+%doc AUTHORS ChangeLog.gz NEWS README Copyright TODO
+
+%{_libdir}/lib*.so
+%{_libdir}/*a
+%{_libdir}/*.sh
+%{prefix}/include/*
+
