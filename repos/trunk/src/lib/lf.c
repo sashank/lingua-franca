@@ -91,6 +91,8 @@ char *parse_response(char *response)
 
    g_strfreev(splits); 
 
+  printf("parsed response is %s",parsed_response);
+
   return parsed_response;
 }
 
@@ -166,7 +168,7 @@ char *lf_translate_from_to(char *message , char *from , char *to)
    * you're done with it, you should free() it as a nice application.
    */
 
-/*     printf("It seems we have got response %s",chunk.response);  */
+    /* printf("It seems we have got response %s",chunk.response);  */
    if(chunk.response != NULL)
      translated_mesg = parse_response(chunk.response);
 

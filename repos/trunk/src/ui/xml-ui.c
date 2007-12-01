@@ -209,7 +209,7 @@ void xml_ui_init()
 
 char *get_lang_pref(char *buddy)
 {
-/* printf("xml-ui.c:  Buddy  is %s \n",buddy);*/
+ printf("xml-ui.c:  Buddy  is %s \n",buddy);
  int count = g_list_length(lpList);
    int i ;
    LangPref *lp;
@@ -219,7 +219,7 @@ char *get_lang_pref(char *buddy)
    {
         lp = (LangPref *)g_list_nth_data(lpList,i);
         if ( (strcmp(lp->buddy,buddy) == 0 )
-		&& (strcmp(lp->enabled,"On")==0))
+		&& (strcmp(lp->enabled,"on")==0))
         {
           exists = TRUE ;
 	  lang = strdup(lp->lang);
@@ -266,10 +266,10 @@ void set_buddy_toggle(gchar *buddy)
         lp = (LangPref *)g_list_nth_data(lpList,i);
         if ( strcmp(lp->buddy,buddy) == 0 )
         {
-          if(lp->enabled == "On")	
+          if(lp->enabled == "on")	
           	lp->enabled = "Off" ;
 	  else
-          	lp->enabled = "On" ;
+          	lp->enabled = "on" ;
         }
    }
 }

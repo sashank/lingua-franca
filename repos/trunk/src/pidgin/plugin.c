@@ -47,7 +47,7 @@
  void
 sending_im_msg_cb(PurpleAccount *account, char *recipient, char **buffer, void *data)
 {
-        purple_debug_misc("lingua-franca", "msg typed  to  %s is  %s)\n",
+        purple_debug_misc("lingua-franca", "mesg typed  to  %s is  %s)\n",
                                         recipient, *buffer);
 
 	*buffer = lf_translate_outgoing(*buffer,recipient);
@@ -58,13 +58,15 @@ sending_im_msg_cb(PurpleAccount *account, char *recipient, char **buffer, void *
 
 
 static void
-received_im_msg_cb(PurpleAccount *account, char *sender, char *buffer,
+receiving_im_msg_cb(PurpleAccount *account, char **sender, char **buffer,
                                    PurpleConversation *conv, PurpleMessageFlags flags, void *data)
 {
-        purple_debug_misc("lingua-franca", "received-im-msg (%s, %s, %s, %s, %d)\n",
+        purple_debug_misc("lingua-franca", "receiving-im-msg (%s, %s, %s, %s, %d)\n",
                                         purple_account_get_username(account), sender, buffer,
                                         (conv != NULL) ? purple_conversation_get_name(conv) : "(null)", flags);
-	buffer = lf_translate_incoming(buffer,sender);
+	printf("Message receiving from %s",*sender);
+        gchar** sendername = g_strsplit(*sender,"/",-1);
+	*buffer = lf_translate_incoming(*buffer,sendername[0]);
 
         purple_debug_misc("lingua-franca", "displaying im msg (%s, %s, %s, %s, %d)\n",
                                         purple_account_get_username(account), sender, buffer,
@@ -117,8 +119,8 @@ plugin_load(PurplePlugin *plugin)
                                                 plugin, PURPLE_CALLBACK(sending_im_msg_cb), NULL);
 
 	/* Translate Message as it comes */
-        purple_signal_connect(conv_handle, "received-im-msg",
-                                                plugin, PURPLE_CALLBACK(received_im_msg_cb), NULL);
+        purple_signal_connect(conv_handle, "receiving-im-msg",
+                                                plugin, PURPLE_CALLBACK(receiving_im_msg_cb), NULL);
 
 
 	return TRUE;
@@ -166,7 +168,7 @@ static PurplePluginInfo info =
 	N_("This plugin is to translate chat text into different languages set by the user "),
 	                                                  /**  description    */
 	N_("This plugin is to translate chat text into different languages set by the user "),
-	"sashank <krishna.sashank@gmail.org>",        	  /**< author         */
+	"sashank <krishna.sashank@gmail.com>",        	  /**< author         */
 	"http://code.google.com/p/lingua-franca",         /**< homepage       */
 	plugin_load,                                      /**< load           */
 	plugin_unload,                                    /**< unload         */
