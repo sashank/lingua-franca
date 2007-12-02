@@ -38,7 +38,7 @@ This is lingua-franca plug-in developers Help Document
          *  Send a email request to any of the project owners, if they are interested they will add you as a project member.
          *  Check out the code using the below command
      
-       _svn checkout https://lingua-franca.googlecode.com/svn/repose/trunk/  lingua-franca –username user_
+       _svn checkout https://lingua-franca.googlecode.com/svn/repos/trunk/  lingua-franca –username user_
 
             You should be prompted for a password , supply the GoogleCode.com password you can find yours logging here
         http://code.google.com/hosting/settings
