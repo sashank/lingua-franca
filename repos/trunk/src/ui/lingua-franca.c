@@ -43,7 +43,7 @@ char *lf_translate_incoming(char *mesg,char *buddy)
   char *my_lang =  get_lang_pref("MY_LANG");
   char *buddy_lang = get_lang_pref(buddy);
 
-    printf("lingua-franca:lf_translate_incoming  Mesg is %s,%s,%s \n",mesg,my_lang,buddy_lang);
+   printf("lingua-franca:lf_translate_incoming  Mesg is %s,%s,%s \n",mesg,buddy_lang,my_lang);
   /* Do translation only when 
    * 1 . Translation engine is ON
    * 2 . My language is not None  

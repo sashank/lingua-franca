@@ -1,8 +1,8 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.61)
-AC_INIT(lingua-franca-beta, 0.1, lf-bugs@gmail.com)
-AM_INIT_AUTOMAKE(lingua-franca-beta,0.1,lf-bugs@gmail.com)
+AC_INIT(lingua-franca-beta, 0.2, lf-bugs@gmail.com)
+AM_INIT_AUTOMAKE(lingua-franca-beta,0.2,lf-bugs@gmail.com)
 AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADER([config.h])
 

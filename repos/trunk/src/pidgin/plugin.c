@@ -68,8 +68,17 @@ receiving_im_msg_cb(PurpleAccount *account, char **sender, char **buffer,
 	 * <body> mesg </body>
 	 * remove the body tags
 	 */ 	
+        gchar **mesgs = g_strsplit(*buffer ,"<body>",-1);
+   	 char *mesg = strdup(mesgs[1]);
+
+   	g_strfreev(mesgs);
+
+   	mesgs = g_strsplit(mesg,"</body>",-1);
+   	mesg = strdup(mesgs[0]);
+   	g_strfreev(mesgs);
+
         gchar** sendername = g_strsplit(*sender,"/",-1);
-	*buffer = lf_translate_incoming(*buffer,sendername[0]);
+	*buffer = lf_translate_incoming(mesg,sendername[0]);
         printf (" translated message is %s",*buffer);
 
         purple_debug_misc("lingua-franca", "displaying im msg (%s, %s, %s, %s, %d)\n",

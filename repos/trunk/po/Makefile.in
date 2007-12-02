@@ -14,7 +14,7 @@
 
 GETTEXT_PACKAGE = lingua-franca
 PACKAGE = lingua-franca
-VERSION = 0.1
+VERSION = 0.2
 
 SHELL = /bin/sh
 

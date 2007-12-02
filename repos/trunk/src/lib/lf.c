@@ -80,7 +80,7 @@ char *parse_response(char *response)
    splits = g_strsplit(toparsestr,get_response_suffix(),-1);
    parsed_response = strdup(splits[0]);
 
-   printf("parsed response is %s",parsed_response);
+  /* printf("parsed response is %s",parsed_response);*/
    g_strfreev(splits); 
 
   return parsed_response;

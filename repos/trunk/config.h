@@ -85,13 +85,13 @@
 #define PACKAGE_NAME "lingua-franca-beta"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "lingua-franca-beta 0.1"
+#define PACKAGE_STRING "lingua-franca-beta 0.2"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "lingua-franca-beta"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "0.1"
+#define PACKAGE_VERSION "0.2"
 
 /* The localedir to use */
 #define PP_LOCALEDIR "PURPLE_DATADIR/locale"
