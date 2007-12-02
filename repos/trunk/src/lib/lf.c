@@ -61,37 +61,27 @@ ResponseCallback(void *ptr, size_t size, size_t nmemb, void *data)
 char *parse_response(char *response)
 {
    gchar **splits;
-   char *parsed_response,*prefix,*suffix;
+   char *parsed_response,*parsed,*toparsestr;
    int res_size;
-/*   printf(" Parse response Size %d\n ",strlen(response)); 
+   GError *error;
+   gsize *readbytes,*writtenbytes;
+ /*  printf(" Parse response Size %d\n ",strlen(response)); 
    printf(" Prefix  %s\n ",get_response_prefix()); 
    printf(" Suffix  %s\n ",get_response_suffix()); 
    printf(" parse response %s",response); */
    
-
-/*
-   prefix = strstr(response,get_response_prefix());
-   printf(" parse_response Prefix %s\n ",prefix); 
-   prefix += strlen(get_response_prefix());
-    
-
-   suffix = strstr(prefix,get_response_suffix());
-
-   res_size = strlen(prefix)-strlen(suffix);
-      
-*/
-   splits = g_strsplit(response ,get_response_prefix(),-1); 
-   response = strdup(splits[1]);
-
+   toparsestr = g_locale_from_utf8(response,strlen(response),NULL,NULL,NULL);
+   
+   splits = g_strsplit(toparsestr ,get_response_prefix(),-1); 
+   toparsestr = strdup(splits[1]);
 
    g_strfreev(splits);
 
-   splits = g_strsplit(response,get_response_suffix(),-1);
+   splits = g_strsplit(toparsestr,get_response_suffix(),-1);
    parsed_response = strdup(splits[0]);
 
+   printf("parsed response is %s",parsed_response);
    g_strfreev(splits); 
-
-  printf("parsed response is %s",parsed_response);
 
   return parsed_response;
 }
@@ -105,7 +95,9 @@ char *lf_translate_from_to(char *message , char *from , char *to)
 {
   char *translated_mesg;
   CURLcode ret;
+  char *utf8_mesg;
   
+  utf8_mesg = g_locale_to_utf8(message,strlen(message),NULL,NULL,NULL);
   if ( strcmp(from,to) == 0)
   {
     printf ( "Both languages seem to be same ");
@@ -134,10 +126,10 @@ char *lf_translate_from_to(char *message , char *from , char *to)
      chunk.response=NULL; /* we expect realloc(NULL, size) to work */
      chunk.size = 0;    /* no data at this point */
 
-  GString *post;
-  post = get_post_string(message,from,to);
+     GString *post;
+     post = get_post_string(utf8_mesg,from,to);
 
-  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post->str); 
+     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post->str); 
 
   /* send all data to this function  */
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, ResponseCallback);
@@ -230,6 +222,7 @@ char *lf_translate_to(char *mesg,char *to)
    char *from = lf_determine_lang(mesg);  
    return lf_translate_from_to(mesg,from,to);
 }
+
 
 GList *lf_get_avail_languages()
 {

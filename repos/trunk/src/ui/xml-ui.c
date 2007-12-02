@@ -209,7 +209,7 @@ void xml_ui_init()
 
 char *get_lang_pref(char *buddy)
 {
- printf("xml-ui.c:  Buddy  is %s \n",buddy);
+/* printf("xml-ui.c:  Buddy  is %s \n",buddy);*/
  int count = g_list_length(lpList);
    int i ;
    LangPref *lp;

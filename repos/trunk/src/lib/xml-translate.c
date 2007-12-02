@@ -121,7 +121,6 @@ char *get_lp(char *from ,char *to)
         if ((strcmp(lpair->from,from) == 0) && (strcmp(lpair->to,to) == 0))
           lp = lpair->lp ;
    }
-
   return lp;
 }
 
