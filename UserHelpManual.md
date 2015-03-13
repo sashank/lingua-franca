@@ -1,0 +1,40 @@
+This is help manual of the plugin
+
+# Introduction #
+
+> By now , you should have installed pidgin ( gaim ), available [here](http://pidgin.im) ,
+> so that you are ready for installing and using this plug-in
+
+# Details #
+> Installation is like any other
+    1. ./configure
+    1. make
+    1. make install cycle
+> > ( currently rpms are not yet available )
+
+
+> If the above is smooth , just restart the pidgin chat client and the plugin should be ready for use
+> Below are the snapshots which would guide you through using the plugin
+
+> ![http://lingua-franca-users.googlegroups.com/web/plugins.png](http://lingua-franca-users.googlegroups.com/web/plugins.png)
+> ![http://lingua-franca-users.googlegroups.com/web/general.png](http://lingua-franca-users.googlegroups.com/web/general.png)
+> In the above
+  * **My** **Lang** is the language you want to see all your incoming messages
+  * **Outgoing** **Lang** is the language you want all your outgoing messages
+
+> Each buddy can also be configured for a languages like the below
+
+> ![http://lingua-franca-users.googlegroups.com/web/buddies.png](http://lingua-franca-users.googlegroups.com/web/buddies.png)
+
+> ![http://lingua-franca-users.googlegroups.com/web/misc.png](http://lingua-franca-users.googlegroups.com/web/misc.png)
+
+> Dont forget to save the preferences
+
+> You are done !
+
+> To see what exactly the translated message being sent ,
+> open the debug window of chat client ,
+> Note:  incase you are behind a proxy  , set the below ENV param
+> `setenv http_proxy http://proxy.ip.address:port`
+
+> enjoy !
